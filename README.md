@@ -1,2 +1,1 @@
-# sapranos-pizza
-ALA
+# sapranos
