@@ -6,10 +6,12 @@
         session_start();
     }
 
+    date_default_timezone_set('Europe/Amsterdam');
+
     $hostname 	= "localhost";
     $username	= "root";
     $password 	= "";
-    $dbname		= "sophranospizza";
+    $dbname		= "sopranos";
 
     try {
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbname;charset=utf8mb4;", $username, $password, [
