@@ -9,6 +9,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="screen">
 </head>
 <body>
-    <?php print_r($user); ?>
+    <?php printr($user); ?>
 </body>
 </html>

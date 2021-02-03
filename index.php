@@ -3,6 +3,7 @@
 
     include_once("inc/connect.php");
     include_once("inc/functions.php");
+    include_once("inc/class.php");
 
     
     $page = isset($_GET['page']) && file_exists($_GET['page'] . '.php') ? $_GET['page'] : 'home';
