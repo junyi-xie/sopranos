@@ -9,6 +9,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="screen">
 </head>
 <body>
-    <?php echo $test; ?>
+    <p>About!</p>
 </body>
 </html>
