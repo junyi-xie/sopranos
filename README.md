@@ -4,7 +4,7 @@ I will be creating an online webshop where you can buy multiple/different types 
 
 ## Folder Structure ##
 
-```bash
+```
 📦sopranos
  ┣ 📂assets
  ┃ ┣ 📂css
@@ -42,6 +42,10 @@ I will be creating an online webshop where you can buy multiple/different types 
 Although  not _required_, I will include an admin panel, which can be used to view your orders, edit products, and more. 
 
 **Note:** to add an admin account, you will have to manually insert/create a new account into the database.
+
+```php
+$pdo->exec("INSERT INTO accounts SET id = NULL, username = 'admin', password = password_hash('admin', PASSWORD_DEFAULT), email = 'admin@admin.com', phone = '123456789', admin = 1, account_created = date("YmdHis"), last_login = 0");
+```
 
 ## Database ##
 [insert database file here] [SOON]
