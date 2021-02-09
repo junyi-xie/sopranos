@@ -6,7 +6,7 @@
     }
 
 
-    function getAssetsFiles($dir = 'assets\js', $ext = 'js') {
+    function getJavascriptFiles($dir = 'assets\js', $ext = 'js') {
 
         $handle = opendir($dir);
 
@@ -30,7 +30,7 @@
 
             } else if (is_dir($entry)) {
 
-                $contents = array_merge($contents, getAssetsFiles($entry));
+                $contents = array_merge($contents, getJavascriptFiles($entry));
 
             }
         }

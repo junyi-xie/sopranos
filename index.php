@@ -14,12 +14,7 @@
     <meta name="author" content="Junyi Xie">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
-    <?php 
-        $css = getAssetsFiles('assets\css', 'css');
-        foreach($css as $file) {
-            echo '<link rel="stylesheet" type="text/css" href="'.$file.'" media="screen">';
-        } 
-    ?>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="screen">
 </head>
 <body>
 
@@ -39,7 +34,7 @@
 
 
     <?php 
-        $js = getAssetsFiles('assets\js', 'js');
+        $js = getJavascriptFiles('assets\js', 'js');
         foreach($js as $file) {
             echo '<script type="text/javascript" src="'.$file.'"></script>';
         } 
