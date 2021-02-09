@@ -14,7 +14,12 @@
     <meta name="author" content="Junyi Xie">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="screen">
+    <?php 
+        $css = getAssetsFiles('assets\css', 'css');
+        foreach($css as $file) {
+            echo '<link rel="stylesheet" type="text/css" href="'.$file.'" media="screen">';
+        } 
+    ?>
 </head>
 <body>
 
@@ -27,9 +32,18 @@
         </nav>
     </header>
 
-
     <footer>
         <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzaria. All Rights Reserved.</p>
     </footer>
+
+
+
+    <?php 
+        $js = getAssetsFiles('assets\js', 'js');
+        foreach($js as $file) {
+            echo '<script type="text/javascript" src="'.$file.'"></script>';
+        } 
+    ?>
+
 </body>
 </html>
