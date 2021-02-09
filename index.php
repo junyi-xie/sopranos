@@ -34,7 +34,7 @@
 
 
     <?php 
-        $js = getJavascriptFiles('assets\js', 'js');
+        $js = getJavascriptFiles();
         foreach($js as $file) {
             echo '<script type="text/javascript" src="'.$file.'"></script>';
         } 
