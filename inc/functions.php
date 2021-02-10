@@ -127,7 +127,7 @@
     saveInSession('ORDERNUMBER', generateUniqueId());
 
 
-    function menu() {
+    function menu () {
 
     }
 

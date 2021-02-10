@@ -20,6 +20,7 @@
 
 <div id="app" class="transparent main">
     <header>
+        <img src="assets/images/sopranos-logo.png">
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
