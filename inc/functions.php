@@ -118,13 +118,13 @@
         if(!isset($_SESSION[$key])) {
 
             $_SESSION[$key] = $value;
-            
+
         }
 
         return $_SESSION[$key];
     }
 
-    $a = saveInSession('ORDERNUMBER', generateUniqueId());
+    saveInSession('ORDERNUMBER', generateUniqueId());
 
 
     function menu() {
