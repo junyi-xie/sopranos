@@ -4,12 +4,38 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
+
+
+    $page = (isset($_GET['page']) ? $_GET['page'] : 'shop');
+
+    if($page == 'shop') {
+
+        $stmt = $pdo->query("SELECT * FROM pizzas_type WHERE quantity != 0");
+        $user = $stmt->fetchAll();
+        printr($user);
+
+
+    } else if ($page == 'form') {
+
+    } else if ($page == 'order') {
+
+    } else if ($page == 'checkout') {
+
+    } else if ($page == 'payment') {
+
+    } else if ($page == 'confirm') {
+
+    } else {
+        header("location: http://localhost:8080/sopranos/shop.php");
+        exit();
+    }
+   
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home · Sopranos Pizzaria</title>
+    <title>Shop · Sopranos Pizzaria</title>
     <meta charset="UTF-8">
     <meta name="author" content="Junyi Xie">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +52,7 @@
                 <li><a href="about.php">About</a></li>        
                 <li><a href="menu.php">Menu</a></li>        
                 <li><a href="shop.php">Shop</a></li>        
-                <li><a href="contact.php">Contact</a></li>        
+                <li><a href="contact.php">Contact</a></li>     
             </ul>
         </nav>
     </header>
