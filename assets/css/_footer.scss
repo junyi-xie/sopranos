@@ -1,3 +1,23 @@
 footer {
     background-color: orange;
+
+    p {
+        font-size: 16px;
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+footer {
+    background-color: orange;
+}
+
+footer p {
+    font-size: 16px;
+}
+
+footer p a {
+    text-decoration: none;
 }

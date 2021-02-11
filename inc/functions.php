@@ -3,7 +3,7 @@
 
 
     /**
-     * print_r but fancier
+     * print_r but fancier.
      *
      * @param mixed $arr
      *
@@ -15,7 +15,7 @@
 
 
     /**
-     * Get files in given directory with specified extention type
+     * Get files in given directory with specified extention type.
      *
      * @param string $dir
      * @param string $ext
@@ -58,17 +58,17 @@
 
     
     /**
-     * Load files from array. This fuction is used with getFiles()
+     * Load files from array. This fuction is used with getFiles().
      *
-     * @param array $array
+     * @param array $contents
      *
      * @return string
      */
-    function loadFiles($array = array()) {
+    function loadFiles($contents = array()) {
 
         $s = '';
 
-        foreach($array as $file) {
+        foreach($contents as $file) {
 
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
@@ -106,29 +106,133 @@
 
 
     /**
-     * Set key for session with desired value
+     * Set key for session with desired value.
      *
      * @param mixed $key
      * @param mixed $value
      * 
-     * @return mixed
+     * @return array
      */
-    function saveInSession($key, $value) {
+    function saveInSession($key, $value, $group = null) {
 
-        if(!isset($_SESSION[$key])) {
+        if(!isset($_SESSION[$group][$key])) {
 
-            $_SESSION[$key] = $value;
-
+            $_SESSION[$group][$key] = $value;
+    
         }
 
-        return $_SESSION[$key];
+        return $_SESSION[$group][$key];
     }
 
-    saveInSession('ORDERNUMBER', generateUniqueId());
 
+    /**
+     * Validate emailadres.
+     *
+     * @param mixed $email
+     * 
+     * @return boolean
+     */
+    function isEmailValid($email){ 
 
-    function menu () {
-
+        return filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@.+./', $email);
     }
+
+
+    /**
+     * Get all the coupons that have not expired and are valid to use.
+     *
+     * @param mixed $datetime
+     * @param mixed|null $pdo
+     * 
+     * @return mixed
+     */
+    function selectValidCoupons($datetime, $pdo = null) {
+
+        if(empty($pdo)) {
+            global $pdo;
+        }
+
+        $coupons = $pdo->query("SELECT * FROM coupons WHERE 1 AND valid <= '".$datetime."' AND expire >= '".$datetime."' AND quantity > 0 ORDER BY id DESC");
+
+        return $coupons->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    /**
+     * Validate the input code by the customer and see if they match with the codes from database.
+     *
+     * @param array $coupons
+     * @param mixed $code
+     * 
+     * @return boolean
+     */
+    function validateCouponCode($coupons = array(), $code) {
+
+        foreach($coupons as $coupon) {
+
+            if($coupon['code'] === strtoupper($code) || $coupon['code'] === strtolower($code)) {
+
+                if(!isset($_SESSION['COUPON_CODE'])) {
+
+                    saveInSession('COUPON_CODE', $coupon['code'], 'COUPONS');
+                }
+
+                return true;
+                
+            }
+        }
+        
+        return false;
+    }
+
+
+    /**
+     * 
+     *
+     * @return boolean
+     */
+    function saveCustomerOrder($order = array()) {
+
+
+
+        return false;
+    }
+
+
+    /**
+     * 
+     *
+     * @return boolean
+     */
+    function saveCustomerInformation($data = array()) {
+
+
+
+        return false;
+    }
+
+    /**
+     * 
+     *
+     * @return array
+     */
+    function getCustomer($uniqueid) {
+
+
+
+        return; 
+    }
+
+
+    /**
+     * Destroy all data that was attached to sessions.
+     *
+     * @return boolean
+     */
+    function clearSession() {
+
+        return session_destroy();
+    }
+
 
 ?>

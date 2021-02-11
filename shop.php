@@ -5,17 +5,128 @@
     include_once("inc/functions.php");
     include_once("inc/class.php");
 
+    printr($_SESSION['orders']['order_number']);
+
+    if(empty($_SESSION['order_number'])) { 
+        $ordernumber = saveInSession('order_number', generateUniqueId(), 'orders'); 
+    } 
+    $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    if(isset($_POST) && !empty($_POST)) {
+        printr($_POST);
+    }
 
     $page = (isset($_GET['page']) ? $_GET['page'] : 'shop');
 
-    if($page == 'shop') {
 
-        $stmt = $pdo->query("SELECT * FROM pizzas_type WHERE quantity != 0");
-        $user = $stmt->fetchAll();
-        printr($user);
+
+    $html = '';
+
+
+    if($page == 'shop') {
+        
+        $type = $pdo->query("SELECT * FROM pizzas_type");
+        $size = $pdo->query("SELECT * FROM pizzas_size");
+        $topping = $pdo->query("SELECT * FROM pizzas_topping");
+
+
+        if(!empty($_POST['code'])) {
+            $date = date('Y-m-d H:i:s');
+            $valid = selectValidCoupons($date);
+            $validate = validateCouponCode($valid, $_POST['code']);
+            $bCoupon = saveInSession('COUPON_APPLIED', $validate, 'COUPON');
+        }
+
+        printr($_SESSION);
+        
+
+
+
+        $pizzatype = $type->fetchAll(PDO::FETCH_ASSOC);
+        $pizzasize = $size->fetchAll(PDO::FETCH_ASSOC);
+        $pizzatopping = $topping->fetchAll(PDO::FETCH_ASSOC);
+        
+        
+
+        
+        // printr($result1);
+        // printr($result2);
+        // printr($result3);
+
+
+        $html .= '
+
+        <form action="shop.php" method="post">
+    <input type="hidden" name="url" value="'.$url .'">
+    <input type="hidden" name="order_number" value="'.$_SESSION['ORDER_NUMBER'] .'">
+    <input type="hidden" name="check_in" value="'.date("YmdHis").'">';
+
+    
+
+    $html .= '<br/><br/><h2>CHOOSE TYPE</h2><br/>';
+    foreach ($pizzatype as $type) {
+        $html .= '<label for="type-'.$type['id'].'">'.$type['name'].'</label>';
+        $html .= '<input type="radio" name="type_id" id="type-'.$type['id'].'" value="'.$type['id'].'"><br/>';
+    }
+    
+    $html .= '<br/><br/><h2>CHOOSE SIZE</h2><br/>';
+    foreach ($pizzasize as $size) {
+        $html .= '<label for="type-'.$size['id'].'">'.$size['name'].'</label>';
+        $html .= '<input type="radio" name="size_id" id="size-'.$size['id'].'" value="'.$size['id'].'"><br/>';
+    }
+    
+    $html .= '<br/><br/><h2>CHOOSE TOPPINGS</h2><br/>';
+    foreach ($pizzatopping as $topping) {
+        $html .= '<label for="type-'.$topping['id'].'">'.$topping['name'].'</label>';
+        $html .= '<input type="checkbox" name="topping_id['.$topping['name'].']" id="topping-'.$topping['id'].'" value="'.$topping['id'].'"><br/>';
+    }
+    
+   
+
+    $html .= '
+
+    <br/><br/>
+    <input type="text" name="code" placeholder="coupon code?">
+    <input type="number" name="quantity" placeholder="how many?">
+    <input type="submit" value="next">
+
+
+
+</form>
+
+
+<br/><br/><br/><br/><br/><br/>';
+
 
 
     } else if ($page == 'form') {
+
+
+        printr($_SESSION);
+
+
+        $html .= '<form action="shop.php?page=form" method="post">
+        
+        <input type="text" name="name" placeholder="name">
+        <input type="submit" value="next">
+        
+        
+        
+        
+        
+        
+        
+        
+        </form>';
+
+
+
+
+
+
+
+
+        
 
     } else if ($page == 'order') {
 
@@ -44,6 +155,8 @@
 </head>
 <body>
 
+<?php echo $html ?>
+
 <div id="app" class="transparent main">
     <header>
         <nav>
@@ -66,6 +179,8 @@
     </footer>
 </div>
 
-<?php print('<!--'.date("YmdHis").'-->'); $js = getFiles(); if(!empty($js)){ foreach($js as $file) { echo '<script type="text/javascript" src="'.$file.'"></script>'; } }?>
+<?php print('<!--'.date("YmdHis").'-->'); $js = getFiles($dir = 'assets\js', $ext = 'js'); if(!empty($js)){ foreach($js as $file) { echo '<script type="text/javascript" src="'.$file.'"></script>'; } }?>
+
+
 </body>
 </html>
