@@ -130,7 +130,7 @@
      *
      * @param mixed $name
      * 
-     * @return boolean
+     * @return boolean|array
      */
     function getInSession($name) {
 
@@ -249,9 +249,7 @@
      *
      * @return boolean
      */
-    function unsetVariable($name) {
-
-        // if($replace) { unsetVariable($key); }
+    function unsetSession($name) {
 
         unset($_SESSION[$name]);
 

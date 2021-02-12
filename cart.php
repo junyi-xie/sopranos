@@ -4,6 +4,8 @@
 include_once("inc/connect.php");
 include_once("inc/functions.php");
 include_once("inc/class.php");
+
+printr(getInSession('customer_order'));
 ?>
 
 <!DOCTYPE html>
