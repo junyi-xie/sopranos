@@ -97,7 +97,7 @@
     /**
      * Generate uniqueid for order number.
      *
-     * @return int|float
+     * @return int
      */
     function generateUniqueId() {
 
@@ -113,15 +113,30 @@
      * 
      * @return array
      */
-    function saveInSession($key, $value, $group = null) {
+    function saveInSession($key, $value) {
 
-        if(!isset($_SESSION[$group][$key])) {
+        if(!isset($_SESSION[$key])) {
 
-            $_SESSION[$group][$key] = $value;
+            $_SESSION[$key] = $value;
     
-        }
+        } 
 
-        return $_SESSION[$group][$key];
+        return $_SESSION[$key];
+    }
+
+
+    /**
+     * Retreive the desired session with given name.
+     *
+     * @param mixed $name
+     * 
+     * @return boolean
+     */
+    function getInSession($name) {
+
+        if (isset($_SESSION[$name])) return $_SESSION[$name];
+
+        return false;
     }
 
 
@@ -142,7 +157,7 @@
      * Get all the coupons that have not expired and are valid to use.
      *
      * @param mixed $datetime
-     * @param mixed|null $pdo
+     * @param object|null $pdo
      * 
      * @return mixed
      */
@@ -172,11 +187,6 @@
 
             if($coupon['code'] === strtoupper($code) || $coupon['code'] === strtolower($code)) {
 
-                if(!isset($_SESSION['COUPON_CODE'])) {
-
-                    saveInSession('COUPON_CODE', $coupon['code'], 'COUPONS');
-                }
-
                 return true;
                 
             }
@@ -187,40 +197,65 @@
 
 
     /**
-     * 
+     * Put the customer order in a $_SESSION with the help of saveInSession() function.
+     *
+     * @param array $order
      *
      * @return boolean
      */
     function saveCustomerOrder($order = array()) {
 
+        saveInSession('customer_order', $order);
 
-
-        return false;
+        return true;
     }
 
 
     /**
-     * 
+     * Save the customer information like name, adres, email, etc in a $_SESSION for later use.
+     *
+     * @param array $information
      *
      * @return boolean
      */
-    function saveCustomerInformation($data = array()) {
+    function saveCustomerInformation($information = array()) {
 
+        $bEmail = isEmailValid($information['email']);
 
+            if (!$bEmail) return false; 
 
-        return false;
+        saveInSession('customer_information', $information);
+
+        return true;
     }
 
     /**
+     * Get all the customer details attached to the given uniqueid.
      * 
+     * @param int @uniqueid
      *
      * @return array
      */
     function getCustomer($uniqueid) {
 
+        return $_SESSION[$uniqueid];
+    }
 
 
-        return; 
+    /**
+     * Unset variable with given name.
+     * 
+     * @param mixed $name
+     *
+     * @return boolean
+     */
+    function unsetVariable($name) {
+
+        // if($replace) { unsetVariable($key); }
+
+        unset($_SESSION[$name]);
+
+        return true;
     }
 
 
@@ -235,4 +270,5 @@
     }
 
 
+    if(!isset($_SESSION['order_number'])) { saveInSession('order_number', generateUniqueId()); }
 ?>

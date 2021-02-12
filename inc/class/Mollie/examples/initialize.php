@@ -16,4 +16,4 @@ require_once __DIR__ . "/functions.php";
  * See: https://www.mollie.com/dashboard/developers/api-keys
  */
 $mollie = new \Mollie\Api\MollieApiClient();
-$mollie->setApiKey("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+$mollie->setApiKey("test_6BmR4DxVsffRAyVbzk5zMEgqf2pPW3");
