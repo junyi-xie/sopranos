@@ -268,5 +268,37 @@
     }
 
 
+    /**
+     * Select query to get rows from given table, could also retreive rows with given id.
+     *
+     * @param string $table
+     * @param int|null $id
+     * @param mixed|null $pdo
+     * 
+     * @return mixed
+     */
+    function selectAllById($table = '', $id = null, $pdo = null) {
+
+        if(empty($pdo)) {
+            global $pdo;
+        }
+
+            if(!is_string($table)) return false;
+
+        $sql = "SELECT * FROM $table";    
+
+        if (!is_null($id)) {
+            $sql .= " WHERE id = $id";
+        }
+
+        return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     if(!isset($_SESSION['order_number'])) { saveInSession('order_number', generateUniqueId()); }
+
+    $aTypePizzas = selectAllById('pizzas_type');
+    $aSizePizzas = selectAllById('pizzas_size');
+    $aToppingPizzas = selectAllById('pizzas_topping');
+
 ?>

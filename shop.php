@@ -20,21 +20,7 @@
 
     if($page == 'shop') {
         
-        $type = $pdo->query("SELECT * FROM pizzas_type");
-        $size = $pdo->query("SELECT * FROM pizzas_size");
-        $topping = $pdo->query("SELECT * FROM pizzas_topping");
-
-
         
-        $pizzatype = $type->fetchAll(PDO::FETCH_ASSOC);
-        $pizzasize = $size->fetchAll(PDO::FETCH_ASSOC);
-        $pizzatopping = $topping->fetchAll(PDO::FETCH_ASSOC);
-        
-        // printr($result1);
-        // printr($result2);
-        // printr($result3);
-
-
         if(isset($_POST) && !empty($_POST)) {
 
 
@@ -63,21 +49,21 @@
     
 
     $html .= '<br/><br/><h2>CHOOSE TYPE</h2><br/>';
-    foreach ($pizzatype as $type) {
+    foreach ($aTypePizzas as $type) {
         $html .= '<label for="type-'.$type['id'].'">'.$type['name'].'</label>';
         $html .= '<input type="radio" name="type_id" id="type-'.$type['id'].'" value="'.$type['id'].'">';
         $html .= '<span>&euro;'.number_format($type['price'], 2).'</span><br/>';
     }
     
     $html .= '<br/><br/><h2>CHOOSE SIZE</h2><br/>';
-    foreach ($pizzasize as $size) {
+    foreach ($aSizePizzas as $size) {
         $html .= '<label for="type-'.$size['id'].'">'.$size['name'].'</label>';
         $html .= '<input type="radio" name="size_id" id="size-'.$size['id'].'" value="'.$size['id'].'">';
         $html .= '<span>+ &euro;'.number_format($size['price'], 2).'</span><br/>';
     }
     
     $html .= '<br/><br/><h2>CHOOSE TOPPINGS</h2><br/>';
-    foreach ($pizzatopping as $topping) {
+    foreach ($aToppingPizzas as $topping) {
         $html .= '<label for="type-'.$topping['id'].'">'.$topping['name'].'</label>';
         $html .= '<input type="checkbox" name="topping_id['.$topping['id'].']" id="topping-'.$topping['id'].'" value="'.$topping['name'].'">';
         $html .= '<span>+ &euro;'.number_format($topping['price'], 2).'</span><br/>';
@@ -155,10 +141,8 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>        
-                <li><a href="menu.php">Menu</a></li>        
                 <li><a href="shop.php">Shop</a></li>        
-                <li><a href="contact.php">Contact</a></li>     
+                <li><a href="cart.php">Cart</a></li>        
             </ul>
         </nav>
     </header>

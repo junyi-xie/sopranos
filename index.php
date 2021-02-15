@@ -18,9 +18,7 @@
 </head>
 <body>
 
-
-
-
+<a href="shop.php">shop</a>
 
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
