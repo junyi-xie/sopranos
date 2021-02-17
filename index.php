@@ -18,7 +18,9 @@
 </head>
 <body>
 
-<a href="shop.php">shop</a>
+<a href="index.php">Home</a>
+<a href="shop.php">Shop</a>        
+<a href="cart.php">Cart</a>  
 
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>

@@ -1,11 +1,18 @@
 <?php
-/* Copyright (c) - 2021 by Junyi Xie */	
+    /* Copyright (c) - 2021 by Junyi Xie */	
 
-include_once("inc/connect.php");
-include_once("inc/functions.php");
-include_once("inc/class.php");
+    include_once("inc/connect.php");
+    include_once("inc/functions.php");
+    include_once("inc/class.php");
 
-printr(getInSession('customer_order'));
+    
+    $test = new Sopranos\Orders($_SESSION, $pdo);
+
+    printr($test->getCustomer());
+    printr($test->getCoupon());
+    printr($test->getOrder());
+    printr($test->getNumber());
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +26,8 @@ printr(getInSession('customer_order'));
 <link rel="stylesheet" type="text/css" href="assets/css/style.css?<?php echo date("YmdHis") ?>" media="screen">
 </head>
 <body>
+
+
 
 <div id="app" class="transparent main">
 <header>
@@ -40,6 +49,7 @@ printr(getInSession('customer_order'));
 </footer>
 </div>
 
-<?php print('<!--'.date("YmdHis").'-->'); $js = getFiles(); if(!empty($js)){ foreach($js as $file) { echo '<script type="text/javascript" src="'.$file.'"></script>'; } }?>
+<?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
+
 </body>
 </html>

@@ -86,6 +86,10 @@
                     $s .= '<link rel="stylesheet" type="text/css" href="'.$file.'?'.date("YmdHis").'" media="screen">';
                 break;
 
+                case 'php':
+                    $s .= 'include_once("'.$file.'")';
+                break;
+
             }
 
         }
@@ -292,6 +296,22 @@
         }
 
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    /**
+     * Determine how many pizzas there are in the customer $_SESSION array. Return the number.
+     *
+     * @param string $table
+     * 
+     * @return int
+     */
+    function getPizzasCount($array = array()) {
+
+
+        $count = 1;
+
+        return $count;
     }
 
 

@@ -26,22 +26,23 @@
 
             $date = date('Y-m-d H:i:s');
             $valid = selectValidCoupons($date);
-            $validate = validateCouponCode($valid, $_POST['coupon_code']);
+            $coupon_id = validateCouponCode($valid, $_POST['coupon_code']);
 
             $data = array();
             $data = $_POST;
-            $data['coupons']['coupon_applied'] = $validate;
+            $data['coupons']['coupon_id'] = $coupon_id;
             $data['coupons']['coupon_code'] = $_POST['coupon_code'];
 
             unset($data['coupon_code']);
 
-            saveCustomerOrder($data);
+            saveCustomerOrder($data, getInSession('order_number'));
 
             header("location: http://localhost:8080/sopranos/shop.php?page=form");
             exit();
         }
 
 
+        printr($_SESSION);
         $html .= '
 
         <form action="shop.php" method="post">';
@@ -51,21 +52,21 @@
     $html .= '<br/><br/><h2>CHOOSE TYPE</h2><br/>';
     foreach ($aTypePizzas as $type) {
         $html .= '<label for="type-'.$type['id'].'">'.$type['name'].'</label>';
-        $html .= '<input type="radio" name="type_id" id="type-'.$type['id'].'" value="'.$type['id'].'">';
+        $html .= '<input type="radio" name="pizzas[type_id]" id="type-'.$type['id'].'" value="'.$type['id'].'">';
         $html .= '<span>&euro;'.number_format($type['price'], 2).'</span><br/>';
     }
     
     $html .= '<br/><br/><h2>CHOOSE SIZE</h2><br/>';
     foreach ($aSizePizzas as $size) {
         $html .= '<label for="type-'.$size['id'].'">'.$size['name'].'</label>';
-        $html .= '<input type="radio" name="size_id" id="size-'.$size['id'].'" value="'.$size['id'].'">';
+        $html .= '<input type="radio" name="pizzas[size_id]" id="size-'.$size['id'].'" value="'.$size['id'].'">';
         $html .= '<span>+ &euro;'.number_format($size['price'], 2).'</span><br/>';
     }
     
     $html .= '<br/><br/><h2>CHOOSE TOPPINGS</h2><br/>';
     foreach ($aToppingPizzas as $topping) {
         $html .= '<label for="type-'.$topping['id'].'">'.$topping['name'].'</label>';
-        $html .= '<input type="checkbox" name="topping_id['.$topping['id'].']" id="topping-'.$topping['id'].'" value="'.$topping['name'].'">';
+        $html .= '<input type="checkbox" name="pizzas[topping_id]['.$topping['id'].']" id="topping-'.$topping['id'].'" value="'.$topping['name'].'">';
         $html .= '<span>+ &euro;'.number_format($topping['price'], 2).'</span><br/>';
     }
 
@@ -73,7 +74,7 @@
 
     <br/><br/>
     <input type="text" name="coupon_code" placeholder="coupon code?"><br/>
-    <input type="number" name="quantity" placeholder="how many?"><br/><br/>
+    <input type="number" name="pizzas[quantity]" placeholder="how many?"><br/><br/>
     <input type="submit" value="next">
     </form><br/><br/><br/><br/><br/><br/>';
 
@@ -86,14 +87,14 @@
 
 
 
-            $t = saveCustomerInformation($_POST);
+            $t = saveCustomerInformation($_POST, getInSession('order_number'));
 
             if(!$t) {
                 $html .= 'use a valid email';
             }
 
-            // header("location: http://localhost:8080/sopranos/shop.php?page=checkout");
-            // exit();
+            header("location: http://localhost:8080/sopranos/cart.php");
+            exit();
         }
 
         printr($_SESSION);
@@ -156,8 +157,7 @@
     </footer>
 </div>
 
-<?php print('<!--'.date("YmdHis").'-->'); $js = getFiles($dir = 'assets\js', $ext = 'js'); if(!empty($js)){ foreach($js as $file) { echo '<script type="text/javascript" src="'.$file.'"></script>'; } }?>
-
+<?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
 
 </body>
 </html>
