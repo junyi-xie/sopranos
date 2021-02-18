@@ -99,6 +99,14 @@
 
 
         /**
+         * Pizza Quantity.
+         *
+         * @var int
+         */
+        private $_pizza_quantity;
+
+
+        /**
          * PDO.
          *
          * @var object
@@ -112,6 +120,8 @@
          * @param object $pdo
          *
          * @return void
+         * 
+         * @throws \Exception - Config data not complete.
          */
         public function __construct($config, $pdo) {
 
@@ -166,6 +176,8 @@
          * @param array $customer
          *
          * @return void
+         * 
+         * @throws \Exception - Query failed.
          */
         public function insertCustomerData() 
         {
@@ -204,7 +216,9 @@
          * 
          * @param array $coupon
          *
-         * return void
+         * @return void
+         * 
+         * @throws \Exception - Query failed.
          */
         public function insertOrderData() 
         {
@@ -253,12 +267,14 @@
          * @param int $coupon_id
          *
          * @return boolean
+         * 
+         * @throws \Exception - Query failed.
          */
         protected function updateCoupon($coupon_id = 0) {
 
             $sSql = "
                 UPDATE coupons 
-                    SET 
+                SET 
                     quantity = quantity - 1 
                     WHERE 1 
                     AND quantity > 0
@@ -276,6 +292,77 @@
                 }
 
             return true;
+        }
+
+
+        /**
+         * Bind the pizza data
+         * 
+         */
+        public function setPizzaData() {
+
+            return $this->getOrder();              
+        }
+
+
+        /**
+         * Update the pizza_topping and pizza_type tables for the quantity values.
+         * 
+         */
+        protected function updatePizzaValue() {
+
+            $sSql = "
+
+            ";   
+
+            
+        }
+
+
+        /**
+         * Insert the available pizza data into the orders_pizza table.
+         * 
+         */
+        public function insertPizzaOrder() {
+
+            $sSql = "
+                INSERT INTO orders_pizza
+                SET
+                    order_id = :order_id,
+                    size_id = :size_id,
+                    type_id = :type_id,
+                    quantity = :quantity,
+                    status = :status
+            ";   
+
+            $aInsertSql = $this->pdo->prepare($sSql);
+
+            $aInsertSql->bindValue(':order_id', $this->getOrderId());
+            $aInsertSql->bindValue(':size_id', $this->getSizeId());
+            $aInsertSql->bindValue(':type_id', $this->getTypeId());
+            $aInsertSql->bindValue(':quantity', $this->getPizzaQuantity());
+            $aInsertSql->bindValue(':status', 0);
+            $aInsertSql->execute();
+
+                if(!$aInsertSql) {
+                    throw new \Exception('Error: insertPizzaOrder() - Query execute failed.');
+                }
+
+            return $this->setPizzaId($this->pdo->lastInsertId());
+        }
+
+
+        /**
+         * Insert the topping ids into the topping_combination table.
+         * 
+         */
+        private function insertToppingCombination() {
+
+            $sSql = "
+
+            ";   
+
+            
         }
 
 
@@ -516,6 +603,30 @@
         public function getPizzaId() 
         {
             return $this->_pizza_id;
+        }
+
+
+        /**
+         * Pizza Quantity Setter.
+         *
+         * @param int $pizza_quantity
+         * 
+         * @return void
+         */
+        private function setPizzaQuantity($pizza_quantity) 
+        {
+            $this->_pizza_quantity = $pizza_quantity;
+        }
+
+
+        /**
+         * Pizza Quantity Getter.
+         *
+         * @return int
+         */
+        public function getPizzaQuantity() 
+        {
+            return $this->_pizza_quantity;
         }
 
 

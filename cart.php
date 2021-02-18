@@ -5,10 +5,10 @@
     include_once("inc/functions.php");
     include_once("inc/class.php");
 
-    printr($_SESSION);
+    if(!empty($_SESSION['sopranos'])) {
     $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
-    printr($SopranosOrders);
 
+    // printr($SopranosOrders->setPizzaData());
 
     /*$SopranosOrders->insertCustomerData();
     $SopranosOrders->insertOrderData();  
@@ -20,7 +20,7 @@
 
     printr($SopranosOrders->getOrderId());
     printr($SopranosOrders->getCustomerId());*/
-
+    }
 ?>
 
 <!DOCTYPE html>
