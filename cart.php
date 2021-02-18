@@ -5,13 +5,21 @@
     include_once("inc/functions.php");
     include_once("inc/class.php");
 
-    
-    $test = new Sopranos\Orders($_SESSION, $pdo);
+    printr($_SESSION);
+    $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
+    printr($SopranosOrders);
 
-    printr($test->getCustomer());
-    printr($test->getCoupon());
-    printr($test->getOrder());
-    printr($test->getNumber());
+
+    /*$SopranosOrders->insertCustomerData();
+    $SopranosOrders->insertOrderData();  
+    printr($SopranosOrders->getCoupon());
+    printr($SopranosOrders->getCustomer());
+    printr($SopranosOrders->getOrder());
+
+    printr('-------------------------------------');
+
+    printr($SopranosOrders->getOrderId());
+    printr($SopranosOrders->getCustomerId());*/
 
 ?>
 

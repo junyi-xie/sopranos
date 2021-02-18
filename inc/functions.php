@@ -119,13 +119,13 @@
      */
     function saveInSession($key, $value) {
 
-        if(!isset($_SESSION[$key])) {
+        if(!isset($_SESSION['sopranos'][$key])) {
 
-            $_SESSION[$key] = $value;
+            $_SESSION['sopranos'][$key] = $value;
     
         } 
 
-        return $_SESSION[$key];
+        return $_SESSION['sopranos'][$key];
     }
 
 
@@ -183,7 +183,7 @@
      * @param array $coupons
      * @param mixed $code
      * 
-     * @return boolean
+     * @return mixed
      */
     function validateCouponCode($coupons = array(), $code) {
 
@@ -191,12 +191,12 @@
 
             if($coupon['code'] === strtoupper($code) || $coupon['code'] === strtolower($code)) {
 
-                return true;
-                
+                return $coupon['id'];
+
             }
         }
         
-        return false;
+        return NULL;
     }
 
 
@@ -209,7 +209,9 @@
      */
     function saveCustomerOrder($order = array()) {
 
-        saveInSession('customer_order', $order);
+        if (!is_array($order)) return false;
+
+        saveInSession('order', $order);
 
         return true;
     }
@@ -222,13 +224,14 @@
      *
      * @return boolean
      */
-    function saveCustomerInformation($information = array()) {
+    function saveCustomerData($data = array()) {
 
-        $bEmail = isEmailValid($information['email']);
+        $bEmail = isEmailValid($data['email']);
 
             if (!$bEmail) return false; 
+            if(!is_array($data)) return false;
 
-        saveInSession('customer_information', $information);
+        saveInSession('customer', $data);
 
         return true;
     }
@@ -315,7 +318,7 @@
     }
 
 
-    if(!isset($_SESSION['order_number'])) { saveInSession('order_number', generateUniqueId()); }
+    if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
     $aTypePizzas = selectAllById('pizzas_type');
     $aSizePizzas = selectAllById('pizzas_size');

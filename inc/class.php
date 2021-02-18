@@ -43,11 +43,59 @@
 
 
         /**
-         * Coupon data, such as code, applied and id.
+         * Coupon id.
          *
          * @var array
          */
         private $coupon;
+
+
+        /**
+         * Customer Inserted Id.
+         *
+         * @var int
+         */
+        private $_customer_id;
+
+
+        /**
+         * Order Inserted Id.
+         *
+         * @var int
+         */
+        private $_order_id;
+
+
+        /**
+         * Pizza Size Inserted Id.
+         *
+         * @var int
+         */
+        private $_size_id;
+
+
+        /**
+         * Pizza Topping Inserted Id.
+         *
+         * @var int
+         */
+        private $_topping_id;
+
+
+        /**
+         * Pizza Type Inserted Id.
+         *
+         * @var int
+         */
+        private $_type_id;
+
+
+        /**
+         * Pizza Order Inserted Id.
+         *
+         * @var int
+         */
+        private $_pizza_id;
 
 
         /**
@@ -56,14 +104,6 @@
          * @var object
          */
         private $pdo;
-
-
-        /**
-         * Customer Inserted Id.
-         *
-         * @var int
-         */
-        protected $_customer_id;
 
 
         /**
@@ -82,10 +122,10 @@
 
             if(is_array($config)) {
 
-                $this->setNumber($config['order_number']);
-                $this->setOrder($config['customer_order']['pizzas']);
-                $this->setCustomer($config['customer_information']);
-                $this->setCoupon($config['customer_order']['coupons']);
+                $this->setNumber($config['number']);
+                $this->setOrder($config['order']);
+                $this->setCustomer($config['customer']);
+                $this->setCoupon($config['coupon']);
 
             } else {
 
@@ -95,13 +135,39 @@
 
 
         /**
+         * Check for duplicate ordernumber inside the order table.
+         * 
+         * @return boolean
+         */
+        private function checkOrderNumber() 
+        {
+
+            $sSql = "
+                SELECT order_number FROM orders 
+                WHERE 1
+                AND order_number = '".$this->getNumber()."'
+            ";
+
+            $aOrderNumberSql = $this->pdo->query($sSql);
+            $aOrderNumberSql->fetchAll(\PDO::FETCH_ASSOC);
+
+            if($aOrderNumberSql->rowCount() > 0) {
+
+                return true;
+            } 
+
+            return false;
+        }
+
+        
+        /**
          * Insert the customer data into the database.
          * 
          * @param array $customer
          *
-         * @return int
+         * @return void
          */
-        public function insertCustomerData($customer = array()) 
+        public function insertCustomerData() 
         {
 
             $sSql = "
@@ -119,7 +185,7 @@
 
             $aInsertSql = $this->pdo->prepare($sSql);
 
-                foreach ($customer as $key => &$val) {
+                foreach ($this->getCustomer() as $key => &$val) {
                     $aInsertSql->bindParam($key, $val);
                 }
 
@@ -129,7 +195,87 @@
                     throw new \Exception('Error: insertCustomerData() - Query execute failed.');
                 }
 
-            return $this->_customer_id = $this->pdo->lastInsertId();
+            return $this->setCustomerId($this->pdo->lastInsertId());    
+        }
+
+
+        /**
+         * Insert into the orders table with the last inserted id for customer, coupon id and other data.
+         * 
+         * @param array $coupon
+         *
+         * return void
+         */
+        public function insertOrderData() 
+        {
+
+            // generate new order number in case it already exists.
+            if($this->checkOrderNumber()) {
+                $this->setNumber(generateUniqueId());
+            } 
+
+            $sSql = "
+                INSERT INTO orders 
+                SET 
+                    customer_id = :customer_id, 
+                    coupon_id = :coupon_id, 
+                    order_number = :order_number, 
+                    check_in = :check_in, 
+                    check_out = :check_out, 
+                    order_status = :order_status 
+            ";
+
+            $aInsertSql = $this->pdo->prepare($sSql);
+
+            $aInsertSql->bindValue(':customer_id', $this->getCustomerId());
+            $aInsertSql->bindValue(':coupon_id', $this->getCoupon());
+            $aInsertSql->bindValue(':order_number', $this->getNumber());
+            $aInsertSql->bindValue(':check_in', date("YmdHis"));
+            $aInsertSql->bindValue(':check_out', date("YmdHis"));
+            $aInsertSql->bindValue(':order_status', 0);
+            $aInsertSql->execute();
+
+                if(!$aInsertSql) {
+                    throw new \Exception('Error: insertOrderData() - Query execute failed.');
+                }
+
+            if(!is_null($this->getCoupon()) && $this->getCoupon() > 0) {
+                $this->updateCoupon($this->getCoupon());
+            }
+
+            return $this->setOrderId($this->pdo->lastInsertId());
+        }
+
+
+        /**
+         * Update the coupon table when a code has been used.
+         * 
+         * @param int $coupon_id
+         *
+         * @return boolean
+         */
+        protected function updateCoupon($coupon_id = 0) {
+
+            $sSql = "
+                UPDATE coupons 
+                    SET 
+                    quantity = quantity - 1 
+                    WHERE 1 
+                    AND quantity > 0
+                    AND id = :coupon_id
+                    LIMIT 1
+            ";   
+
+            $aUpdateSql = $this->pdo->prepare($sSql);
+            
+            $aUpdateSql->BindParam(':coupon_id', $coupon_id);
+            $aUpdateSql->execute();
+
+                if(!$aUpdateSql) {
+                    throw new \Exception('Error: updateCoupon() - Query execute failed.');
+                }
+
+            return true;
         }
 
 
@@ -140,7 +286,7 @@
          * 
          * @return void
          */
-        private function setNumber($number)
+        private function setNumber($number = 0)
         {
             $this->number = $number;
         }
@@ -164,16 +310,16 @@
          * 
          * @return void
          */
-        private function setCustomer($customer) 
+        private function setCustomer($customer = array()) 
         {
             $this->customer = $customer;
         }
 
 
         /**
-         * Customer Data Setter.
+         * Customer Data Getter.
          *
-         * @return void
+         * @return array
          */
         public function getCustomer() 
         {
@@ -182,22 +328,22 @@
 
 
         /**
-         * Coupon Getter.
+         * Coupon Setter.
          *
-         * @param array $coupon
+         * @param int $coupon
          * 
          * @return void
          */
-        private function setCoupon($coupon) 
+        private function setCoupon($coupon = 0) 
         {
             $this->coupon = $coupon;
         }
 
 
         /**
-         * Coupon Setter.
+         * Coupon Getter.
          *
-         * @return array
+         * @return int
          */
         public function getCoupon() 
         {
@@ -212,7 +358,7 @@
          * 
          * @return void
          */
-        private function setOrder($order) 
+        private function setOrder($order = array()) 
         {
             $this->order = $order;
         }
@@ -230,6 +376,150 @@
 
 
         /**
+         * Last inserted Customer Id Setter.
+         *
+         * @param int $customer_id
+         * 
+         * @return void
+         */
+        private function setCustomerId($customer_id = 0) 
+        {
+            $this->_customer_id = $customer_id;
+        }
+
+
+        /**
+         * Last inserted Customer Id Getter.
+         *
+         * @return int
+         */
+        public function getCustomerId() 
+        {
+            return $this->_customer_id;
+        }
+
+
+        /**
+         * Last inserted Order Id Setter.
+         *
+         * @param int $order_id
+         * 
+         * @return void
+         */
+        private function setOrderId($order_id = 0) 
+        {
+            $this->_order_id = $order_id;
+        }
+
+
+        /**
+         * Last inserted Order Id Getter.
+         *
+         * @return int
+         */
+        public function getOrderId() 
+        {
+            return $this->_order_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Size Id Setter.
+         *
+         * @param int $size_id
+         * 
+         * @return void
+         */
+        private function setSizeId($size_id = 0) 
+        {
+            $this->_size_id = $size_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Size Id Getter.
+         *
+         * @return int
+         */
+        public function getSizeId() 
+        {
+            return $this->_size_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Topping Id Setter.
+         *
+         * @param int $topping_id
+         * 
+         * @return void
+         */
+        private function setToppingId($topping_id = 0) 
+        {
+            $this->_topping_id = $topping_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Topping Id Getter.
+         *
+         * @return int
+         */
+        public function getToppingId() 
+        {
+            return $this->_topping_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Type Id Setter.
+         *
+         * @param int $type_id
+         * 
+         * @return void
+         */
+        private function setTypeId($type_id = 0) 
+        {
+            $this->_type_id = $type_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Type Id Getter.
+         *
+         * @return int
+         */
+        public function getTypeId() 
+        {
+            return $this->_type_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Order Id Setter.
+         *
+         * @param int $pizza_id
+         * 
+         * @return void
+         */
+        private function setPizzaId($pizza_id) 
+        {
+            $this->_pizza_id = $pizza_id;
+        }
+
+
+        /**
+         * Last inserted Pizza Order Id Getter.
+         *
+         * @return int
+         */
+        public function getPizzaId() 
+        {
+            return $this->_pizza_id;
+        }
+
+
+        /**
          * PDO Setter.
          *
          * @param object $pdo
@@ -240,5 +530,15 @@
         {
             $this->pdo = $pdo;
         }
+
+
+        /**
+         * Class Destructor.
+         *
+         * @return boolean
+         */
+        // public function __destruct() {
+        //     return clearSession();
+        // }
     }
 ?>
