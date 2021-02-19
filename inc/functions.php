@@ -236,8 +236,7 @@
     /**
      * Search if array exists, if exists increment. [OLD]
      *
-     * @param array $search_array
-     * @param int $i
+     * @param array $array
      *
      * @return array
      */
@@ -340,7 +339,31 @@
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
+
+    /**
+     * Truncate the desired table, used just to clear data instead of manually deleting records inside the database.
+     *
+     * @param string $table
+     * @param mixed|null $pdo
+     * 
+     * @return boolean
+     */
+    function truncateTable($table = '', $pdo = null) {
+
+        if(empty($pdo)) {
+            global $pdo;
+        }
+
+            if(!is_string($table)) return false;
+
+        $sSql = 'TRUNCATE TABLE `'.$table.'`';
+        $aSql = $pdo->query($sSql);
+
+        if(!$aSql) return false;
+
+        return true;
+    }
+
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
     $aTypePizzas = selectAllById('pizzas_type');

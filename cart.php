@@ -7,21 +7,6 @@
 
     if(!empty($_SESSION['sopranos'])) {
         $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
-
-        printr($SopranosOrders);
-        // printr($_SESSION['sopranos']);
-        // printr($SopranosOrders->setPizzaData());
-
-    /*$SopranosOrders->insertCustomerData();
-    $SopranosOrders->insertOrderData();  
-    printr($SopranosOrders->getCoupon());
-    printr($SopranosOrders->getCustomer());
-    printr($SopranosOrders->getOrder());
-
-    printr('-------------------------------------');
-
-    printr($SopranosOrders->getOrderId());
-    printr($SopranosOrders->getCustomerId());*/
     }
 ?>
 

@@ -4,10 +4,10 @@
     namespace Sopranos;
 
     /**
-     * Sopranos Pizzabar Orders class
+     * Sopranos Pizzabar Orders Class.
      *     
      * @author Junyi Xie
-     * @version 1.0
+     * @version 1.1 [UPDATED TO AUTOMATICALLY RUN]
      */
     class Orders 
     {
@@ -27,6 +27,14 @@
 
 
         /**
+         * Coupon id.
+         *
+         * @var int
+         */
+        private $coupon;
+
+
+        /**
          * The customer order(s) put in an array. 
          *
          * @var array
@@ -40,14 +48,6 @@
          * @var array
          */
         private $customer;
-
-
-        /**
-         * Coupon id.
-         *
-         * @var array
-         */
-        private $coupon;
 
 
         /**
@@ -107,6 +107,14 @@
 
 
         /**
+         * Total Price.
+         *
+         * @var float
+         */
+        private $price;
+
+
+        /**
          * PDO.
          *
          * @var object
@@ -123,23 +131,26 @@
          * 
          * @throws \Exception - Config data not complete.
          */
-        public function __construct($config, $pdo) {
+        public function __construct($config, $pdo) 
+        {
 
                 if(is_object($pdo) && !is_null($pdo)) {
                     $this->setPDO($pdo);
                 }
+                
 
-
-            if(is_array($config)) {
-
+            if(is_array($config) && array_key_exists('number', $config) && array_key_exists('coupon', $config) && array_key_exists('order', $config) && array_key_exists('customer', $config)) {
                 $this->setNumber($config['number']);
+                $this->setCoupon($config['coupon']);
                 $this->setOrder($config['order']);
                 $this->setCustomer($config['customer']);
-                $this->setCoupon($config['coupon']);
 
+                /* [DO NOT CHANGE ORDER, THE FUNCTIONS NEED TO BE CALLED IN A SPECIFIC ORDER TO FUNCTION PROPERLY] */
+                $this->insertCustomerData();
+                $this->insertOrderData();
+                $this->setPizzaData();
             } else {
-
-                throw new \Exception('Error: __construct() - Configuration data is missing.');
+                throw new \Exception('Error: __construct() - Configuration data is missing...');
             }
         }
 
@@ -149,7 +160,7 @@
          * 
          * @return boolean
          */
-        private function checkOrderNumber() 
+        protected function checkOrderNumber() 
         {
 
             $sSql = "
@@ -173,13 +184,11 @@
         /**
          * Insert the customer data into the database.
          * 
-         * @param array $customer
-         *
          * @return void
          * 
          * @throws \Exception - Query failed.
          */
-        public function insertCustomerData() 
+        private function insertCustomerData() 
         {
 
             $sSql = "
@@ -204,7 +213,7 @@
             $aInsertSql->execute();
 
                 if(!$aInsertSql) {
-                    throw new \Exception('Error: insertCustomerData() - Query execute failed.');
+                    throw new \Exception('Error: insertCustomerData() - Query execute failed...');
                 }
 
             return $this->setCustomerId($this->pdo->lastInsertId());    
@@ -214,13 +223,11 @@
         /**
          * Insert into the orders table with the last inserted id for customer, coupon id and other data.
          * 
-         * @param array $coupon
-         *
          * @return void
          * 
          * @throws \Exception - Query failed.
          */
-        public function insertOrderData() 
+        private function insertOrderData() 
         {
 
             // generate new order number in case it already exists.
@@ -247,17 +254,18 @@
             $aInsertSql->bindValue(':check_in', date("YmdHis"));
             $aInsertSql->bindValue(':check_out', date("YmdHis"));
             $aInsertSql->bindValue(':order_status', 0);
+
+                if(!is_null($this->getCoupon()) && $this->getCoupon() > 0) {
+                    $this->updateCoupon($this->getCoupon());
+                }
+
             $aInsertSql->execute();
 
                 if(!$aInsertSql) {
-                    throw new \Exception('Error: insertOrderData() - Query execute failed.');
-                }
+                    throw new \Exception('Error: insertOrderData() - Query execute failed...');
+                }            
 
-            if(!is_null($this->getCoupon()) && $this->getCoupon() > 0) {
-                $this->updateCoupon($this->getCoupon());
-            }
-
-            return $this->setOrderId($this->pdo->lastInsertId());
+            return $this->setOrderId($this->pdo->lastInsertId());    
         }
 
 
@@ -270,7 +278,8 @@
          * 
          * @throws \Exception - Query failed.
          */
-        protected function updateCoupon($coupon_id = 0) {
+        private function updateCoupon($coupon_id = 0) 
+        {
 
             $sSql = "
                 UPDATE coupons 
@@ -288,7 +297,7 @@
             $aUpdateSql->execute();
 
                 if(!$aUpdateSql) {
-                    throw new \Exception('Error: updateCoupon() - Query execute failed.');
+                    throw new \Exception('Error: updateCoupon() - Query execute failed...');
                 }
 
             return true;
@@ -296,23 +305,59 @@
 
 
         /**
-         * Bind the pizza data
+         * Bind the pizza data to their respective setter, once done, call the insertPizzaOrder() function and insert the data.
          * 
+         * @return void
+         * 
+         * @throws \Exception - Foreach failed, certain data is missing.
          */
-        public function setPizzaData() {
+        private function setPizzaData() 
+        {
 
-            return $this->getOrder();              
+            $iStatus = false;
+
+            foreach($this->getOrder() as $key => $val) {
+                $this->setSizeId($val['size_id']);
+                $this->setTypeId($val['type_id']);
+                $this->setPizzaQuantity($val['quantity']);
+                
+                if(!empty($this->getSizeId()) && !empty($this->getTypeId()) && !empty($this->getPizzaQuantity())) {
+                    $this->insertPizzaOrder();
+                }
+
+                foreach($val['topping_id'] as $iToppingId => $sToppingName) {
+                    $this->setToppingId($iToppingId);
+
+                    if(!empty($this->getPizzaId()) && !empty($this->getToppingId())) {
+                        $this->insertToppingCombination();
+                    }
+                }
+
+                $iStatus = true;
+            }
+
+            if(!$iStatus) {
+                throw new \Exception('Error: setPizzaData() - Something went wrong while setting the pizza data...');
+            }
         }
 
 
         /**
          * Update the pizza_topping and pizza_type tables for the quantity values.
          * 
+         * @param string $table
+         *
+         * @return boolean
+         * 
+         * @throws \Exception - 
          */
-        protected function updatePizzaValue() {
+        private function updatePizzaValue($table = '') 
+        {
 
             $sSql = "
-
+                UPDATE $table
+                SET
+                    quantity = quantity - 
             ";   
 
             
@@ -322,8 +367,12 @@
         /**
          * Insert the available pizza data into the orders_pizza table.
          * 
+         * @return void
+         * 
+         * @throws \Exception - Query failed.
          */
-        public function insertPizzaOrder() {
+        private function insertPizzaOrder() 
+        {
 
             $sSql = "
                 INSERT INTO orders_pizza
@@ -343,9 +392,9 @@
             $aInsertSql->bindValue(':quantity', $this->getPizzaQuantity());
             $aInsertSql->bindValue(':status', 0);
             $aInsertSql->execute();
-
+                
                 if(!$aInsertSql) {
-                    throw new \Exception('Error: insertPizzaOrder() - Query execute failed.');
+                    throw new \Exception('Error: insertPizzaOrder() - Query execute failed...');
                 }
 
             return $this->setPizzaId($this->pdo->lastInsertId());
@@ -353,16 +402,74 @@
 
 
         /**
-         * Insert the topping ids into the topping_combination table.
+         * Insert the topping id and pizza order id into the topping_combination table.
          * 
+         * @return boolean
+         * 
+         * @throws \Exception - Missing data
          */
-        private function insertToppingCombination() {
+        private function insertToppingCombination() 
+        {
+
+            if(!empty($this->getPizzaId()) && !empty($this->getToppingId())) {
+
+                $sSql = "
+                    INSERT INTO toppings_combination
+                    SET
+                        pizza_id = :pizza_id,
+                        topping_id = :topping_id
+                ";   
+
+                $aInsertSql = $this->pdo->prepare($sSql);
+
+                $aInsertSql->bindValue(':pizza_id', $this->getPizzaId());
+                $aInsertSql->bindValue(':topping_id', $this->getToppingId());
+                $aInsertSql->execute();
+
+                return true;
+            }
+
+            throw new \Exception('Error: insertToppingCombination() - There seems to be data missing...');            
+        }
+
+
+        protected function selectTableData($sTable = '', $id = 0)
+        {
 
             $sSql = "
-
-            ";   
+                SELECT * FROM $sTable
+                WHERE 1
+                    AND id = :id
+            ";
 
             
+        }
+
+
+        /**
+         * Total Prize Setter.
+         *
+         * @param float $prize
+         * @param int $quantity
+         * 
+         * @return void
+         */
+        private function setTotalPrice($price = 0.00, $quantity = 0) 
+        {
+            $this->price += $price * $quantity;
+        }
+
+
+        /**
+         * Total Prize Getter.
+         *
+         * @param int $number
+         * 
+         * @return float
+         */
+        public function getTotalPrice() 
+        {
+            return $this->price;
         }
 
 
@@ -648,8 +755,9 @@
          *
          * @return boolean
          */
-        // public function __destruct() {
-        //     return clearSession();
+        // public function __destruct() 
+        // {
+            // return clearSession();
         // }
     }
 ?>
