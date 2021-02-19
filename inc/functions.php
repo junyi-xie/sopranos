@@ -210,10 +210,49 @@
     function saveCustomerOrder($order = array()) {
 
         if (!is_array($order)) return false;
-
-        saveInSession('order', $order);
+                
+            saveOrderSession($order);
 
         return true;
+    }
+
+
+
+    /**
+     * Save the customer order in $_SESSION.
+     *
+     * @param array $array
+     *
+     * @return array
+     */
+    function saveOrderSession($array = array()) {
+
+        $_SESSION['sopranos']['order'][] = $array;
+
+        return $_SESSION['sopranos']['order'];
+    }
+
+
+    /**
+     * Search if array exists, if exists increment. [OLD]
+     *
+     * @param array $search_array
+     * @param int $i
+     *
+     * @return array
+     */
+    function orderArrayExists($array = array()) {
+
+        foreach($array as $key => $val) {
+
+            if(isset($_SESSION['sopranos']['order'][$key])) {
+                $key++;
+
+                saveCustomerOrder($val, $key);
+            }
+        }
+
+        return $array;
     }
 
 
@@ -256,9 +295,9 @@
      *
      * @return boolean
      */
-    function unsetSession($name) {
+    function unsetVariable($variable, $name) {
 
-        unset($_SESSION[$name]);
+        unset($variable[$name]);
 
         return true;
     }
@@ -301,23 +340,7 @@
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-    /**
-     * Determine how many pizzas there are in the customer $_SESSION array. Return the number.
-     *
-     * @param string $table
-     * 
-     * @return int
-     */
-    function getPizzasCount($array = array()) {
-
-
-        $count = 1;
-
-        return $count;
-    }
-
-
+    
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
     $aTypePizzas = selectAllById('pizzas_type');

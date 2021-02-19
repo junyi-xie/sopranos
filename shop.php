@@ -36,11 +36,20 @@
             saveInSession('coupon', $coupon);
 
             unset($data['coupon_code']);
+            unset($data['btnSubmit']);
+            unset($data['btnDelete']);
 
             saveCustomerOrder($data);
 
-            header("location: http://localhost:8080/sopranos/shop.php?page=form");
-            exit();
+            if (isset($_POST['btnDelete'])) {
+                header("location: http://localhost:8080/sopranos/shop.php?page=form");
+                exit();
+                
+            } else {
+                header("location: http://localhost:8080/sopranos/shop.php");
+                exit();
+            }
+            
         }
 
 
@@ -49,26 +58,28 @@
 
         <form action="shop.php" method="post">';
 
-    
+        $t = 0;
 
         $html .= '<br/><br/><h2>CHOOSE TYPE</h2><br/>';
         foreach ($aTypePizzas as $type) {
             $html .= '<label for="type-'.$type['id'].'">'.$type['name'].'</label>';
-            $html .= '<input type="radio" name="[type_id]" id="type-'.$type['id'].'" value="'.$type['id'].'">';
+            $html .= '<input type="radio" name="type_id" id="type-'.$type['id'].'" value="'.$type['id'].'">';
             $html .= '<span>&euro;'.number_format($type['price'], 2).'</span><br/>';
         }
         
-        $html .= '<br/><br/><h2>CHOOSE SIZE</h2><br/>';
+        $html .= '<br/><br/><h2>CHOOSE SIZE</h2><br/>
+
+        <select name="size_id" id="size">';
         foreach ($aSizePizzas as $size) {
-            $html .= '<label for="type-'.$size['id'].'">'.$size['name'].'</label>';
-            $html .= '<input type="radio" name="[size_id]" id="size-'.$size['id'].'" value="'.$size['id'].'">';
+            $html .= '<option  id="size-'.$size['id'].'" value="'.$size['id'].'">'.$size['name'].'</option>';
             $html .= '<span>+ &euro;'.number_format($size['price'], 2).'</span><br/>';
         }
+        $html .='</select></br></br>';
         
         $html .= '<br/><br/><h2>CHOOSE TOPPINGS</h2><br/>';
         foreach ($aToppingPizzas as $topping) {
             $html .= '<label for="type-'.$topping['id'].'">'.$topping['name'].'</label>';
-            $html .= '<input type="checkbox" name="[topping_id]['.$topping['id'].']" id="topping-'.$topping['id'].'" value="'.$topping['name'].'">';
+            $html .= '<input type="checkbox" name="topping_id['.$topping['id'].']" id="topping-'.$topping['id'].'" value="'.$topping['name'].'">';
             $html .= '<span>+ &euro;'.number_format($topping['price'], 2).'</span><br/>';
         }
 
@@ -76,8 +87,9 @@
 
         <br/><br/>
         <input type="text" name="coupon_code" placeholder="coupon code?"><br/>
-        <input type="number" name="[quantity]" placeholder="how many?"><br/><br/>
-        <input type="submit" value="next">
+        <input type="number" name="quantity" placeholder="how many?"><br/><br/>
+        <input type="submit" name="btnSubmit" value="more">
+        <input type="submit" name="btnDelete" value="checkout">
         </form><br/><br/><br/><br/><br/><br/>';
 
 

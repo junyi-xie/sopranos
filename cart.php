@@ -6,9 +6,11 @@
     include_once("inc/class.php");
 
     if(!empty($_SESSION['sopranos'])) {
-    $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
+        $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
 
-    // printr($SopranosOrders->setPizzaData());
+        printr($SopranosOrders);
+        // printr($_SESSION['sopranos']);
+        // printr($SopranosOrders->setPizzaData());
 
     /*$SopranosOrders->insertCustomerData();
     $SopranosOrders->insertOrderData();  
