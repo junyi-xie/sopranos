@@ -183,7 +183,7 @@
                 return false;
             }
 
-            throw new \Exception('Error: checkTableExists() - Table does not exist...');
+            throw new \Exception('Error: checkTableExists() - Table (orders) does not exist...');
         }
 
         
@@ -267,7 +267,7 @@
             $aInsertSql->execute();
 
                 if(!$aInsertSql) {
-                    throw new \Exception('Error: insertOrderData() - Query execute failed... Are all values assigned to their proper placeholder?');
+                    throw new \Exception('Error: insertOrderData() - Query execute failed... Are all values assigned to their proper placeholder...');
                 }            
 
             return $this->setOrderId($this->pdo->lastInsertId());    
@@ -310,7 +310,7 @@
                 return true;
             }
 
-            throw new \Exception('Error: checkTableExists() - Table does not exist...');
+            throw new \Exception('Error: checkTableExists() - Table (coupons) does not exist...');
         }
 
 
@@ -347,7 +347,7 @@
             }
 
             if(!$iStatus) {
-                throw new \Exception('Error: setPizzaData() - Something went wrong while setting the pizza data...');
+                throw new \Exception('Error: setPizzaData() - Something went wrong while setting the pizza data... Check the foreach loop...');
             }
         }
 
@@ -398,7 +398,7 @@
                 return true;
             }
 
-            throw new \Exception('Error: updatePizzaValue() - Parameters were not string...');
+            throw new \Exception('Error: updatePizzaValue() - The given parameter(s) were not strings...');
         }
 
 
@@ -432,7 +432,7 @@
 
                 if($this->checkTableExists('pizzas_type')) {
                     $this->updatePizzaValue('pizzas_type');
-                }
+                } 
 
             $aInsertSql->execute();
                 
@@ -477,18 +477,18 @@
                 return true;
             }
 
-            throw new \Exception('Error: insertToppingCombination() - There seems to be data missing... Getters for this function might be empty...');            
+            throw new \Exception('Error: insertToppingCombination() - Getters for this function might be empty...');            
         }
 
 
         /**
-         * Select count(*) from information_schema.tables to see whether the given table exist.
+         * Select the count from information_schema.tables to see whether the given table exist.
          * 
          * @param string $sTableName
          * 
          * @return boolean
          * 
-         * @throws \Exception Table name error, possibly the inputted variable was not a string.
+         * @throws \Exception Table name error, possibly the given variable was not a string or empty.
          */
         protected function checkTableExists($sTableName = '')
         {
@@ -522,7 +522,7 @@
 
 
         /**
-         * Select the price for assigned table with the right id.
+         * Select the price for assigned table with the given id.
          * 
          * @param string $table
          * @param int $id
@@ -540,8 +540,6 @@
          * Apply the coupon code to the total price, when applied return true, else false.
          * 
          * @return boolean
-         * 
-         * @throws \Exception Query error, missing id?
          */
         protected function applyCoupon()
         {
