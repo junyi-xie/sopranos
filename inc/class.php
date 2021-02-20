@@ -129,7 +129,7 @@
          *
          * @return void
          * 
-         * @throws \Sopranos\OrderException Config data is not complete.
+         * @throws \Exception Config data is not complete.
          */
         public function __construct($config, $pdo) 
         {
@@ -150,7 +150,7 @@
                 $this->insertOrderData();
                 $this->setPizzaData();
             } else {
-                throw new OrderException('Error: __construct() - Configuration data is missing...');
+                throw new \Exception('Error: __construct() - Configuration data is missing...');
             }
         }
 
@@ -159,25 +159,31 @@
          * Check for duplicate ordernumber inside the order table.
          * 
          * @return boolean
+         * 
+         * @throws \Exception Table doesn't exist.
          */
         protected function checkOrderNumber() 
         {
 
-            $sSql = "
-                SELECT order_number FROM orders 
-                WHERE 1
-                AND order_number = '".$this->getNumber()."'
-            ";
+            if($this->checkTableExists('orders')) {
 
-            $aOrderNumberSql = $this->pdo->query($sSql);
-            $aOrderNumberSql->fetchAll(\PDO::FETCH_ASSOC);
+                $sSql = "
+                    SELECT order_number FROM orders 
+                        WHERE 1
+                        AND order_number = '".$this->getNumber()."'
+                ";
 
-            if($aOrderNumberSql->rowCount() > 0) {
+                $aOrderNumberSql = $this->pdo->query($sSql);
+                $aOrderNumberSql->fetchAll(\PDO::FETCH_ASSOC);
 
-                return true;
-            } 
+                if($aOrderNumberSql->rowCount() > 0) {
+                    return true;
+                } 
 
-            return false;
+                return false;
+            }
+
+            throw new \Exception('Error: checkTableExists() - Table does not exist...');
         }
 
         
@@ -186,7 +192,7 @@
          * 
          * @return void
          * 
-         * @throws \Sopranos\OrderException The query did not function properly, check if all the values are filled in.
+         * @throws \Exception The query did not function properly, check if all the values are filled in.
          */
         private function insertCustomerData() 
         {
@@ -213,7 +219,7 @@
             $aInsertSql->execute();
 
                 if(!$aInsertSql) {
-                    throw new OrderException('Error: insertCustomerData() - Query execute failed... The customer has potentially not filled in all the fields...');
+                    throw new \Exception('Error: insertCustomerData() - Query execute failed... The customer has potentially not filled in all the fields...');
                 }
 
             return $this->setCustomerId($this->pdo->lastInsertId());    
@@ -225,7 +231,7 @@
          * 
          * @return void
          * 
-         * @throws \Sopranos\OrderException Query failed, check if all values got assigned to the right placeholder.
+         * @throws \Exception Query failed, check if all values got assigned to the right placeholder.
          */
         private function insertOrderData() 
         {
@@ -261,7 +267,7 @@
             $aInsertSql->execute();
 
                 if(!$aInsertSql) {
-                    throw new OrderException('Error: insertOrderData() - Query execute failed... Are all values assigned to their proper placeholder?');
+                    throw new \Exception('Error: insertOrderData() - Query execute failed... Are all values assigned to their proper placeholder?');
                 }            
 
             return $this->setOrderId($this->pdo->lastInsertId());    
@@ -275,31 +281,36 @@
          *
          * @return boolean
          * 
-         * @throws \Sopranos\OrderException Could not execute query, the id is either wrong or it's an invalid number.
+         * @throws \Exception Could not execute query, the id is either wrong or it's an invalid number. || Table doesn't exist
          */
         private function updateCoupon($coupon_id = 0) 
         {
 
-            $sSql = "
-                UPDATE coupons 
-                SET 
-                    quantity = quantity - 1 
-                    WHERE 1 
-                    AND quantity > 0
-                    AND id = :coupon_id
-                    LIMIT 1
-            ";   
+            if($this->checkTableExists('orders')) {
 
-            $aUpdateSql = $this->pdo->prepare($sSql);
-            
-            $aUpdateSql->BindParam(':coupon_id', $coupon_id);
-            $aUpdateSql->execute();
+                $sSql = "
+                    UPDATE coupons 
+                    SET 
+                        quantity = quantity - 1 
+                        WHERE 1 
+                        AND quantity > 0
+                        AND id = :coupon_id
+                        LIMIT 1
+                ";   
 
-                if(!$aUpdateSql) {
-                    throw new OrderException('Error: updateCoupon() - Query execute failed... Might be invalid coupon_id...');
-                }
+                $aUpdateSql = $this->pdo->prepare($sSql);
+                
+                $aUpdateSql->BindParam(':coupon_id', $coupon_id);
+                $aUpdateSql->execute();
 
-            return true;
+                    if(!$aUpdateSql) {
+                        throw new \Exception('Error: updateCoupon() - Query execute failed... Might be invalid coupon_id...');
+                    }
+
+                return true;
+            }
+
+            throw new \Exception('Error: checkTableExists() - Table does not exist...');
         }
 
 
@@ -308,7 +319,7 @@
          * 
          * @return void
          * 
-         * @throws \Sopranos\OrderException Foreach failed, certain data is missing.
+         * @throws \Exception Foreach failed, certain data is missing.
          */
         private function setPizzaData() 
         {
@@ -336,7 +347,7 @@
             }
 
             if(!$iStatus) {
-                throw new OrderException('Error: setPizzaData() - Something went wrong while setting the pizza data...');
+                throw new \Exception('Error: setPizzaData() - Something went wrong while setting the pizza data...');
             }
         }
 
@@ -348,7 +359,7 @@
          *
          * @return boolean
          * 
-         * @throws \Sopranos\OrderException Something went wrong... Table could either not be found or getters were empty.
+         * @throws \Exception Something went wrong... Table could either not be found or getters were empty.
          */
         private function updatePizzaValue($table = '') 
         {
@@ -359,7 +370,7 @@
                     quantity = quantity - 
             ";   
 
-            throw new OrderException('Error: updatePizzaValue() - The table does not exist...');
+            throw new \Exception('Error: updatePizzaValue() - The table does not exist...');
         }
 
 
@@ -368,7 +379,7 @@
          * 
          * @return void
          * 
-         * @throws \Sopranos\OrderException Query failed, certain parameters are missing inside the getters.
+         * @throws \Exception Query failed, certain parameters are missing inside the getters.
          */
         private function insertPizzaOrder() 
         {
@@ -393,7 +404,7 @@
             $aInsertSql->execute();
                 
                 if(!$aInsertSql) {
-                    throw new OrderException('Error: insertPizzaOrder() - Query execute failed...');
+                    throw new \Exception('Error: insertPizzaOrder() - Query execute failed...');
                 }
 
             return $this->setPizzaId($this->pdo->lastInsertId());
@@ -405,7 +416,7 @@
          * 
          * @return boolean
          * 
-         * @throws \Sopranos\OrderException Missing data which causes the query not to function properly.
+         * @throws \Exception Missing data which causes the query not to function properly.
          */
         private function insertToppingCombination() 
         {
@@ -428,30 +439,55 @@
                 return true;
             }
 
-            throw new OrderException('Error: insertToppingCombination() - There seems to be data missing...');            
+            throw new \Exception('Error: insertToppingCombination() - There seems to be data missing...');            
         }
 
 
         /**
-         * Select data from INFORMATION_SCHEME table to see whether the given table specs exist.
+         * Select count(*) from information_schema.tables to see whether the given table exist.
          * 
-         * @param string $table
-         * @param string $table
+         * @param string $sTableName
          * 
          * @return boolean
+         * 
+         * @throws \Exception Table name error, possibly the inputted variable was not a string.
          */
-        public function checkTableExists($table_schema = '', $table_name = '')
-        // protected function checkTableExists($table_schema = '', $table_name = '')
+        protected function checkTableExists($sTableName = '')
         {
 
-            $sSql = "
-                SELECT * FROM $table
-                WHERE 1
-                    AND id = :id
-            ";
+            if(!empty($sTableName) && is_string($sTableName)) {
+
+                $sTableName = preg_replace('/[^\da-z_]/i', '', $sTableName);
+
+                $sSql = "
+                    SELECT COUNT(*) AS `count` FROM information_schema.tables 
+                        WHERE 1 
+                        AND TABLE_SCHEMA = database()
+                        AND TABLE_NAME = :table_name
+                ";
+
+                $aCheckTableSql = $this->pdo->prepare($sSql);
+                $aCheckTableSql->BindParam(':table_name', $sTableName);
+                $aCheckTableSql->execute();
+
+                $Output = $aCheckTableSql->fetch(\PDO::FETCH_ASSOC);
+
+                if($Output['count'] > 0) {
+                    return true;
+                } 
+
+                return false;
+            }
+            
+            throw new \Exception('Error: checkTableExists() - Did you properly input the desired table name...');  
+        }
+
+
+        protected function applyCoupon()
+        {
 
             
-        }
+        } 
 
 
         /**
