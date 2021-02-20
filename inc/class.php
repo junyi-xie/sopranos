@@ -286,7 +286,7 @@
         private function updateCoupon($coupon_id = 0) 
         {
 
-            if($this->checkTableExists('orders')) {
+            if($this->checkTableExists('coupons')) {
 
                 $sSql = "
                     UPDATE coupons 
@@ -355,22 +355,50 @@
         /**
          * Update the pizza_topping and pizza_type tables for the quantity values.
          * 
-         * @param string $table
+         * @param string $sTable
          *
          * @return boolean
          * 
          * @throws \Exception Something went wrong... Table could either not be found or getters were empty.
          */
-        private function updatePizzaValue($table = '') 
+        private function updatePizzaValue($sTable = '') 
         {
 
-            $sSql = "
-                UPDATE $table
-                SET
-                    quantity = quantity - 
-            ";   
+            if(!empty($sTable) && is_string($sTable)) {
 
-            throw new \Exception('Error: updatePizzaValue() - The table does not exist...');
+                $sSql = "
+                    UPDATE $sTable
+                    SET
+                        quantity = quantity - :quantity 
+                        WHERE 1 
+                        AND quantity > 0
+                        AND id = :id
+                        LIMIT 1
+                ";   
+
+                $aUpdateSql = $this->pdo->prepare($sSql);
+
+                $aUpdateSql->bindValue(':quantity', $this->getPizzaQuantity());
+
+                switch ($sTable) {
+                    case 'pizzas_topping':
+                        $aUpdateSql->bindValue(':id', $this->getToppingId());
+                    break;
+                    case 'pizzas_type':
+                        $aUpdateSql->bindValue(':id', $this->getTypeId());
+                    break;
+                }
+
+                $aUpdateSql->execute();
+
+                    if(!$aUpdateSql) {
+                        throw new \Exception('Error: updatePizzaValue() - Could not execute query, getters might be empty...');
+                    }
+
+                return true;
+            }
+
+            throw new \Exception('Error: updatePizzaValue() - Parameters were not string...');
         }
 
 
@@ -401,11 +429,16 @@
             $aInsertSql->bindValue(':type_id', $this->getTypeId());
             $aInsertSql->bindValue(':quantity', $this->getPizzaQuantity());
             $aInsertSql->bindValue(':status', 0);
+
+                if($this->checkTableExists('pizzas_type')) {
+                    $this->updatePizzaValue('pizzas_type');
+                }
+
             $aInsertSql->execute();
                 
                 if(!$aInsertSql) {
                     throw new \Exception('Error: insertPizzaOrder() - Query execute failed...');
-                }
+                } 
 
             return $this->setPizzaId($this->pdo->lastInsertId());
         }
@@ -434,12 +467,17 @@
 
                 $aInsertSql->bindValue(':pizza_id', $this->getPizzaId());
                 $aInsertSql->bindValue(':topping_id', $this->getToppingId());
+
+                    if($this->checkTableExists('pizzas_topping')) {
+                        $this->updatePizzaValue('pizzas_topping');
+                    }
+
                 $aInsertSql->execute();
 
                 return true;
             }
 
-            throw new \Exception('Error: insertToppingCombination() - There seems to be data missing...');            
+            throw new \Exception('Error: insertToppingCombination() - There seems to be data missing... Getters for this function might be empty...');            
         }
 
 
@@ -483,6 +521,28 @@
         }
 
 
+        /**
+         * Select the price for assigned table with the right id.
+         * 
+         * @param string $table
+         * @param int $id
+         * 
+         * @return float
+         */
+        protected function selectPrice($table = '', $id = 0)
+        {
+
+            
+        } 
+
+
+        /**
+         * Apply the coupon code to the total price, when applied return true, else false.
+         * 
+         * @return boolean
+         * 
+         * @throws \Exception Query error, missing id?
+         */
         protected function applyCoupon()
         {
 
