@@ -50,6 +50,6 @@ $pdo->exec("INSERT INTO accounts SET id = NULL, username = 'admin', password = p
 Now that you have inserted a new account, you can simply login to the admin panel with admin/admin.
 
 ## Database ## 
-[sopranos.sql](https://github.com/junyi-xie/sopranos/blob/main/sopranos.sql)
+📃 [sopranos.sql](https://github.com/junyi-xie/sopranos/blob/main/sopranos.sql), feel free to import it into MySQL.
 
 **Note:** Be sure to change the database name to match your own, you can configurate the database settings [here!](https://github.com/junyi-xie/sopranos/blob/main/inc/connect.php)
