@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home · Sopranos Pizzabar</title>
+    <title>Checkout · Sopranos Pizzabar</title>
     <meta charset="UTF-8">
     <meta name="author" content="Junyi Xie">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
 
 <a href="index.php">Home</a>
 <a href="shop.php">Shop</a>        
-<a href="checkout.php">Checkout</a>    
+<a href="checkout.php">Checkout</a>        
 <a href="cart.php">Cart</a>  
 
 

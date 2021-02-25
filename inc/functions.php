@@ -46,7 +46,7 @@
 
             } else if (is_dir($entry)) {
 
-                $contents = array_merge($contents, getFiles($entry));
+                $contents = array_merge($contents, getFiles($entry, $ext));
 
             }
         }

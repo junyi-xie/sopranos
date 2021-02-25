@@ -5,17 +5,17 @@
     include_once("inc/functions.php");
     include_once("inc/class.php");
 
-    if(!empty($_SESSION['sopranos'])) {
+    $t = 1;
+
+    if(!empty($_SESSION['sopranos']) && $t == 2 ) {
         $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
-        printr($_SESSION);
-        printr($SopranosOrders->getPrice());
     }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Cart · Sopranos Pizzaria</title>
+<title>Cart · Sopranos Pizzabar</title>
 <meta charset="UTF-8">
 <meta name="author" content="Junyi Xie">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,23 +27,24 @@
 
 
 <div id="app" class="transparent main">
-<header>
-    <nav>
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="shop.php">Shop</a></li>        
-            <li><a href="cart.php">Cart</a></li>         
-        </ul>
-    </nav>
-</header>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="shop.php">Shop</a></li>
+                <li><a href="checkout.php">Checkout</a></li>        
+                <li><a href="cart.php">Cart</a></li>         
+            </ul>
+        </nav>
+    </header>
 
-<div class="content">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In voluptates dolores minima laborum eaque eveniet consequuntur officiis saepe autem, magni sequi sapiente nemo reprehenderit, harum aliquam error? Nisi, maiores quisquam.</p>
-</div>
+    <div class="content">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In voluptates dolores minima laborum eaque eveniet consequuntur officiis saepe autem, magni sequi sapiente nemo reprehenderit, harum aliquam error? Nisi, maiores quisquam.</p>
+    </div>
 
-<footer>
-    <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzaria. All Rights Reserved.</p>
-</footer>
+    <footer>
+        <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzabar. All Rights Reserved.</p>
+    </footer>
 </div>
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>

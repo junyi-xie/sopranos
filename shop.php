@@ -53,7 +53,7 @@
         }
 
 
-        printr($_SESSION);
+        // printr($_SESSION);
         $html .= '
 
         <form action="shop.php" method="post">';
@@ -140,7 +140,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Shop · Sopranos Pizzaria</title>
+    <title>Shop · Sopranos Pizzabar</title>
     <meta charset="UTF-8">
     <meta name="author" content="Junyi Xie">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -149,14 +149,15 @@
 </head>
 <body>
 
-<?php echo $html ?>
+<!-- <?php echo $html ?> -->
 
 <div id="app" class="transparent main">
     <header>
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="shop.php">Shop</a></li>        
+                <li><a href="shop.php">Shop</a></li>      
+                <li><a href="checkout.php">Checkout</a></li>      
                 <li><a href="cart.php">Cart</a></li>        
             </ul>
         </nav>
@@ -167,7 +168,7 @@
     </div>
 
     <footer>
-        <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzaria. All Rights Reserved.</p>
+        <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzabar. All Rights Reserved.</p>
     </footer>
 </div>
 
