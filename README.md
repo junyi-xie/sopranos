@@ -1,6 +1,6 @@
 # Soparanos Pizzabar - ALA P7
 
-I will be creating an online webshop where you can buy multiple/different types of pizzas in your preferred size and toppings. The shop backend will be written in **Object-Oriented PHP** and **MySQL**, as for the frontend, it will be done with **HTML/CSS**, and some **JavaScript** as well.
+I will be creating an online webshop where you can buy multiple/different types of pizzas in your preferred size and toppings of your choice. The shop backend will be written in **Object-Oriented PHP** and **MySQL**, as for the frontend, it will be done with **HTML/CSS**, and some **JavaScript** as well.
 
 ## Folder Structure ##
 
