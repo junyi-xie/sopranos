@@ -616,6 +616,9 @@
         private function createInvoice()
         {
             // TO DO.
+
+            // LINK SOME PDF LIBRARY TO USE
+            // AND LINK PHPMAILER TO SEND IT TO THEIR EMAIL
         }
 
 
