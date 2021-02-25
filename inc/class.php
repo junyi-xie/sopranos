@@ -51,6 +51,14 @@
 
 
         /**
+         * Total Price.
+         *
+         * @var float
+         */
+        private $price;
+
+
+        /**
          * Customer Inserted Id.
          *
          * @var int
@@ -107,14 +115,6 @@
 
 
         /**
-         * Total Price.
-         *
-         * @var float
-         */
-        private $price;
-
-
-        /**
          * PDO.
          *
          * @var object
@@ -149,6 +149,7 @@
                 $this->insertCustomerData();
                 $this->insertOrderData();
                 $this->setPizzaData();
+                $this->applyCoupon(); 
             } else {
                 throw new \Exception('Error: __construct() - Configuration data is missing...');
             }
@@ -330,6 +331,11 @@
                 $this->setSizeId($val['size_id']);
                 $this->setTypeId($val['type_id']);
                 $this->setPizzaQuantity($val['quantity']);
+
+                    if($this->checkTableExists('pizzas_size') && $this->checkTableExists('pizzas_type') ) {
+                        $this->setPrice($this->selectPrice('pizzas_size', $this->getSizeId()), $this->getPizzaQuantity());
+                        $this->setPrice($this->selectPrice('pizzas_type', $this->getTypeId()), $this->getPizzaQuantity());
+                    }
                 
                 if(!empty($this->getSizeId()) && !empty($this->getTypeId()) && !empty($this->getPizzaQuantity())) {
                     $this->insertPizzaOrder();
@@ -337,6 +343,10 @@
 
                 foreach($val['topping_id'] as $iToppingId => $sToppingName) {
                     $this->setToppingId($iToppingId);
+
+                        if($this->checkTableExists('pizzas_topping')) {
+                            $this->setPrice($this->selectPrice('pizzas_topping', $this->getToppingId()), $this->getPizzaQuantity());
+                        }
 
                     if(!empty($this->getPizzaId()) && !empty($this->getToppingId())) {
                         $this->insertToppingCombination();
@@ -528,11 +538,29 @@
          * @param int $id
          * 
          * @return float
+         * 
+         * @throws \Exception Potentially database corruption or the column 'price' is empty.
          */
-        protected function selectPrice($table = '', $id = 0)
+        public function selectPrice($table = '', $id = 0)
         {
 
-            
+            $sSql = "
+                SELECT price FROM $table
+                    WHERE 1
+                    AND id = :id
+                    LIMIT 1
+            ";
+
+            $aPriceSql = $this->pdo->prepare($sSql);
+            $aPriceSql->execute(array(':id' => $id));
+            $Output = $aPriceSql->fetch();
+
+            if(!empty($Output['price']) && $Output['price'] > 0) {
+
+                return number_format((float)$Output['price'], 2, '.', '');
+            }
+
+            throw new \Exception('Error: selectPrice() - Price value is not being displayed properly... Check database data type...');  
         } 
 
 
@@ -540,11 +568,45 @@
          * Apply the coupon code to the total price, when applied return true, else false.
          * 
          * @return boolean
+         * 
+         * @throws \Exception Coupon id is missing or coupon code used is out of stock.
          */
         protected function applyCoupon()
         {
 
-            
+            if(!empty($this->getCoupon()) && is_numeric($this->getCoupon())) {
+
+                $sSql = "
+                    SELECT * FROM coupons
+                        WHERE 1
+                        AND id = '".$this->getCoupon()."'
+                        AND quantity > 0
+                        LIMIT 1
+                ";
+
+                $aCoupon = $this->pdo->query($sSql);
+                $iResults = $aCoupon->fetch(\PDO::FETCH_ASSOC);
+
+                if($aCoupon->rowCount() > 0) {
+                    
+                    $sType = 'percentage'; // to be changed
+
+                    switch ($sType) {
+                        case 'percentage':
+                            $this->price = $this->getPrice() - ($this->getPrice() * ($iResults['discount'] / 100));                        
+                        break;
+                        case 'money':
+                            $this->price = $this->getPrice() - $iResults['discount'];
+                        break;
+                    }
+
+                    return true;
+                }
+
+                return false; 
+            }
+
+            throw new \Exception('Error: applyCoupon() - Coupon is out of stock or id is missing...');  
         } 
 
 
@@ -556,7 +618,7 @@
          * 
          * @return void
          */
-        private function setTotalPrice($price = 0.00, $quantity = 0) 
+        private function setPrice($price = 0.00, $quantity = 0) 
         {
             $this->price += $price * $quantity;
         }
@@ -569,9 +631,9 @@
          * 
          * @return float
          */
-        public function getTotalPrice() 
+        public function getPrice() 
         {
-            return $this->price;
+            return number_format((float)$this->price, 2, '.', '');
         }
 
 
@@ -859,7 +921,7 @@
          */
         public function __destruct() 
         {
-            return clearSession();
+            // return clearSession();
         }
     }
 ?>

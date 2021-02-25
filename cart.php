@@ -7,6 +7,8 @@
 
     if(!empty($_SESSION['sopranos'])) {
         $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
+        printr($_SESSION);
+        printr($SopranosOrders->getPrice());
     }
 ?>
 
