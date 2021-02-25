@@ -541,7 +541,7 @@
          * 
          * @throws \Exception Potentially database corruption or the column 'price' is empty.
          */
-        public function selectPrice($table = '', $id = 0)
+        protected function selectPrice($table = '', $id = 0)
         {
 
             $sSql = "
@@ -608,6 +608,15 @@
 
             throw new \Exception('Error: applyCoupon() - Coupon is out of stock or id is missing...');  
         } 
+
+
+        /**
+         * Create an invoice with the appropriate getters and other data. Make it well structured and easy to read.
+         */
+        private function createInvoice()
+        {
+            // TO DO.
+        }
 
 
         /**
