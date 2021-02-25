@@ -1,6 +1,6 @@
-# Soparanos Pizzaria - ALA P7
+# Soparanos Pizzabar - ALA P7
 
-I will be creating an online webshop where you can buy multiple/different types of pizzas. The shop backend will be written in **Object-Oriented PHP** and **MySQL**, as for the frontend, it will be done with **HTML/CSS**, and some **JavaScript** as well.
+I will be creating an online webshop where you can buy multiple/different types of pizzas in your preferred size and toppings. The shop backend will be written in **Object-Oriented PHP** and **MySQL**, as for the frontend, it will be done with **HTML/CSS**, and some **JavaScript** as well.
 
 ## Folder Structure ##
 
@@ -14,29 +14,44 @@ I will be creating an online webshop where you can buy multiple/different types 
  ┃ ┃ ┣ 📜_footer.scss
  ┃ ┃ ┣ 📜_general.scss
  ┃ ┃ ┣ 📜_header.scss
- ┃ ┃ ┗ 📜_reset.scss
+ ┃ ┃ ┣ 📜_index.scss
+ ┃ ┃ ┣ 📜_reset.scss
+ ┃ ┃ ┣ 📜_shop.scss
+ ┃ ┃ ┗ 📜_variable.scss
  ┃ ┣ 📂fonts
  ┃ ┣ 📂images
  ┃ ┃ ┣ 📂favicon
  ┃ ┃ ┃ ┗ 📜favicon.ico
  ┃ ┃ ┗ 📂layout
+ ┃ ┃ ┃ ┗ 📜sopranos-logo.png
  ┃ ┗ 📂js
- ┃ ┃ ┗ 📜index.js
+ ┃ ┃ ┣ 📂misc
+ ┃ ┃ ┃ ┗ 📜main.js
+ ┃ ┃ ┣ 📜ajax.js
+ ┃ ┃ ┗ 📜masonry.js
  ┣ 📂inc
+ ┃ ┣ 📂class
+ ┃ ┃ ┣ 📂Mollie
+ ┃ ┃ ┗ 📂PHPMailer
+ ┃ ┣ 📜ajax.php
  ┃ ┣ 📜class.php
  ┃ ┣ 📜connect.php
  ┃ ┗ 📜functions.php
- ┣ 📜about.php
+ ┣ 📜.htaccess
+ ┣ 📜cart.php
+ ┣ 📜checkout.php
  ┣ 📜index.php
- ┗ 📜README.md
+ ┣ 📜README.md
+ ┣ 📜shop.php
+ ┗ 📜sopranos.sql
 ```
 
 ## Requirements ##
-- Able to order online
-- Able to checkout online
-- Able to view the products
-- Able to see their order
-- Able to receive an invoice/confirmation mail
+- Able to order online...
+- Able to checkout online...
+- Able to view the products...
+- Able to see their order...
+- Able to receive an invoice/confirmation mail...
 
 ## Login to Admin Panel ##
 Although  not _required_, I will include an admin panel, which can be used to view your orders, edit products, and more. 
