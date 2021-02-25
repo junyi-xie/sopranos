@@ -585,20 +585,20 @@
                 ";
 
                 $aCoupon = $this->pdo->query($sSql);
-                $iResults = $aCoupon->fetch(\PDO::FETCH_ASSOC);
+                $Output = $aCoupon->fetch(\PDO::FETCH_ASSOC);
 
                 if($aCoupon->rowCount() > 0) {
                     
-                    $sType = 'percentage'; // to be changed
-
-                    switch ($sType) {
-                        case 'percentage':
-                            $this->price = $this->getPrice() - ($this->getPrice() * ($iResults['discount'] / 100));                        
+                    switch ($Output['type']) {
+                        case 1: # percentage
+                            $iTotalPrice = $this->getPrice() - ($this->getPrice() * ($Output['discount'] / 100));                        
                         break;
-                        case 'money':
-                            $this->price = $this->getPrice() - $iResults['discount'];
+                        case 2: # money
+                            $iTotalPrice = $this->getPrice() - $Output['discount'];
                         break;
                     }
+
+                        $this->setTotalPrice($iTotalPrice);
 
                     return true;
                 }
@@ -611,9 +611,22 @@
 
 
         /**
-         * Total Prize Setter.
+         * Total Price Setter.
          *
-         * @param float $prize
+         * @param float $price
+         * 
+         * @return void
+         */
+        private function setTotalPrice($price = 0.00) 
+        {
+            $this->price = $price;
+        }
+
+
+        /**
+         * Price Setter for each item.
+         *
+         * @param float $price
          * @param int $quantity
          * 
          * @return void
@@ -625,10 +638,8 @@
 
 
         /**
-         * Total Prize Getter.
+         * Total Price Getter.
          *
-         * @param int $number
-         * 
          * @return float
          */
         public function getPrice() 
@@ -921,7 +932,7 @@
          */
         public function __destruct() 
         {
-            // return clearSession();
+            return clearSession();
         }
     }
 ?>
