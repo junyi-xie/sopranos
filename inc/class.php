@@ -574,7 +574,7 @@
         protected function applyCoupon()
         {
 
-            if(!empty($this->getCoupon()) && is_numeric($this->getCoupon())) {
+            if(!empty($this->getCoupon()) && is_numeric($this->getCoupon()) && $this->getCoupon() > 0) {
 
                 $sSql = "
                     SELECT * FROM coupons
