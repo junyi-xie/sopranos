@@ -58,7 +58,6 @@
 
         <form action="shop.php" method="post">';
 
-        $t = 0;
 
         $html .= '<br/><br/><h2>CHOOSE TYPE</h2><br/>';
         foreach ($aTypePizzas as $type) {
@@ -151,7 +150,53 @@
 
 <!-- <?php echo $html ?> -->
 
-<div id="app" class="transparent main">
+
+<header></header>
+
+<div class="main">
+
+    <h2>Shopping Cart</h2>
+
+    <form action="shop.php" method="post">
+
+
+            <br/><br/><h2>CHOOSE TYPE</h2><br/>
+
+            <select name="type_id" id="type">
+            <?php foreach($aTypePizzas as $key=> $type): ?>
+                <option id="size-<?=$type['id'];?>" value="<?=$type['id'];?>"><?=$type['name'];?></option>
+                <span>&euro;<?= number_format($type['price'], 2)?></span><br/>
+            <?php endforeach; ?>
+            </select>
+
+            <br/><br/><h2>CHOOSE SIZE</h2><br/>
+
+            <select name="size_id" id="size">
+            <?php foreach($aSizePizzas as $key=> $size): ?>
+                <option id="size-<?=$size['id'];?>" value="<?=$size['id'];?>"><?=$size['name'];?></option>
+                <span>+ &euro;<?=number_format($size['price'], 2);?></span><br/>
+            <?php endforeach; ?>
+            
+            </select></br></br>
+
+            <br/><br/><h2>CHOOSE TOPPINGS</h2><br/>
+            <?php foreach($aToppingPizzas as $key=>$topping): ?>
+                <label for="type-<?= $topping['id']; ?>"><?= $topping['name']; ?></label>
+                <input type="checkbox" name="topping_id[<?= $topping['id']; ?>]" id="topping-<?=$topping['id'];?>" value="<?=$topping['name'];?>">
+                <span>+ &euro;<?= number_format($topping['price'], 2) ?> </span><br/>
+            <?php endforeach; ?>
+
+            <br/><br/>
+            <!-- <input type="text" name="coupon_code" placeholder="coupon code?"><br/> -->
+            <input type="number" name="quantity" placeholder="how many?"><br/><br/>
+            <input type="submit" name="btnSubmit" value="more">
+            <input type="submit" name="btnDelete" value="Add to cart">
+
+            
+    </form>
+
+</div>
+<!-- <div id="app" class="transparent main">
     <header>
         <nav>
             <ul>
@@ -170,7 +215,7 @@
     <footer>
         <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzabar. All Rights Reserved.</p>
     </footer>
-</div>
+</div> -->
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
 
