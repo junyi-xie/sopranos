@@ -1,11 +1,9 @@
-    /* responsive breakpoints */
     $screen-sm-min: 576px;
     $screen-md-min: 768px;
     $screen-lg-min: 992px;
     $screen-xl-min: 1200px;
 
 
-    /* mixins */
     @mixin sm {
         @media (min-width: #{$screen-sm-min}) {
             @content;
@@ -37,6 +35,5 @@
     }
 
 
-    /* colors */
     $white: rgb(255, 255, 255);
     $black: rgb(0, 0, 0);

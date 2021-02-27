@@ -1,6 +1,21 @@
-    .main {
-        padding-right: 15px;
-        padding-left: 15px;
+    html,
+    body {
+        font-size: 16px;
+        font-family: "Mr Eaves XL Modern", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+        // color: ;
+    }
+    
+    .site__content_container {
+        height: auto;
+        min-height: 100%;
+    }
+
+    .site__main {
+        padding: 0;
+    }
+
+    .site__wrapper {
         margin-right: auto;
         margin-left: auto;
 
@@ -20,11 +35,3 @@
             width: 1170px;
         }
     }
-
-    .site__content_container {
-        height: auto;
-        min-height: 100%;
-    }
-
-    
-      

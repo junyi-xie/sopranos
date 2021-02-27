@@ -18,46 +18,125 @@
 </head>
 <body>
 
+<?php include_once("inc/header.php") ?>
+
 <div class="site__content_container">
 
-    
-<h2>Checkout</h2>
+    <div class="site__main">
 
-<form action="checkout.php" method="post">
+        <div class="site__wrapper">
 
-<legend>Contact info</legend>
-    <input type="email" name="email" placeholder="Email address"><br/>
-    <!-- <div>* Your Name must include a First and Last Name</div> -->
+            <?php if (empty($_SESSION['sopranos'])): /* if (empty($_SESSION['sopranos']['order'])): */ ?>
+                
+            <div class="shopping_cart__container">
+            
+                <div class="shopping_cart--empty">
+                
+                    <div class="empty_shopping_cart_container">
+                    
+                        <div class="empty_shopping_cart--center empty_shopping_cart--image">
 
+                            <!-- image -->
 
-    <legend>Shipping info</legend>
-    <input type="text" name="first_name" placeholder="First name"><br/>
+                        </div>
 
-    <input type="text" name="last_name" placeholder="Last name"><br/>
-        
-    <input type="text" name="adres" placeholder="Street address"><br/>
+                        <div class="empty_shopping_cart--center">
 
-    
-    
-    <input type="text" name="city" placeholder="City"><br/>
+                            <h1>Your cart is empty.</h1>
+                        
+                        </div>
 
-    <input type="text" name="province" placeholder="Province"><br/>
+                    </div>
 
+                </div>
 
-    <input type="text" name="zipcode" placeholder="Postal code"><br/>
-    
-    <input type="text" name="country" placeholder="country"><br/>
-    
-    
-    <input type="tel" name="phone" placeholder="Phone number"><br/>
+            </div>
 
-    <input type="submit" value="Place your order">
+            <?php else: ?>
 
-</form>
+            <div class="checkout__wrapper">
+            
+                <form action="checkout.php" method="post">
 
+                    <div class="checkout__container">
+                    
+                        <div class="checkout_form">
 
+                            <div class="checkout_form__header">
+                        
+                                <h2>Checkout</h2>
+
+                            </div>
+
+                            <fieldset>
+                    
+                                <legend>Contact info</legend>
+
+                                <input type="email" name="email" placeholder="Email address"><br/>
+
+                            </fieldset>
+
+                            <fieldset>
+
+                                <legend>Shipping info</legend>
+
+                                <input type="text" name="first_name" placeholder="First name"><br/>
+
+                                <input type="text" name="last_name" placeholder="Last name"><br/>
+                                    
+                                <input type="text" name="adres" placeholder="Street address"><br/>
+
+                                <input type="text" name="city" placeholder="City"><br/>
+
+                                <input type="text" name="province" placeholder="Province"><br/>
+
+                                <input type="text" name="zipcode" placeholder="Postal code"><br/>
+
+                                <input type="text" name="country" placeholder="country"><br/>
+
+                                <input type="tel" name="phone" placeholder="Phone number"><br/>
+
+                            </fieldset>            
+
+                            <div class="checkout_form__footer">
+                            
+                                <button type="submit" value="Place your order">Place your order</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="order_summary__container">
+                    
+                        <div class="order_summary__info">
+
+                            <!-- order summary info -->
+
+                        </div>
+                    
+                        <div class="order_summary__help">
+                        
+                            <!-- coupon etc -->
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <?php endif; ?>
+
+        </div>
+
+    </div>
 
 </div>
+
+<?php include_once("inc/footer.php") ?>
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
 </body>

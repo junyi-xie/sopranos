@@ -47,42 +47,48 @@ table {
   border-spacing: 0;
 }
 
-/* responsive breakpoints */
-/* mixins */
-/* colors */
-.main {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-@media (min-width: 576px) {
-  .main {
-    width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-  .main {
-    width: 750px;
-  }
-}
-
-@media (min-width: 992px) {
-  .main {
-    width: 970px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .main {
-    width: 1170px;
-  }
+html,
+body {
+  font-size: 16px;
+  font-family: "Mr Eaves XL Modern", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
 }
 
 .site__content_container {
   height: auto;
   min-height: 100%;
+}
+
+.site__main {
+  padding: 0;
+}
+
+.site__wrapper {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .site__wrapper {
+    width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .site__wrapper {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .site__wrapper {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .site__wrapper {
+    width: 1170px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
