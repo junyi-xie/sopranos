@@ -5,9 +5,7 @@
         <div class="site__header_control">
         
             <div class="site__logo">
-
-                <img src="assets/images/layout/sopranos-logo-header.png">
-
+                <a href="index.php"><img class="" title="Sopranos Pizzabar" src="assets/images/layout/sopranos-logo-header.png"></a>
             </div>
 
         </div>
