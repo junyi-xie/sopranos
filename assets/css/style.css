@@ -108,6 +108,10 @@ a {
   text-decoration: none;
 }
 
+header {
+  background-color: white;
+}
+
 footer {
   background: white;
 }

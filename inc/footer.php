@@ -54,9 +54,9 @@
 
                     <h3 class="nav__header">Follow</h3>
 
-                    <li class="nav__item"><a class="icon__facebook_link" title="Facebook" target="_blank" href="#">Facebook</a></li>    
+                    <li class="nav__item"><a class="icon__twitter_link" title="Twitter" target="_blank" href="#">Twitter</a></li>    
 
-                    <li class="nav__item"><a class="icon__twitter_link" title="Twitter" target="_blank" href="#">Twitter</a></li>                
+                    <li class="nav__item"><a class="icon__facebook_link" title="Facebook" target="_blank" href="#">Facebook</a></li>    
 
                     <li class="nav__item"><a class="icon__instagram_link" title="Instagram" target="_blank" href="#">Instagram</a></li>      
 

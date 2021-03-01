@@ -1,4 +1,4 @@
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><header class="site__header">
+<header class="site__header">
 
     <div class="site__header_wrapper">
 
