@@ -18,11 +18,8 @@
 </head>
 <body>
 
-<a href="index.php">Home</a>
-<a href="shop.php">Shop</a>        
-<a href="checkout.php">Checkout</a>    
-<a href="cart.php">Cart</a>  
-
+<?php include_once("inc/header.php") ?>
+<?php include_once("inc/footer.php") ?>
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
 </body>

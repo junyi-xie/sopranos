@@ -52,6 +52,7 @@ body {
   font-size: 16px;
   font-family: "Mr Eaves XL Modern", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
+  color: black;
 }
 
 .site__content_container {
@@ -90,5 +91,196 @@ body {
   .site__wrapper {
     width: 1170px;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+  color: #f58220;
+  font-family: "GT Haptik", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  background: white;
+}
+
+.site__footer {
+  margin: 20px 0px 0px 0px;
+  border-top: solid 1px #d8dae0;
+  padding: 40px 30px;
+}
+
+.site__footer_wrapper {
+  margin: 0px;
+}
+
+.site__footer_content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav__items {
+  display: inline-block;
+  padding: 0px 3.5rem;
+}
+
+.nav__items .nav__header {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.nav__items .nav__item {
+  display: block;
+  margin-bottom: 10px;
+  padding-right: 5px;
+  color: #6A6F72;
+}
+
+.nav__items .nav__item .nav__item_link {
+  color: #6A6F72;
+}
+
+.nav__items .nav__item .nav__item_link:hover {
+  color: black;
+  opacity: 0.8;
+}
+
+.nav__items .nav__item .icon__facebook_link,
+.nav__items .nav__item .icon__twitter_link,
+.nav__items .nav__item .icon__instagram_link,
+.nav__items .nav__item .icon__pinterest_link {
+  color: #6A6F72;
+}
+
+.nav__items .nav__item .icon__facebook_link:hover {
+  color: #3B5998;
+}
+
+.nav__items .nav__item .icon__twitter_link:hover {
+  color: #00B6F1;
+}
+
+.nav__items .nav__item .icon__instagram_link:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav__items .nav__item .icon__pinterest_link:hover {
+  color: #C91517;
+}
+
+.site__social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-right: 1rem;
+}
+
+.site__social .site__logo {
+  padding: 0;
+  height: auto;
+}
+
+.site__social .site__social_links {
+  margin: 0;
+}
+
+.site__social .site__social_links .site__social_link {
+  width: 40px;
+  height: 40px;
+  background-color: #f6f6f9;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.site__social .site__social_links .site__social_link .icon__facebook_link i,
+.site__social .site__social_links .site__social_link .icon__twitter_link i,
+.site__social .site__social_links .site__social_link .icon__instagram_link i,
+.site__social .site__social_links .site__social_link .icon__pinterest_link i {
+  font-size: 125%;
+}
+
+.site__social .site__social_links .site__social_link .icon__facebook_link:hover {
+  color: #3B5998;
+}
+
+.site__social .site__social_links .site__social_link .icon__twitter_link:hover {
+  color: #00B6F1;
+}
+
+.site__social .site__social_links .site__social_link .icon__instagram_link:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.site__social .site__social_links .site__social_link .icon__pinterest_link:hover {
+  color: #C91517;
+}
+
+.footer__legal {
+  margin-top: 20px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.footer__legal .site__copyright {
+  font-size: 14px;
+  color: #6A6F72;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

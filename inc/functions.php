@@ -364,6 +364,30 @@
         return true;
     }
 
+
+    /**
+     * Truncate the desired table, used just to clear data instead of manually deleting records inside the database.
+     *
+     * @param int|null $id
+     * @param mixed|null $pdo
+     * 
+     * @return array
+     */
+    function selectBranches($id = null, $pdo = null) {
+
+        if(empty($pdo)) {
+            global $pdo;
+        }
+
+        $sSql = "SELECT * FROM branches WHERE 1 AND status = 1";
+
+        if (!is_null($id) && $id > 0) {
+            $sSql .= " AND id = $id LIMIT 1";
+        }
+
+        return $pdo->query($sSql)->fetch(PDO::FETCH_ASSOC);
+    }
+
     
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
@@ -371,4 +395,5 @@
     $aSizePizzas = selectAllById('pizzas_size');
     $aToppingPizzas = selectAllById('pizzas_topping');
 
+    $aBrancheSopranos = selectBranches(1);
 ?>

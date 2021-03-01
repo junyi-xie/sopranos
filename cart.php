@@ -24,28 +24,9 @@
 </head>
 <body>
 
+<?php include_once("inc/header.php") ?>
 
-
-<div id="app" class="transparent main">
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="shop.php">Shop</a></li>
-                <li><a href="checkout.php">Checkout</a></li>        
-                <li><a href="cart.php">Cart</a></li>         
-            </ul>
-        </nav>
-    </header>
-
-    <div class="content">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In voluptates dolores minima laborum eaque eveniet consequuntur officiis saepe autem, magni sequi sapiente nemo reprehenderit, harum aliquam error? Nisi, maiores quisquam.</p>
-    </div>
-
-    <footer>
-        <p>Copyright &copy; <?php echo date("Y")?> Sopranos Pizzabar. All Rights Reserved.</p>
-    </footer>
-</div>
+<?php include_once("inc/footer.php") ?>
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
 
