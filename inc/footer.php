@@ -8,7 +8,7 @@
 
                 <div class="site__social">
 
-                    <a class="site__logo_link" href="index.php"><img class="site__logo_image" title="Sopranos Pizzabar" src="assets/images/layout/sopranos-logo.png"></a>
+                    <a class="site__logo_link" href="index.php"><img class="site__logo_image" title="Sopranos Pizzabar" src="assets/images/layout/sopranos-logo-footer.png"></a>
 
                     <?php /* <ul class="site__social_links"><li class="site__social_link"><a class="icon__facebook_link" target="_blank" href="#"><i class="fa fa-facebook-f"></i></a></li><li class="site__social_link"><a class="icon__twitter_link" target="_blank" href="#"><i class="fa fa-twitter"></i></a></li><li class="site__social_link"><a class="icon__instagram_link" target="_blank" href="#"><i class="fa fa-instagram"></i></a></li><li class="site__social_link"><a class="icon__pinterest_link" target="_blank" href="#"><i class="fa fa-pinterest"></i></a></li></ul> */ ?>
 
@@ -36,7 +36,7 @@
 
                     <li class="nav__item"><?php echo $aBrancheSopranos['adres'] ?></li>                
 
-                    <li class="nav__item"><?php echo $aBrancheSopranos['zipcode']."\t".$aBrancheSopranos['city'] ?></li>      
+                    <li class="nav__item"><?php echo $aBrancheSopranos['zipcode']."\t".$aBrancheSopranos['city'] ?></li> 
 
                 </ul>
 

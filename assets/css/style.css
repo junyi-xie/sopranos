@@ -112,13 +112,22 @@ header {
   background-color: white;
 }
 
+.site__header {
+  border-bottom: 1px solid #edeff3;
+}
+
+.site__header_content {
+  padding-right: 2.75rem;
+  padding-left: 3.75rem;
+}
+
 footer {
   background: white;
 }
 
 .site__footer {
   margin: 20px 0px 0px 0px;
-  border-top: solid 1px #d8dae0;
+  border-top: 1px solid #d8dae0;
   padding: 40px 30px;
 }
 
@@ -155,6 +164,7 @@ footer {
 }
 
 .footer__nav .nav__items {
+  border-left: 1px solid #edeff3;
   display: inline-block;
   padding: 0px 3rem;
 }

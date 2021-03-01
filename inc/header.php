@@ -1,26 +1,22 @@
 <header class="site__header">
 
-    <div class="site__header_wrapper">
+    <div class="site__header_content">
 
-        <div class="site__header_content">
-    
-            <div class="site__header_control">
-            
-                <div class="site__logo">
+        <div class="site__header_control">
+        
+            <div class="site__logo">
 
-                    <!-- logo -->
-
-                </div>
+                <img src="assets/images/layout/sopranos-logo-header.png">
 
             </div>
 
-            <nav class="site__menu">
-                
-                <!-- nav -->
-
-            </nav>
-    
         </div>
+
+        <nav class="site__menu">
+            
+            <!-- nav -->
+
+        </nav>
 
     </div>
 
