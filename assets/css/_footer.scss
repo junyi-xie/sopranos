@@ -24,118 +24,130 @@
 
     .footer__nav {
         display: flex;
-    }
+        flex-direction: row;
+        margin: 0 auto;
 
+        .nav__items {
+            display: inline-block;
+            padding: 0px 3rem;
 
-    .nav__items {
-        display: inline-block;
-        padding: 0px 3.5rem;
+            .nav__header {
+                font-weight: 600;
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
 
-        .nav__header {
-            font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .nav__item {
-            display: block;
-            margin-bottom: 10px;
-            padding-right: 5px;
-            color: $grey;
-
-            .nav__item_link {
+            .nav__item {
+                display: block;
+                margin-bottom: 10px;
+                padding-right: 5px;
                 color: $grey;
-                
-                &:hover {
-                    color: $black;
-                    opacity: 0.8;
+
+                .nav__item_link {
+                    color: $grey;
+                    
+                    &:hover {
+                        color: $black;
+                        opacity: 0.8;
+                    }
                 }
-            }
 
-            .icon__facebook_link,
-            .icon__twitter_link,
-            .icon__instagram_link,
-            .icon__pinterest_link {
-                color: $grey;
-            }
-
-            .icon__facebook_link:hover {
-                color: $facebook;
-            }
-        
-            .icon__twitter_link:hover {
-                color: $twitter;
-            }
-        
-            .icon__instagram_link:hover {
-                background: $instagram;
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-        
-            .icon__pinterest_link:hover {
-                color: $pinterest;
-            }
-        }
-    }
-
-
-    .site__social {
-        display: flex;
-        float: left;
-        flex-direction: column;
-        margin-right: 1rem;
-
-        .site__logo {
-            padding: 0;
-            height: auto;
-        }
-
-        .site__social_links {
-            margin: 0;
-
-            .site__social_link {
-                width: 40px;
-                height: 40px;
-                background-color: $white-alt;
-                border-radius: 50%;
-                margin-right: 0.5rem;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                vertical-align: middle;
-
-                .icon__facebook_link i,
-                .icon__twitter_link i,
-                .icon__instagram_link i,
-                .icon__pinterest_link i{
-                    font-size: 125%;
+                .icon__facebook_link,
+                .icon__twitter_link,
+                .icon__instagram_link,
+                .icon__pinterest_link {
+                    color: $grey;
                 }
 
                 .icon__facebook_link:hover {
                     color: $facebook;
                 }
-
+            
                 .icon__twitter_link:hover {
                     color: $twitter;
                 }
-
+            
                 .icon__instagram_link:hover {
                     background: $instagram;
                     background-clip: text;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                 }
-
+            
                 .icon__pinterest_link:hover {
                     color: $pinterest;
                 }
             }
         }
+
+        .site__social {
+            display: flex;
+            float: left;
+            flex-direction: column;
+            margin-right: 1rem;
+
+            .site__logo_link {
+                padding: 0;
+                height: auto;
+
+                .site__logo_image {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
+            }
+
+            .site__social_links {
+                margin: 0;
+
+                .site__social_link {
+                    width: 40px;
+                    height: 40px;
+                    background-color: $white-alt;
+                    border-radius: 50%;
+                    margin-right: 0.5rem;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    vertical-align: middle;
+
+                    .icon__facebook_link,
+                    .icon__twitter_link,
+                    .icon__instagram_link,
+                    .icon__pinterest_link {
+                        margin: 0;
+
+                        i {
+                            font-size: 125%;
+                        }
+                    }
+
+                    .icon__facebook_link:hover {
+                        color: $facebook;
+                    }
+
+                    .icon__twitter_link:hover {
+                        color: $twitter;
+                    }
+
+                    .icon__instagram_link:hover {
+                        background: $instagram;
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
+
+                    .icon__pinterest_link:hover {
+                        color: $pinterest;
+                    }
+                }
+            }
+        }
     }
+
     
+
     .footer__legal {
         margin-top: 20px;
         width: 100%;
