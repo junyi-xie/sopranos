@@ -4,7 +4,7 @@
 
     .site__footer {
         margin: 20px 0px 0px 0px;
-        border-top: 1px solid #d8dae0;
+        border-top: 1px solid $line-alt;
         padding: 40px 30px;
     }
 
@@ -28,11 +28,12 @@
         margin: 0 auto;
 
         .nav__items {
-            border-left: 1px solid #edeff3;
+            border-left: 1px solid $line;
             display: inline-block;
             padding: 0px 3rem;
 
             .nav__header {
+                font-family: $font-secondary;
                 font-weight: 600;
                 font-size: 18px;
                 margin-bottom: 20px;
@@ -91,7 +92,7 @@
                 padding: 0;
                 height: auto;
 
-                .site__logo_image {
+                .site__logo_icon {
                     width: 100%;
                     height: auto;
                     display: block;

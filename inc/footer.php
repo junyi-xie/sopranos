@@ -8,7 +8,7 @@
 
                 <div class="site__social">
 
-                    <a class="site__logo_link" href="index.php"><img class="site__logo_image" title="Sopranos Pizzabar" src="assets/images/layout/sopranos-logo-footer.png"></a>
+                    <a class="site__logo_icon" href="index.php"><img class="site__logo_image" title="Sopranos Pizzabar" src="assets/images/layout/sopranos-logo-footer.png"></a>
 
                     <?php /* <ul class="site__social_links"><li class="site__social_link"><a class="icon__facebook_link" target="_blank" href="#"><i class="fa fa-facebook-f"></i></a></li><li class="site__social_link"><a class="icon__twitter_link" target="_blank" href="#"><i class="fa fa-twitter"></i></a></li><li class="site__social_link"><a class="icon__instagram_link" target="_blank" href="#"><i class="fa fa-instagram"></i></a></li><li class="site__social_link"><a class="icon__pinterest_link" target="_blank" href="#"><i class="fa fa-pinterest"></i></a></li></ul> */ ?>
 
@@ -24,7 +24,9 @@
 
                     <li class="nav__item"><a class="nav__item_link" title="Store page" href="shop.php">Store page</a></li>      
 
-                    <li class="nav__item"><a class="nav__item_link" title="Shopping cart" href="cart.php">Shopping cart</a></li>    
+                    <li class="nav__item"><a class="nav__item_link" title="Contact" href="contact.php">Contact</a></li>    
+
+                    <li class="nav__item"><a class="nav__item_link" title="Shopping cart" href="cart.php">Shopping cart</a></li>  
 
                 </ul>
 
@@ -32,11 +34,11 @@
 
                     <h3 class="nav__header">Visit</h3>
 
-                    <li class="nav__item"><?php echo $aBrancheSopranos['name'] ?></li>    
+                    <li class="nav__item"><?php echo $aSopranosBranches[0]['name'] ?></li>    
 
-                    <li class="nav__item"><?php echo $aBrancheSopranos['adres'] ?></li>                
+                    <li class="nav__item"><?php echo $aSopranosBranches[0]['adres'] ?></li>                
 
-                    <li class="nav__item"><?php echo $aBrancheSopranos['zipcode']."\t".$aBrancheSopranos['city'] ?></li> 
+                    <li class="nav__item"><?php echo $aSopranosBranches[0]['zipcode']."\t".$aSopranosBranches[0]['city'] ?></li> 
 
                 </ul>
 
@@ -44,9 +46,9 @@
 
                     <h3 class="nav__header">Connect</h3>
 
-                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aBrancheSopranos['email'].'" href="mailto:'.$aBrancheSopranos['email'].'">'.$aBrancheSopranos['email'].'</a>' ?></li>    
+                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aSopranosBranches[0]['email'].'" href="mailto:'.$aSopranosBranches[0]['email'].'">'.$aSopranosBranches[0]['email'].'</a>' ?></li>    
 
-                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aBrancheSopranos['phone'].'" href="tel:'.$aBrancheSopranos['phone'].'">'.$aBrancheSopranos['phone'].'</a>' ?></li>                
+                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aSopranosBranches[0]['phone'].'" href="tel:'.$aSopranosBranches[0]['phone'].'">'.$aSopranosBranches[0]['phone'].'</a>' ?></li>                
 
                 </ul>
 

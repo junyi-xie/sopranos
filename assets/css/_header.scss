@@ -3,22 +3,125 @@
     }
 
     .site__header {
-        border-bottom: 1px solid #edeff3;
+        border-bottom: 1px solid $line;
+
+        & > div {
+            display: flex;
+        }
     }
 
     .site__header_content {
-        padding-right: 3.75rem;
-        padding-left: 4.75rem;
+        padding-right: 2.75rem;
+        padding-left: 3.75rem;
     }
+
+    .site__notification {
+        display: none;
+        overflow: hidden;
+        max-height: 0;
+        padding: 0;
+
+        .notification__message {
+            padding-right: 2rem;
+            position: relative;
+
+            .notification__message_text {
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+    }
+
 
     .site__header_control {
+        flex: 1;
+        display: inline-flex;
+        z-index: 2000;
+        height: auto;
+        margin-left: auto;
 
+        .site__logo {
+            display: block;
+            padding: 10px 16px 10px 0px;
+            height: 3.75rem;
+
+            .site__logo_icon {
+                width: auto;
+                height: 100%;
+                display: block;
+            }
+        }
     }
-
-    .site__logo {
-
-    }
+    
 
     .site__menu {
+        font-family: $font-primary;
+        z-index: 2000;
+        height: auto;
+        display: inline-flex;
+        float: right;
         
+        .menu__list {
+            display: flex;
+            align-items: center;
+
+            .menu__container {
+                padding: 0;
+                height: auto;
+
+                .menu__item {
+                    display: inline-block;
+                    vertical-align: middle;
+                    
+                    .menu__link {
+                        display: block;
+                        padding: 1rem;
+                        cursor: pointer;
+                        color: $black-alt;
+
+                        &:hover {
+                            color: lighten($orange, 10%);
+                        }
+                    }
+
+                    .menu__link--highlight {
+                        color: $orange;
+                        font-weight: bold;
+
+                        &:hover {
+                            color: darken($orange, 15%)
+                        }
+                    }
+
+                    .menu__link-shopping-cart-container {
+                        position: relative;
+                        display: inline-block;
+                        bottom: -0.125rem;
+                        width: 1.3rem;
+
+                        .ts-icon-cart {
+                            color: initial;
+                            bottom: -0.125rem;
+                            left: -0.0625rem;
+
+                            i {
+                                font-size: 115%;
+                            }
+                        }
+
+                        .site__shopping-cart-count {
+                            background-color: $yellow;
+                            padding: 0px 4px;
+                            color: #0a0918;
+                            font-size: 10px;
+                            border-radius: 2px;
+                            font-weight: 600;
+                            position: absolute;
+                            bottom: 0.625rem;
+                            left: -0.375rem;
+                        }
+                    }
+                }
+            }
+        }
     }
