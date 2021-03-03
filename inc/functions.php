@@ -368,15 +368,15 @@
     /**
      * Get list of country, used for checkout form.
      *
-     * @param string $case
+     * @param string $type
      * 
      * @return string
      */
-    function getListCountry($case = 'select') {
+    function getListCountry($type = 'select') {
 
         $string = '';
 
-        switch ($case) {
+        switch ($type) {
             case 'select':
                 $string .= '
                 <option value="" selected disabled>Select Country...</option>

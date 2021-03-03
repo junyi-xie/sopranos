@@ -1,3 +1,9 @@
+    *, 
+    ::after, 
+    ::before {
+        box-sizing: border-box;
+    }
+
     html,
     body {
         font-size: 16px;
@@ -53,9 +59,8 @@
 
     fieldset {
         position: relative;
-        border: none;
-        margin: 0;
-        padding: 0;
+    } 
+
+    .hidden {
+        display: none;
     }
-    
-    

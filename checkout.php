@@ -4,6 +4,8 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
+
+    // printr($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +29,10 @@
 
         <div class="site__wrapper">
 
+            <div class="form__message form__message--error">
+                <!-- error message -->
+            </div>
+
             <div class="checkout__wrapper">
             
                 <form class="order_form" id="order_form" action="checkout.php" accept-charset="UTF-8" method="post">
@@ -47,9 +53,13 @@
                                     
                                     <legend class="checkout__legend">Contact info</legend>
 
-                                    <input class="form__textfield form__textfield--full" type="email" name="email" placeholder="Email address">
+                                    <input class="form__textfield form__textfield--full js-checkout-email" type="email" name="customer[email]" placeholder="Email address" id="order_form_email">
 
-                                    <input class="form__textfield form__textfield--full" type="tel" name="phone" placeholder="Phone number">
+                                    <div class="form__error js-form-error--checkout-email hidden">* Enter a valid email address</div>
+
+                                    <input class="form__textfield form__textfield--full" type="tel" name="customer[phone]" placeholder="Phone number" id="order_form_phone">
+
+                                    <div class="form__error js-form-error--checkout-phone hidden">* Enter a valid phone number</div>
 
                                 </div>
 
@@ -65,33 +75,43 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full" type="text" name="first_name" placeholder="First name">
+                                            <input class="form__textfield form__textfield--full js-shipping-first-name" type="text" name="customer[first_name]" placeholder="First name" id="order_form_first_name">
+
+                                            <div class="form__error js-form-error--first-name hidden">* Enter your first name</div>
 
                                         </div>
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full" type="text" name="last_name" placeholder="Last name">
+                                            <input class="form__textfield form__textfield--full js-shipping-last-name" type="text" name="customer[last_name]" placeholder="Last name" id="order_form_last_name">
+
+                                            <div class="form__error js-form-error--last-name hidden">* Enter your last name</div>
 
                                         </div>
 
                                     </div>
                                         
-                                    <input class="form__textfield form__textfield--full" type="text" name="address" placeholder="Street address">
+                                    <input class="form__textfield form__textfield--full js-shipping-address" type="text" name="customer[address]" placeholder="Street address" id="order_form_address">
 
-                                    <input class="form__textfield form__textfield--full" type="text" name="address_2" placeholder="Apt / Suite / Other (optional)">
+                                    <div class="form__error js-form-error--shipping-address hidden">* Enter a valid address</div>
+
+                                    <input class="form__textfield form__textfield--full" type="text" name="customer[address_2]" placeholder="Apt / Suite / Other (optional)" id="order_form_address_2">
 
                                     <div class="checkout_form__row">
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full" type="text" name="city" placeholder="City">
+                                            <input class="form__textfield form__textfield--full js-shipping-city" type="text" name="customer[city]" placeholder="City" id="order_form_city">
 
+                                            <div class="form__error js-form-error--shipping-city hidden">* Enter a valid city</div>
+                                        
                                         </div>
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full" type="text" name="province" placeholder="Province">
+                                            <input class="form__textfield form__textfield--full js-shipping-province" type="text" name="customer[province]" placeholder="Province" id="order_form_province">
+
+                                            <div class="form__error js-form-error--shipping-province hidden">* Enter a valid province</div>
 
                                         </div>
                                     
@@ -101,17 +121,21 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full" type="text" name="zipcode" placeholder="Postal code">
+                                            <input class="form__textfield form__textfield--full js-shipping-zipcode" type="text" name="customer[zipcode]" placeholder="Postal code" id="order_form_zip">
+                                            
+                                            <div class="form__error js-form-error--shipping-zip hidden">* Enter a valid zip code</div>
 
                                         </div>
 
                                         <div class="checkout__input--half">
 
-                                            <select class="form__textfield form__textfield--full" type="text" name="country" placeholder="Country">
+                                            <select class="form__textfield form__textfield--full js-shipping-country" type="text" name="customer[country]" placeholder="Country" id="order_form_country">
 
                                                 <?= getListCountry(); ?>
 
                                             </select>
+
+                                            <div class="form__error js-form-error--shipping-country hidden">* Select a valid country</div>
 
                                         </div>
                                     
@@ -134,8 +158,30 @@
                     <div class="order_summary__container">
                     
                         <div class="order_summary__info">
-                        
-                            <!-- order summary info -->
+
+                            <div class="checkout__summary_heading">
+
+                                <h4 class="checkout__summary_title">
+                                    
+                                    <span class="checkout__summary__title">Order summary</span>
+
+                                    <a class="order_summary__modify_order" href="cart.php" title="Modify order">Modify order</a>
+
+                                </h4>
+
+                            </div>
+
+                            <div class="checkout__separator--page"></div>
+
+                            <div class="orders_summary__wrapper">
+                            
+                            <?php 
+                            
+                            // foreach $_SESSIOn shit
+
+                            ?>
+
+                            </div>
 
                         </div>
                     
