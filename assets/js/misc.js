@@ -1,29 +1,49 @@
     /* Copyright (c) - 2021 by Junyi Xie */	
 
     $(document).ready(function(){
-
-
+        
         $(".form__textfield").blur(function() {
 
-            input = $(this);
+            var boolen = false;
+            var output = false;
 
-            if(input === $("#order_form_email, #order_form_phone, #order_form_first_name, #order_form_last_name, #order_form_address, #order_form_city, #order_form_province, #order_form_zip, #order_form_country") ) {
 
-                if( !input.val() ) {
+            switch ($(this).attr('id')) {
+                case 'order_form_email':
+                    $.ajax({
+                        url:"inc/ajax.php",
+                        type: "post",
+                        data: {
+                            action: 'validate_email',
+                            email: $(this).val(),
+                        },
+                        success: function(result){
+                            console.log(result);
+                            if(result == 'true') {
+                                 boolen = true;
+                            }
+                        },
+                    });
+                break;
+                case ('order_form_phone' || 'order_form_first_name' || 'order_form_last_name' || 'order_form_address' || 'order_form_city' || 'order_form_province' || 'order_form_province' || 'order_form_country'):
 
-                    input.addClass('error--inline');
-                    input.next().removeClass('hidden');
-
-                }  else {
-                    input.removeClass('error--inline');
-                    input.next().addClass('hidden');
-                }  
+                    if( !$(this).val() && boolen ){
+                        $(this).addClass('error--inline');
+                        $(this).next().removeClass('hidden');
+                    }  else {
+                        $(this).removeClass('error--inline');
+                        $(this).next().addClass('hidden');
+                    }
+                break;
             }
+
         });
 
-        $("#promo_code_link").click(function(){
-            console.log('t');
-            $(this).data('clicked', true);
+
+        $("#coupon_code_link").click(function(){
+
+            $(this).addClass("hidden");
+            $('.js-coupon-code-wrapper').removeClass("hidden");
         });
 
     });

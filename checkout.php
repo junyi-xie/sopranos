@@ -57,7 +57,7 @@
 
                                     <div class="form__error js-form-error--checkout-email hidden">* Enter a valid email address</div>
 
-                                    <input class="form__textfield form__textfield--full" type="tel" name="customer[phone]" placeholder="Phone number" id="order_form_phone">
+                                    <input class="form__textfield form__textfield--full js-checkout-phone" type="tel" name="customer[phone]" placeholder="Phone number" id="order_form_phone">
 
                                     <div class="form__error js-form-error--checkout-phone hidden">* Enter a valid phone number</div>
 
@@ -203,25 +203,23 @@
                     
                         <div class="order_summary__help">
                         
-                            <div class="promo_code_link__container">
-                                
-                                <button type="button" class="promo_code_link" id="promo_code_link">I have a promo code</button>
-                            
-                            </div>
+                            <?php /* <div class="coupon_code_link__container"><button type="button" class="coupon_code_link js-coupon-button" id="coupon_code_link">I have a coupon code</button></div> */ ?>
 
-                            <div class="promo_code__wrapper hidden" id="promo_code_box">
+                            <div class="coupon_code__wrapper js-coupon-code-wrapper" id="coupon_code_box">
                                 
-                                <legend class="checkout__legend">Promo Code</legend>
+                                <legend class="checkout__legend">Coupon Code</legend>
                                 
-                                <div class="promo_code__container">
+                                <div class="coupon_code__container">
                                     
-                                    <input class="form__textfield form__textfield--full" placeholder="Enter your code here" type="text" value="" name="new_order_form[promo_code]" id="new_order_form_promo_code" couponinputbound="true">
+                                    <input class="form__textfield form__textfield--full" placeholder="Enter your code here" type="text" value="" name="coupon_code" id="order_form_coupon_code">
                                     
-                                    <button class="button button--secondary" id="promo_code_apply">Apply</button>
+                                    <button type="button" class="button--apply" id="coupon_code_apply">Apply</button>
+
+                                    <button type="button" class="button--apply disabled hidden" id="promo_code_applying">Applying…</button>
 
                                 </div>
                                 
-                                <div class="promo_code_message js-promo-code-message">
+                                <div class="coupon_code_message js-coupon-code-message">
                                     
                                 </div>
 
