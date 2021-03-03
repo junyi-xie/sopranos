@@ -175,11 +175,27 @@
 
                             <div class="orders_summary__wrapper">
                             
-                            <?php 
-                            
-                            // foreach $_SESSIOn shit
+                                <?php 
+                                // order_summary_section
+                                // foreach $_SESSIOn shit
 
-                            ?>
+                                ?>
+
+                                <div class="order_summary__total_container">
+
+                                    <div class="order_summary__total_label">
+                                    
+                                        <span class="order_summary__total_label--text">Order total</span>
+
+                                    </div>
+
+                                    <div class="order_summary__total">
+
+                                        <span class="order_summary__total_price"><?php // input price ?></span>
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
@@ -187,7 +203,29 @@
                     
                         <div class="order_summary__help">
                         
-                            <!-- coupon etc -->
+                            <div class="promo_code_link__container">
+                                
+                                <button type="button" class="promo_code_link" id="promo_code_link">I have a promo code</button>
+                            
+                            </div>
+
+                            <div class="promo_code__wrapper hidden" id="promo_code_box">
+                                
+                                <legend class="checkout__legend">Promo Code</legend>
+                                
+                                <div class="promo_code__container">
+                                    
+                                    <input class="form__textfield form__textfield--full" placeholder="Enter your code here" type="text" value="" name="new_order_form[promo_code]" id="new_order_form_promo_code" couponinputbound="true">
+                                    
+                                    <button class="button button--secondary" id="promo_code_apply">Apply</button>
+
+                                </div>
+                                
+                                <div class="promo_code_message js-promo-code-message">
+                                    
+                                </div>
+
+                            </div>
 
                         </div>
 

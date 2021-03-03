@@ -527,6 +527,7 @@ footer {
   float: left;
   margin-left: 10px;
   margin-right: 10px;
+  padding: 0.5rem 0 0.5rem 5rem;
 }
 
 .checkout_form__header {
@@ -641,7 +642,9 @@ footer {
 }
 
 .order_summary__info {
-  padding: 0.5rem 0 0.5rem 5rem;
+  padding: 0;
+  background-color: white;
+  margin-bottom: 2.6rem;
 }
 
 .order_summary__help {
@@ -678,5 +681,22 @@ footer {
 .checkout__separator--page {
   opacity: 0.15;
   border-bottom: 1px solid #6c7478;
+}
+
+.promo_code__container {
+  margin-bottom: 1.8rem;
+}
+
+.promo_code_link {
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  color: #212032;
+}
+
+.promo_code_link:hover {
+  color: #af1e48;
 }
 /*# sourceMappingURL=style.css.map */
