@@ -34,11 +34,11 @@
 
                     <h3 class="nav__header">Visit</h3>
 
-                    <li class="nav__item"><?php echo $aSopranosBranches[0]['name'] ?></li>    
+                    <li class="nav__item"><?php echo $aSopranosBranches['name'] ?></li>    
 
-                    <li class="nav__item"><?php echo $aSopranosBranches[0]['adres'] ?></li>                
+                    <li class="nav__item"><?php echo $aSopranosBranches['adres'] ?></li>                
 
-                    <li class="nav__item"><?php echo $aSopranosBranches[0]['zipcode']."\t".$aSopranosBranches[0]['city'] ?></li> 
+                    <li class="nav__item"><?php echo $aSopranosBranches['zipcode']."\t".$aSopranosBranches['city'] ?></li> 
 
                 </ul>
 
@@ -46,9 +46,9 @@
 
                     <h3 class="nav__header">Connect</h3>
 
-                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aSopranosBranches[0]['email'].'" href="mailto:'.$aSopranosBranches[0]['email'].'">'.$aSopranosBranches[0]['email'].'</a>' ?></li>    
+                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aSopranosBranches['email'].'" href="mailto:'.$aSopranosBranches['email'].'">'.$aSopranosBranches['email'].'</a>' ?></li>    
 
-                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aSopranosBranches[0]['phone'].'" href="tel:'.$aSopranosBranches[0]['phone'].'">'.$aSopranosBranches[0]['phone'].'</a>' ?></li>                
+                    <li class="nav__item"><?php echo '<a class="nav__item_link" title="'.$aSopranosBranches['phone'].'" href="tel:'.$aSopranosBranches['phone'].'">'.$aSopranosBranches['phone'].'</a>' ?></li>                
 
                 </ul>
 

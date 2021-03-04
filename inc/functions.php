@@ -333,7 +333,9 @@
         $sql = "SELECT * FROM $table";    
 
         if (!is_null($id)) {
-            $sql .= " WHERE id = $id";
+            $sql .= " WHERE id = $id LIMIT 1";
+
+            return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
         }
 
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -644,6 +646,8 @@
         global $pdo;
         global $aSopranosBranches;
 
+
+        $iPrice = 0;        
         $sTemplate = '';
 
         if(!empty($aOrderList) && is_array($aOrderList)) {
@@ -659,25 +663,21 @@
                         LIMIT 1                    
                 ";
 
-                $aSqlType = $pdo->query($sSqlType)->fetch();
+                $aSqlType = $pdo->query($sSqlType)->fetch(PDO::FETCH_ASSOC);
 
-                $sSqlSize = "
-                    SELECT * FROM pizzas_size
-                        WHERE 1
-                        AND id = ".$aOrderItem['size_id']."
-                        LIMIT 1
-                ";
+                $aSqlSize = selectAllById('pizzas_size', $aOrderItem['size_id']);
 
-                $aSqlSize = $pdo->query($sSqlSize)->fetch();
+                $iPrice += $aSqlType['price'] * $aOrderItem['quantity'];
 
-                
+                $iPrice += $aSqlSize['price'] * $aOrderItem['quantity'];
+
                 $sTemplate .= '<div class="order_summary_section">';
 
                     $sTemplate .= '<div class="order_summary">';
 
                         $sTemplate .= '<div class="order_summary_brand">';
 
-                            $sTemplate .= '<h5 class="order_summary_title">'.$aSopranosBranches[0]['name'].' - '.$aSopranosBranches[0]['city'].'</h5>';
+                            $sTemplate .= '<h5 class="order_summary_title">'.$aSopranosBranches['name'].' - '.$aSopranosBranches['city'].'</h5>';
 
                         $sTemplate .= '</div>';   
                                  
@@ -693,45 +693,48 @@
 
                                 $sTemplate .= '<span class="order_summary__item_title">'.$aSqlType['name'].'</span>';
 
-                                    $sTemplate .= '<ul class="order_summary__item_options">';
-                                    
-                                        $sTemplate .= '<li class="order_summary__item_label">'.$aSqlSize['size'].'</li>';
+                                $sTemplate .= '<ul class="order_summary__item_options">';
+                                
+                                    $sTemplate .= '<li class="order_summary__item_label">'.$aSqlSize['size'].'</li>';
 
-                                        if(!empty($aOrderItem['topping_id'])) {
-                                            foreach ($aOrderItem['topping_id'] as $iToppingId => $sToppingName) {
-                                                $sTemplate .= '<li class="order_summary__item_label">'.$sToppingName.'</li>';
-                                            }
+                                    if(!empty($aOrderItem['topping_id'])) {
+                                        foreach ($aOrderItem['topping_id'] as $iToppingId => $sToppingName) {
+
+                                            $iToppingPrice = selectAllById('pizzas_topping', $iToppingId);
+                                            $iPrice += $iToppingPrice['price'] * $aOrderItem['quantity'];
+                                            $sTemplate .= '<li class="order_summary__item_label">'.$sToppingName.'</li>';
                                         }
-                                               
-                                    $sTemplate .= '</ul>';
-
-                                $sTemplate .= '</div>';
-
-                                $sTemplate .= '<div class="order_summary__item_quantity_and_price">';
-
-                                    $sTemplate .= '<span class="order_summary__item_quantity">'.$aOrderItem['quantity'].' x</span>';
+                                    }
                                             
-                                    $sTemplate .= '<span class="order_summary__item_price">€20.00 EUR</span>';
+                                $sTemplate .= '</ul>';
 
-                                $sTemplate .= '</div>';
-                                        
                             $sTemplate .= '</div>';
 
+                            $sTemplate .= '<div class="order_summary__item_quantity_and_price">';
+
+                                $sTemplate .= '<span class="order_summary__item_quantity">'.$aOrderItem['quantity'].' x</span>';
+                                            
+                                $sTemplate .= '<span class="order_summary__item_price">€ '.number_format((float)$iPrice, 2, '.', '').' EUR</span>';
+
+                            $sTemplate .= '</div>';
+                                        
                         $sTemplate .= '</div>';
 
-                        $sTemplate .= '<div class="order_summary__breakdown">';
+                    $sTemplate .= '</div>';
 
-                            $sTemplate .= '<div class="order_summary__discount">';
+                    $sTemplate .= '<div class="order_summary__breakdown">';
 
-                                $sTemplate .= '<div>';
+                        $sTemplate .= '<div class="order_summary__discount">';
 
-                                    $sTemplate .= '<span class="order_summary__discount_label">Discount</span>';
+                            $sTemplate .= '<div>';
 
-                                    $sTemplate .= '<span class="order_summary__discount_tax">(10%)</span>';
+                                $sTemplate .= '<span class="order_summary__discount_label">Discount</span>';
 
-                                $sTemplate .= '</div>';
+                                $sTemplate .= '<span class="order_summary__discount_tax">(10%)</span>';
+
+                            $sTemplate .= '</div>';
                         
-                                $sTemplate .= '<span class="order_summary__discount_money text-right">-€1.65 EUR</span>';
+                            $sTemplate .= '<span class="order_summary__discount_money text-right">-€1.65 EUR</span>';
                                         
                         $sTemplate .= '</div>';
 
@@ -739,10 +742,10 @@
 
                             $sTemplate .= '<span class="order_summary__delivery_label">Delivery</span>';
 
-                            $sTemplate .= '<span class="order_summary__delivery_value text-right">€3.99 EUR</span>';
+                            $sTemplate .= '<span class="order_summary__delivery_value text-right">€0.00 EUR</span>';
 
                         $sTemplate .= '</div>';
-                                        
+                                            
                         $sTemplate .= '<div class="order_summary__subtotal">';
 
                             $sTemplate .= '<span class="order_summary__subtotal_label">Sub-total</span>';
@@ -765,12 +768,35 @@
             }
         }
 
-        // exit();
+        $sTemplate .= '<div class="order_summary__total_container">';
+
+            $sTemplate .= '<div class="order_summary__total_label">';
+                                    
+                $sTemplate .= '<span class="order_summary__total_label--text">Order total</span>';
+
+            $sTemplate .= '</div>';
+
+            $sTemplate .= '<div class="order_summary__total">';
+
+                $sTemplate .= '<span class="order_summary__total_price">€35.52 EUR</span>';
+
+            $sTemplate .= '</div>';
+
+        $sTemplate .= '</div>';
+
+
         return $sTemplate;
     }
 
 
     function calculatePrice() {
+
+
+
+    }
+
+
+    function selectLeftJoinSql() {
 
 
 
@@ -790,7 +816,9 @@
 
         if(!empty($aCartArray) && is_array($aCartArray)) {
             foreach($aCartArray as $key => $val) {
-                $iCount += $val['quantity'];
+                if(isset($val['quantity'])) {
+                    $iCount += $val['quantity'];
+                }
             }
         }
 

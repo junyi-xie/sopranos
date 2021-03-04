@@ -173,23 +173,7 @@
 
                             <div class="orders_summary__wrapper">
                             
-                                <?php echo createCheckoutOrderList($_SESSION['sopranos']['order']); ?>
-
-                                <div class="order_summary__total_container">
-
-                                    <div class="order_summary__total_label">
-                                    
-                                        <span class="order_summary__total_label--text">Order total</span>
-
-                                    </div>
-
-                                    <div class="order_summary__total">
-
-                                        <span class="order_summary__total_price">€35.52 EUR<?php // input price ?></span>
-
-                                    </div>
-
-                                </div>
+                                <?php if(!empty($_SESSION['sopranos']['order'])){ echo createCheckoutOrderList($_SESSION['sopranos']['order']); } ?>
 
                             </div>
 
