@@ -6,12 +6,21 @@
 
     if(isset($_POST['action']) && !empty($_POST['action'])) {
 
+        $date = date("Y-m-d H:i:s");
         $action = $_POST['action'];
 
         switch($action) {
             case 'validate_email': 
                 $bEmail = isEmailValid($_POST['email']);
                 echo json_encode($bEmail);
+            break;
+            case 'apply_coupon':
+                $aValidCoupons = selectValidCoupons($date);
+                $iCoupon = validateCouponCode($aValidCoupons, $_POST['code']);
+                echo json_encode($iCoupon);
+            break;
+            case '':
+                
             break;
         }
     }    

@@ -631,6 +631,29 @@
         return $string;
     }
     
+
+    /**
+     * Create checkout template for the products, group the correct information together by their respective parent.
+     *
+     * @param array $array
+     * 
+     * @return string
+     */
+    function createCheckoutOrders($array = array()) {
+
+        $sTemplate = '';
+
+
+        printr($array);
+
+
+        exit();
+        return $sTemplate;
+    }
+
+
+
+
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
     $aTypePizzas = selectAllById('pizzas_type');
