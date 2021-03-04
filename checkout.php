@@ -4,8 +4,6 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
-
-    printr($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -175,101 +173,7 @@
 
                             <div class="orders_summary__wrapper">
                             
-                            <!-- start -->
-                                <div class="order_summary_section">
-
-                                    <div class="order_summary">
-
-                                        <div class="order_summary_brand">
-                                            <h5 class="order_summary_title">test</h5>
-                                        </div>
-                                    
-                                        <div class="order_summary_items">
-
-                                            <div class="order_summary__item_image_container">
-                                            <img src="https://vangogh.teespring.com/static.jpg?height=570&amp;image_url=https%3A%2F%2Fs3.amazonaws.com%2Fteespring-pub-custom%2F17c_14382581_product_375_100047_front.png&amp;padded=false&amp;signature=8o8azyMznjaT2vsN32jV0Sexx0rnmiQSdioCfwpZS1A%3D&amp;version=2021-02-28-21-05-36&amp;width=120">
-                                            </div>
-
-                                            <div class="order_summary__item_name">
-
-                                                <span class="order_summary__item_title">
-
-                                                Women's Classic Tee
-                                                </span>
-
-                                                <ul class="order_summary__item_options">
-
-                                                    <li class="order_summary__item_label">testt</li>
-                                                    <li class="order_summary__item_label">appel moes</li>
-                                                    <li class="order_summary__item_label">appel moes</li>
-                                                    <li class="order_summary__item_label">appel moes</li>
-                                                    <li class="order_summary__item_label">appel moes</li>
-                                                    <li class="order_summary__item_label">appel moes</li>
-                                                
-                                                </ul>
-
-                                            </div>
-
-                                            <div class="order_summary__item_quantity_and_price">
-
-                                                <span class="order_summary__item_quantity">
-                                                1x
-                                                </span>
-                                            
-                                                <span class="order_summary__item_price">
-                                                €20.88 EUR
-                                                </span>
-
-                                            </div>
-                                        
-                                        </div>
-
-                                    </div>
-
-                                    <div class="order_summary__breakdown">
-
-                                        <div class="order_summary__discount--label">
-
-                                        <!-- discount percentage shit, left -->
-                                        </div>
-                                        
-                                        <div class="order_summary__discount--rate">
-                                        <!-- discount money shit, right -->
-                                        </div>
-
-
-                                        <div class="order_summary__shipping--label">
-
-                                        <!-- discount percentage shit, left -->
-                                        </div>
-                                        
-                                        <div class="order_summary__shipping--value">
-                                        <!-- shipping money shit, right -->
-                                        </div>
-
-
-                                        <div class="order_summary__subtotal--label">
-
-                                        <!-- subtotal  shit, left -->
-                                        </div>
-                                        
-                                        <div class="order_summary__subtotal--price">
-                                        <!-- subtotal money shit, right -->
-                                        </div>
-
-                                    </div>
-
-                                    <div class="checkout__separator--page"></div>
-
-                                </div>
-
-                                <!-- end -->
-
-                                <?php 
-                                // order_summary_section
-                                // foreach $_SESSIOn shit
-
-                                ?>
+                                <?php echo createCheckoutOrderList($_SESSION['sopranos']['order']); ?>
 
                                 <div class="order_summary__total_container">
 
@@ -281,7 +185,7 @@
 
                                     <div class="order_summary__total">
 
-                                        <span class="order_summary__total_price">teste<?php // input price ?></span>
+                                        <span class="order_summary__total_price">€35.52 EUR<?php // input price ?></span>
 
                                     </div>
 

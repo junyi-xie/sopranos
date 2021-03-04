@@ -639,19 +639,163 @@
      * 
      * @return string
      */
-    function createCheckoutOrders($array = array()) {
+    function createCheckoutOrderList($aOrderList = array()) {
+
+        global $pdo;
+        global $aSopranosBranches;
 
         $sTemplate = '';
 
+        if(!empty($aOrderList) && is_array($aOrderList)) {
+            foreach ($aOrderList as $iKey => $aOrderItem) {
 
-        printr($array);
+                $sSqlType = "
+                    SELECT pt.*, i.* FROM pizzas_type AS pt
+                    LEFT JOIN images AS i 
+                        ON i.id = pt.image_id
+                        WHERE 1
+                        AND pt.quantity > 0
+                        AND pt.id = ".$aOrderItem['type_id']."
+                        LIMIT 1                    
+                ";
 
+                $aSqlType = $pdo->query($sSqlType)->fetch();
 
-        exit();
+                $sSqlSize = "
+                    SELECT * FROM pizzas_size
+                        WHERE 1
+                        AND id = ".$aOrderItem['size_id']."
+                        LIMIT 1
+                ";
+
+                $aSqlSize = $pdo->query($sSqlSize)->fetch();
+
+                
+                $sTemplate .= '<div class="order_summary_section">';
+
+                    $sTemplate .= '<div class="order_summary">';
+
+                        $sTemplate .= '<div class="order_summary_brand">';
+
+                            $sTemplate .= '<h5 class="order_summary_title">'.$aSopranosBranches[0]['name'].' - '.$aSopranosBranches[0]['city'].'</h5>';
+
+                        $sTemplate .= '</div>';   
+                                 
+                        $sTemplate .= '<div class="order_summary_items">';
+
+                            $sTemplate .= '<div class="order_summary__item_image_container">';
+
+                                $sTemplate .= '<img src="assets/images/layout/'.$aSqlType['link'].'">';   
+
+                            $sTemplate .= '</div>';
+
+                            $sTemplate .= '<div class="order_summary__item_name">';
+
+                                $sTemplate .= '<span class="order_summary__item_title">'.$aSqlType['name'].'</span>';
+
+                                    $sTemplate .= '<ul class="order_summary__item_options">';
+                                    
+                                        $sTemplate .= '<li class="order_summary__item_label">'.$aSqlSize['size'].'</li>';
+
+                                        if(!empty($aOrderItem['topping_id'])) {
+                                            foreach ($aOrderItem['topping_id'] as $iToppingId => $sToppingName) {
+                                                $sTemplate .= '<li class="order_summary__item_label">'.$sToppingName.'</li>';
+                                            }
+                                        }
+                                               
+                                    $sTemplate .= '</ul>';
+
+                                $sTemplate .= '</div>';
+
+                                $sTemplate .= '<div class="order_summary__item_quantity_and_price">';
+
+                                    $sTemplate .= '<span class="order_summary__item_quantity">'.$aOrderItem['quantity'].' x</span>';
+                                            
+                                    $sTemplate .= '<span class="order_summary__item_price">€20.00 EUR</span>';
+
+                                $sTemplate .= '</div>';
+                                        
+                            $sTemplate .= '</div>';
+
+                        $sTemplate .= '</div>';
+
+                        $sTemplate .= '<div class="order_summary__breakdown">';
+
+                            $sTemplate .= '<div class="order_summary__discount">';
+
+                                $sTemplate .= '<div>';
+
+                                    $sTemplate .= '<span class="order_summary__discount_label">Discount</span>';
+
+                                    $sTemplate .= '<span class="order_summary__discount_tax">(10%)</span>';
+
+                                $sTemplate .= '</div>';
+                        
+                                $sTemplate .= '<span class="order_summary__discount_money text-right">-€1.65 EUR</span>';
+                                        
+                        $sTemplate .= '</div>';
+
+                        $sTemplate .= '<div class="order_summary__delivery">';
+
+                            $sTemplate .= '<span class="order_summary__delivery_label">Delivery</span>';
+
+                            $sTemplate .= '<span class="order_summary__delivery_value text-right">€3.99 EUR</span>';
+
+                        $sTemplate .= '</div>';
+                                        
+                        $sTemplate .= '<div class="order_summary__subtotal">';
+
+                            $sTemplate .= '<span class="order_summary__subtotal_label">Sub-total</span>';
+
+                            $sTemplate .= '<div>';
+
+                                $sTemplate .= '<span class="order_summary__subtotal_price_without_discount text-right">€25.62 EUR</span>';
+
+                                $sTemplate .= '<span class="order_summary__subtotal_price text-right">€35.52 EUR</span>';
+
+                            $sTemplate .= '</div>';
+
+                        $sTemplate .= '</div>';
+
+                    $sTemplate .= '</div>';
+
+                    $sTemplate .= '<div class="checkout__separator--page"></div>';
+
+                $sTemplate .= '</div>';
+            }
+        }
+
+        // exit();
         return $sTemplate;
     }
 
 
+    function calculatePrice() {
+
+
+
+    }
+
+
+    /**
+     * Pass sopranos order array to this function and count the quantity items in the array. Return the item count.
+     *
+     * @param array $aCartArray
+     * 
+     * @return int
+     */
+    function cartItemCount($aCartArray = array()) {
+
+        $iCount = 0;
+
+        if(!empty($aCartArray) && is_array($aCartArray)) {
+            foreach($aCartArray as $key => $val) {
+                $iCount += $val['quantity'];
+            }
+        }
+
+        return $iCount;
+    }
 
 
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
@@ -662,6 +806,5 @@
 
     $aSopranosBranches = selectAllById('branches', 1);
 
-    $iShoppingCartCount = isset($_SESSION['sopranos']['order']) ? count($_SESSION['sopranos']['order']) : 0;;
-
+    $iShoppingCartCount = isset($_SESSION['sopranos']['order']) ? cartItemCount($_SESSION['sopranos']['order']) : 0;
 ?>
