@@ -42,8 +42,7 @@
             saveCustomerOrder($data);
 
             if (isset($_POST['btnDelete'])) {
-                header("location: http://localhost:8080/sopranos/shop.php?page=form");
-                exit();
+                header("location: http://localhost:8080/sopranos/checkout.php");
                 
             } else {
                 header("location: http://localhost:8080/sopranos/shop.php");
