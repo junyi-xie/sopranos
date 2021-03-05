@@ -340,17 +340,13 @@
                                     
                                     <input class="form__textfield form__textfield--full js-coupon-code" placeholder="Enter your code here" type="text" name="coupon_code" id="order_form_coupon_code">
                                     
-                                    <button type="button" class="button--apply js-apply" id="coupon_code_apply">Apply</button>
+                                    <button type="button" class="button--apply js-coupon-apply" id="coupon_code_apply">Apply</button>
 
-                                    <button type="button" class="button--apply js-applying disabled hidden" id="promo_code_applying">Applying…</button>
+                                    <button type="button" class="button--apply js-coupon-applying disabled hidden" id="promo_code_applying">Applying…</button>
 
                                 </div>
                                 
-                                <div class="coupon_code_message js-coupon-code-message">
-                                    
-                                    <!-- success or failed message -->
-
-                                </div>
+                                <div class="coupon_code_message js-coupon-code-message"></div>
 
                             </div>
 

@@ -9,41 +9,50 @@
 
 
         $("#coupon_code_apply").click(function() {
-  
-            $('.js-applying').removeClass('hidden');
-            $('.js-apply').addClass('hidden');
-            $('.js-coupon-code').prop('disabled', true);
 
-            $.ajax({
-                url:"inc/ajax.php",
-                type: "post",
-                data: {
-                    action: 'apply_coupon',
-                    code: $('.js-coupon-code').val(),
-                },
-                success: function(result){
-                    switch (result) {
-                        case 'null':
-                            $('.js-coupon-code-message').addClass('failure').html('Not a valid coupon code.');    
-                        break;
-                        default:
-                            $('.js-coupon-code-message').addClass('success').html('Coupon code applied.');
-                        break;
-                    }
-                    console.log(result);
-                },
-            });
+            var coupon_message = $('.js-coupon-code-message');
+            var coupon_value = $('.js-coupon-code');
+            var coupon_apply = $('.js-coupon-apply');
+            var coupon_apply_secondary = $('.js-coupon-applying');
 
-            $('.js-applying').addClass('hidden');
-            $('.js-apply').removeClass('hidden');
-            $('.js-coupon-code').prop('disabled', false);
-        
+            coupon_apply.addClass('hidden');
+            coupon_apply_secondary.removeClass('hidden');
+            coupon_value.prop('disabled', true);
+
+            setTimeout(function() {
+                $.ajax({
+                    url:"inc/ajax.php",
+                    type: "post",
+                    data: {
+                        action: 'apply_coupon',
+                        code: coupon_value.val(),
+                    },
+                    success: function(result){
+                        console.log(result);
+                        switch (result) {
+                            case 'null':
+                                coupon_message.removeClass('success').addClass('failure').html('Not a valid coupon code.');    
+                            break;
+                            default:
+                                coupon_message.removeClass('failure').addClass('success').html('Coupon code applied.');
+                            break;
+                        }
+                    },
+                });
+
+                coupon_apply_secondary.addClass('hidden');
+                coupon_apply.removeClass('hidden');
+                coupon_value.prop('disabled', false);
+
+            }, 1500);
         });
         
         
         $(".form__textfield").blur(function() {
 
             var input = $(this);
+            var email = $('.js-checkout-email');
+            var email_error = $('.js-form-error--checkout-email');
 
             switch (input.attr('id')) {
                 case 'order_form_email':
@@ -57,12 +66,12 @@
                         success: function(result){
                             switch (result) {
                                 case 'true':
-                                    $('.js-checkout-email').removeClass('error--inline');
-                                    $('.js-form-error--checkout-email').addClass('hidden');
+                                    email.removeClass('error--inline');
+                                    email_error.addClass('hidden');
                                 break;
                                 case 'false':
-                                    $('.js-checkout-email').addClass('error--inline');
-                                    $('.js-form-error--checkout-email').removeClass('hidden');
+                                    email.addClass('error--inline');
+                                    email_error.removeClass('hidden');
                                 break;
                             }
                         },
