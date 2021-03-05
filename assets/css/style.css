@@ -703,7 +703,7 @@ footer {
 }
 
 .coupon_code__container {
-  margin-bottom: 1.8rem;
+  margin-bottom: 0.25rem;
 }
 
 .coupon_code_link {
@@ -739,11 +739,13 @@ footer {
 
 .coupon_code_message {
   text-align: left;
-  font-size: 16px;
+  font-size: 14px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 900;
 }
 
 .coupon_code_message.success {
-  color: #12652c;
+  color: #32b259;
 }
 
 .coupon_code_message.failure {

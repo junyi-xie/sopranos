@@ -2,9 +2,42 @@
 
     $(document).ready(function(){
 
-        $("#coupon_code_link").click(function(){
+        $("#coupon_code_link").click(function() {
             $(this).addClass("hidden");
             $('.js-coupon-code-wrapper').removeClass("hidden");
+        });
+
+
+        $("#coupon_code_apply").click(function() {
+  
+            $('.js-applying').removeClass('hidden');
+            $('.js-apply').addClass('hidden');
+            $('.js-coupon-code').prop('disabled', true);
+
+            $.ajax({
+                url:"inc/ajax.php",
+                type: "post",
+                data: {
+                    action: 'apply_coupon',
+                    code: $('.js-coupon-code').val(),
+                },
+                success: function(result){
+                    switch (result) {
+                        case 'null':
+                            $('.js-coupon-code-message').addClass('failure').html('Not a valid coupon code.');    
+                        break;
+                        default:
+                            $('.js-coupon-code-message').addClass('success').html('Coupon code applied.');
+                        break;
+                    }
+                    console.log(result);
+                },
+            });
+
+            $('.js-applying').addClass('hidden');
+            $('.js-apply').removeClass('hidden');
+            $('.js-coupon-code').prop('disabled', false);
+        
         });
         
         
@@ -33,21 +66,6 @@
                                 break;
                             }
                         },
-                    });
-                break;
-                case 'order_form_coupon_code':
-                    $("#coupon_code_apply").click(function(){
-                        $.ajax({
-                            url:"inc/ajax.php",
-                            type: "post",
-                            data: {
-                                action: 'apply_coupon',
-                                code: input.val(),
-                            },
-                            success: function(result){
-                                console.log(result);
-                            },
-                        });
                     });
                 break;
                 case 'order_form_phone':    
