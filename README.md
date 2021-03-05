@@ -8,6 +8,7 @@ I will be creating an online webshop where you can buy multiple/different types 
 📦sopranos
  ┣ 📂assets
  ┃ ┣ 📂css
+ ┃ ┃ ┣ 📜fontawesome.css
  ┃ ┃ ┣ 📜style.css
  ┃ ┃ ┣ 📜style.css.map
  ┃ ┃ ┣ 📜style.scss
@@ -19,24 +20,51 @@ I will be creating an online webshop where you can buy multiple/different types 
  ┃ ┃ ┣ 📜_shop.scss
  ┃ ┃ ┗ 📜_variable.scss
  ┃ ┣ 📂fonts
+ ┃ ┃ ┣ 📜fa-brands-400.eot
+ ┃ ┃ ┣ 📜fa-brands-400.svg
+ ┃ ┃ ┣ 📜fa-brands-400.ttf
+ ┃ ┃ ┣ 📜fa-brands-400.woff
+ ┃ ┃ ┣ 📜fa-brands-400.woff2
+ ┃ ┃ ┣ 📜fa-regular-400.eot
+ ┃ ┃ ┣ 📜fa-regular-400.svg
+ ┃ ┃ ┣ 📜fa-regular-400.ttf
+ ┃ ┃ ┣ 📜fa-regular-400.woff
+ ┃ ┃ ┣ 📜fa-regular-400.woff2
+ ┃ ┃ ┣ 📜fa-solid-900.eot
+ ┃ ┃ ┣ 📜fa-solid-900.svg
+ ┃ ┃ ┣ 📜fa-solid-900.ttf
+ ┃ ┃ ┣ 📜fa-solid-900.woff
+ ┃ ┃ ┗ 📜fa-solid-900.woff2
  ┃ ┣ 📂images
  ┃ ┃ ┣ 📂favicon
+ ┃ ┃ ┃ ┣ 📜android-chrome-192x192.png
+ ┃ ┃ ┃ ┣ 📜android-chrome-512x512.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon.png
+ ┃ ┃ ┃ ┣ 📜favicon-16x16.png
+ ┃ ┃ ┃ ┣ 📜favicon-32x32.png
  ┃ ┃ ┃ ┗ 📜favicon.ico
  ┃ ┃ ┗ 📂layout
- ┃ ┃ ┃ ┗ 📜sopranos-logo.png
+ ┃ ┃ ┃ ┣ 📜empty_cart.svg
+ ┃ ┃ ┃ ┣ 📜pizza-quattro-formaggio.png
+ ┃ ┃ ┃ ┣ 📜pizza-sopranos-deluxe.png
+ ┃ ┃ ┃ ┣ 📜pizza-tonno.png
+ ┃ ┃ ┃ ┣ 📜pizza-vegetariano.png
+ ┃ ┃ ┃ ┣ 📜sopranos-logo-footer.png
+ ┃ ┃ ┃ ┗ 📜sopranos-logo-header.png
  ┃ ┗ 📂js
- ┃ ┃ ┣ 📂misc
- ┃ ┃ ┃ ┗ 📜main.js
- ┃ ┃ ┣ 📜ajax.js
- ┃ ┃ ┗ 📜masonry.js
+ ┃ ┃ ┣ 📜jquery.min.js
+ ┃ ┃ ┗ 📜main.js
  ┣ 📂inc
  ┃ ┣ 📂class
  ┃ ┃ ┣ 📂Mollie
- ┃ ┃ ┗ 📂PHPMailer
+ ┃ ┃ ┣ 📂PHPMailer
+ ┃ ┃ ┗ 📂TCPDF
  ┃ ┣ 📜ajax.php
  ┃ ┣ 📜class.php
  ┃ ┣ 📜connect.php
- ┃ ┗ 📜functions.php
+ ┃ ┣ 📜footer.php
+ ┃ ┣ 📜functions.php
+ ┃ ┗ 📜header.php
  ┣ 📜.htaccess
  ┣ 📜cart.php
  ┣ 📜checkout.php
