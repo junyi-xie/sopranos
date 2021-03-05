@@ -4,6 +4,8 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
+
+    $test = false;
 ?>
 
 <!DOCTYPE html>
@@ -172,8 +174,154 @@
                             <div class="checkout__separator--page"></div>
 
                             <div class="orders_summary__wrapper">
-                            
-                                <?php if(!empty($_SESSION['sopranos']['order'])){ echo createCheckoutOrderList($_SESSION['sopranos']['order']); } ?>
+
+                                <?php $iTotalPrice = 0.00; ?>
+
+                                <?php foreach ($_SESSION['sopranos']['order'] as $key => $aOrderItem): ?>
+
+                                <?php $iSubtotalPrice = 0.00; ?>
+
+                                <div class="order_summary_section">
+
+                                    <div class="order_summary">
+
+                                        <div class="order_summary_brand">
+
+                                            <h5 class="order_summary_title"><?= $aSopranosBranches['name'].' - '.$aSopranosBranches['city']; ?></h5>
+
+                                        </div>   
+                                 
+                                        <div class="order_summary_items">
+
+                                            <div class="order_summary__item_image_container">
+
+                                                <?php $aSqlType = $pdo->query("SELECT pt.*, i.* FROM pizzas_type AS pt LEFT JOIN images AS i ON i.id = pt.image_id WHERE 1 AND pt.quantity > 0 AND pt.id = ".$aOrderItem['type_id']." LIMIT 1")->fetch(PDO::FETCH_ASSOC); ?>
+
+                                                <img src="assets/images/layout/<?= $aSqlType['link']; ?>">  
+
+                                                <?php $iSubtotalPrice += $aSqlType['price'] * $aOrderItem['quantity']; ?>
+
+                                            </div>
+
+                                            <div class="order_summary__item_name">
+
+                                                <span class="order_summary__item_title"><?= $aSqlType['name']; ?></span>
+
+                                                <ul class="order_summary__item_options">
+
+                                                    <?php $aSqlSize = selectAllById('pizzas_size', $aOrderItem['size_id']); ?>
+                                
+                                                    <li class="order_summary__item_label"><?= $aSqlSize['size']; ?></li>
+
+                                                    <?php $iSubtotalPrice += $aSqlSize['price'] * $aOrderItem['quantity']; ?>
+
+                                                    <?php if(!empty($aOrderItem['topping_id'])): foreach ($aOrderItem['topping_id'] as $iToppingId => $sToppingName): ?>
+
+                                                        <?php $iToppingPrice = selectAllById('pizzas_topping', $iToppingId); ?>
+                                                        
+                                                        <li class="order_summary__item_label"><?= $sToppingName; ?></li>
+                                                        
+                                                        <?php $iSubtotalPrice += $iToppingPrice['price'] * $aOrderItem['quantity']; ?>
+
+                                                    <?php endforeach; endif; ?>
+                                            
+                                                </ul>
+
+                                            </div>
+
+                                            <div class="order_summary__item_quantity_and_price">
+
+                                                <span class="order_summary__item_quantity"><?= $aOrderItem['quantity']; ?> x</span>
+                                                            
+                                                <span class="order_summary__item_price">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <div class="order_summary__breakdown">
+
+                                        <?php if($test): ?>
+
+                                        <div class="order_summary__discount js-order_summary__discount_wrapper">
+
+                                            <?php $iDiscountPrice = 0.00; ?>
+
+                                            <div>
+
+                                                <span class="order_summary__discount_label">Discount</span>
+
+                                                <?php // discount id select ?>
+
+                                                <span class="order_summary__discount_tax">(0%)</span>
+
+                                            </div>
+                        
+                                            <span class="order_summary__discount_money text-right">-€<?= $iDiscountPrice; ?> EUR</span>
+                                                                                    
+                                            <?php $iTotalPrice -= $iDiscountPrice; ?>
+
+                                        </div>
+
+                                        <?php endif; ?>
+
+                                        <div class="order_summary__delivery">
+                                                        
+                                            <?php $iDeliveryPrice = 0.00; ?>
+
+                                            <span class="order_summary__delivery_label">Delivery</span>
+
+                                            <span class="order_summary__delivery_value text-right">€<?= number_format((float)$iDeliveryPrice, 2, '.', ''); ?> EUR</span>
+
+                                            <?php $iTotalPrice += $iDeliveryPrice; ?>
+
+                                        </div>
+                                                
+                                        <div class="order_summary__subtotal">
+
+                                            <span class="order_summary__subtotal_label">Sub-total</span>
+
+                                            <div>
+
+                                                <?php if($test): ?>
+
+                                                <span class="order_summary__subtotal_price_without_discount text-right">€25.62 EUR</span>
+
+                                                <?php endif; ?>
+
+                                                <span class="order_summary__subtotal_price text-right">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="checkout__separator--page"></div>
+
+                                </div>
+                                                
+                                <?php $iTotalPrice += $iSubtotalPrice; ?>
+
+                                <?php endforeach; ?>
+        
+                                <div class="order_summary__total_container">
+
+                                    <div class="order_summary__total_label">
+                                                    
+                                        <span class="order_summary__total_label--text">Order total</span>
+
+                                    </div>
+
+                                    <div class="order_summary__total">
+                                                        
+                                        <span class="order_summary__total_price">€<?= number_format((float)$iTotalPrice, 2, '.', ''); ?> EUR</span>
+
+                                    </div>
+
+                                </div>
 
                             </div>
 

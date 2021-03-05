@@ -36,16 +36,18 @@
                     });
                 break;
                 case 'order_form_coupon_code':
-                    $.ajax({
-                        url:"inc/ajax.php",
-                        type: "post",
-                        data: {
-                            action: 'apply_coupon',
-                            code: input.val(),
-                        },
-                        success: function(result){
-                            console.log(result);
-                        },
+                    $("#coupon_code_apply").click(function(){
+                        $.ajax({
+                            url:"inc/ajax.php",
+                            type: "post",
+                            data: {
+                                action: 'apply_coupon',
+                                code: input.val(),
+                            },
+                            success: function(result){
+                                console.log(result);
+                            },
+                        });
                     });
                 break;
                 case 'order_form_phone':    

@@ -17,6 +17,9 @@
             case 'apply_coupon':
                 $aValidCoupons = selectValidCoupons($date);
                 $iCoupon = validateCouponCode($aValidCoupons, $_POST['code']);
+
+                // !is_null($iCoupon) ? createCheckoutOrderList($_SESSION['sopranos']['order'], $iCoupon) : 0; 
+
                 echo json_encode($iCoupon);
             break;
             case '':
