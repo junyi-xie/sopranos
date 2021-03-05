@@ -55,8 +55,8 @@
                 case 'order_form_last_name': 
                 case 'order_form_address': 
                 case 'order_form_city':
-                case 'order_form_province': 
                 case 'order_form_province':
+                case 'order_form_zip':
                 case 'order_form_country':
                     if(!input.val()){
                         input.addClass('error--inline');

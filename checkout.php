@@ -231,7 +231,7 @@
 
                                             <div class="order_summary__item_quantity_and_price">
 
-                                                <span class="order_summary__item_quantity"><?= $aOrderItem['quantity']; ?> x</span>
+                                                <span class="order_summary__item_quantity"><?= $aOrderItem['quantity']; ?>x</span>
                                                             
                                                 <span class="order_summary__item_price">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
 
