@@ -4,8 +4,6 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
-
-    $test = false;
 ?>
 
 <!DOCTYPE html>
@@ -175,7 +173,7 @@
 
                             <div class="orders_summary__wrapper">
 
-                                <?php $iTotalPrice = 0.00; ?>
+                                <?php $iTotalPrice = 0.00; $iCount = 0; ?>
 
                                 <?php foreach ($_SESSION['sopranos']['order'] as $key => $aOrderItem): ?>
 
@@ -232,8 +230,12 @@
                                             <div class="order_summary__item_quantity_and_price">
 
                                                 <span class="order_summary__item_quantity"><?= $aOrderItem['quantity']; ?>x</span>
+
+                                                <span class="js-order_item__quantity js-order_item__quantity_<?= $iCount; ?> hidden"><?= $aOrderItem['quantity']; ?></span>
                                                             
-                                                <span class="order_summary__item_price">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
+                                                <span class="order_summary__item_price">€<?= number_format((float)$iSubtotalPrice / $aOrderItem['quantity'], 2, '.', ''); ?> EUR</span>
+
+                                                <span class="js-order_item__price hidden"><?= number_format((float)$iSubtotalPrice / $aOrderItem['quantity'], 2, '.', ''); ?></span>
 
                                             </div>
                                         
@@ -242,10 +244,8 @@
                                     </div>
 
                                     <div class="order_summary__breakdown">
-
-                                        <?php if($test): ?>
-
-                                        <div class="order_summary__discount js-order_summary__discount_wrapper">
+        
+                                        <div class="order_summary__discount js-order_summary__discount_wrapper hidden">
 
                                             <?php $iDiscountPrice = 0.00; ?>
 
@@ -253,19 +253,15 @@
 
                                                 <span class="order_summary__discount_label">Discount</span>
 
-                                                <?php // discount id select ?>
-
-                                                <span class="order_summary__discount_tax">(0%)</span>
+                                                <span class="order_summary__discount_tax js-discount_tax_label">(0%)</span>
 
                                             </div>
                         
-                                            <span class="order_summary__discount_money text-right">-€<?= $iDiscountPrice; ?> EUR</span>
+                                            <span class="order_summary__discount_money text-right js-order_summary__discount_money js-order_summary__discount_money_<?= $iCount; ?>">-€<?= $iDiscountPrice; ?> EUR</span>
                                                                                     
                                             <?php $iTotalPrice -= $iDiscountPrice; ?>
 
                                         </div>
-
-                                        <?php endif; ?>
 
                                         <div class="order_summary__delivery">
                                                         
@@ -285,14 +281,9 @@
 
                                             <div>
 
-                                                <?php if($test): ?>
-                                                <!-- TO DO -->
+                                                <span class="order_summary__subtotal_price_without_discount text-right js-order_summary_no__discount hidden">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?></span>
 
-                                                <span class="order_summary__subtotal_price_without_discount text-right">€25.62 EUR</span>
-
-                                                <?php endif; ?>
-
-                                                <span class="order_summary__subtotal_price text-right">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
+                                                <span class="order_summary__subtotal_price text-right js-order_summary__subtotal_price js-order_summary__subtotal_price_<?= $iCount; ?>">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
 
                                             </div>
 
@@ -304,7 +295,7 @@
 
                                 </div>
                                                 
-                                <?php $iTotalPrice += $iSubtotalPrice; ?>
+                                <?php $iTotalPrice += $iSubtotalPrice; $iCount++; ?>
 
                                 <?php endforeach; ?>
         
@@ -318,8 +309,10 @@
 
                                     <div class="order_summary__total">
                                                         
-                                        <span class="order_summary__total_price">€<?= number_format((float)$iTotalPrice, 2, '.', ''); ?> EUR</span>
+                                        <span class="order_summary__total_price js-order_summary_total">€<?= number_format((float)$iTotalPrice, 2, '.', ''); ?> EUR</span>
 
+                                        <script> var order_total_price = <?php echo number_format((float)$iTotalPrice, 2, '.', ''); ?>; </script>
+                                    
                                     </div>
 
                                 </div>

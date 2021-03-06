@@ -31,9 +31,9 @@
             $data = array();
             $data = $_POST;
 
-            $coupon = $coupon_id;
+            // $coupon = $coupon_id;
 
-            saveInSession('coupon', $coupon);
+            // saveInSession('coupon', $coupon);
 
             unset($data['coupon_code']);
             unset($data['btnSubmit']);
@@ -85,7 +85,7 @@
 
         <br/><br/>
         <input type="text" name="coupon_code" placeholder="coupon code?"><br/>
-        <input type="number" name="quantity" placeholder="how many?"><br/><br/>
+        <input type="number" name="quantity" placeholder="how many?" min="1"><br/><br/>
         <input type="submit" name="btnSubmit" value="more">
         <input type="submit" name="btnDelete" value="checkout">
         </form><br/><br/><br/><br/><br/><br/>';
@@ -187,7 +187,7 @@
 
             <br/><br/>
             <!-- <input type="text" name="coupon_code" placeholder="coupon code?"><br/> -->
-            <input type="number" name="quantity" placeholder="how many?"><br/><br/>
+            <input type="number" name="quantity" placeholder="how many?" min="1" value="1"><br/><br/>
             <input type="submit" name="btnSubmit" value="more">
             <input type="submit" name="btnDelete" value="Add to cart">
 

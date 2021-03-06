@@ -17,11 +17,11 @@
             case 'apply_coupon':
                 $aValidCoupons = selectValidCoupons($date);
                 $iCoupon = validateCouponCode($aValidCoupons, $_POST['code']);
-
                 echo json_encode($iCoupon);
             break;
-            case '':
-                
+            case 'get_coupon':
+                $aCouponData = selectAllById('coupons', $_POST['coupon_id']);
+                echo json_encode($aCouponData);
             break;
         }
     }    
