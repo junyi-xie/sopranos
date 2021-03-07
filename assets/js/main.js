@@ -10,7 +10,6 @@
 
         $("#coupon_code_apply").click(function() {
 
-            var coupon_message = $('.js-coupon-code-message');
             var coupon_value = $('.js-coupon-code');
             var coupon_apply = $('.js-coupon-apply');
             var coupon_apply_secondary = $('.js-coupon-applying');
@@ -30,7 +29,7 @@
                     success: function(result){
                         switch (result) {
                             case 'null':
-                                coupon_message.removeClass('success').addClass('failure').html('Not a valid coupon code.');    
+                                $('.js-coupon-code-message').removeClass('success').addClass('failure').html('Not a valid coupon code.');    
                             break;
                             default:
                                 $.ajax({
@@ -42,37 +41,35 @@
                                     },
                                     success: function (data) {
 
-                                        //  IMPROVE THIS SECTION, MAKE IT CLEANER
                                         var coupon_data = JSON.parse(data);
+                                        var new_total_price = 0;
 
-                                        var order_summary_total = $('.js-order_summary_total');
-                                        var coupon_container = $('.js-order_summary__discount_wrapper');
-                                        var coupon_tax = $('.js-discount_tax_label');
-                                        var no_discount = $('.js-order_summary_no__discount');
+                                        switch (coupon_data.type) {
+                                            case 1:           
+                                            
+                                                $('.js-order_summary__discount_wrapper').removeClass('hidden');
+                                                $('.js-discount_tax_label').html('('+coupon_data.discount+'%)');
+ 
+                                                $('.js-order_summary_section').each(function(index) {
 
-                                        if(coupon_data.type == 1) {
-                                            coupon_container.removeClass('hidden');
-                                            coupon_tax.html('('+coupon_data.discount+'%)');
+                                                    var item_quantity = parseInt($('#order_summary__item_quantity-'+index).text().replace(/[^0-9\.]/g, ''));
+                                                    var item_price = parseFloat($('#order_summary__item_price-'+index).text().replace(/[^0-9\.]/g, ''));
+                                                    
+                                                    var new_price = ((item_price * ((100 - coupon_data.discount) / 100)) * item_quantity);
+                                                    var discount_price = ((item_price * item_quantity) - new_price);
 
-                                            $('.js-order_item__price').each(function(index) {
+                                                    new_total_price += new_price;
 
-                                                // NEW FORMULA
+                                                    $('#order_summary__discount_money-'+index).html('-€'+discount_price.toFixed(2)+' EUR');
+                                                    $('#order_summary__subtotal_price-'+index).html('€'+new_price.toFixed(2)+' EUR');
+                                                });
 
-                                                other_value = $(this).text() - ($(this).text() * coupon_data.discount / 100);
-                                                item_value = $(this).text() - ($(this).text() - ($(this).text() * coupon_data.discount / 100));
-                                                quantity = $('.js-order_item__quantity_'+index).text();
-                                                price = item_value * quantity;
-                                                other_price = other_value * quantity;
+                                                $('.js-order_summary__subtotal_price_without_discount').removeClass('hidden');
+                                                $('.js-order_summary_total').html('€'+new_total_price.toFixed(2)+' EUR');
+                                                $('.js-coupon-code-message').removeClass('failure').addClass('success').html('Coupon code applied.');
 
-                                                $('.js-order_summary__discount_money_'+index).html('-€'+price.toFixed(2)+' EUR');
-                                                $('.js-order_summary__subtotal_price_'+index).html('€'+other_price.toFixed(2)+' EUR');
-                                            });
-
-                                            no_discount.removeClass('hidden');
-                                            new_value = order_total_price - (order_total_price * coupon_data.discount / 100);
-                                            order_summary_total.html('€'+new_value.toFixed(2)+' EUR');
-                                            coupon_message.removeClass('failure').addClass('success').html('Coupon code applied.');
-                                        }       
+                                            break;
+                                        }
                                     }
                                 });
                             break;
@@ -135,4 +132,5 @@
                 break;
             }
         });
+
     });

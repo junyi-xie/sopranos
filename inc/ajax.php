@@ -23,6 +23,14 @@
                 $aCouponData = selectAllById('coupons', $_POST['coupon_id']);
                 echo json_encode($aCouponData);
             break;
+            case 'update_order_item':
+
+                // echo json_encode();
+            break;
+            case 'remove_order_item':
+
+                // echo json_encode();
+            break;
         }
     }    
 ?>

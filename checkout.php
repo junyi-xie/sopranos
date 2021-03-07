@@ -4,6 +4,8 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
+
+    printr($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -173,13 +175,13 @@
 
                             <div class="orders_summary__wrapper">
 
-                                <?php $iTotalPrice = 0.00; $iCount = 0; ?>
+                                <?php $iTotalPrice = 0.00; $iCounter = 0; ?>
 
                                 <?php foreach ($_SESSION['sopranos']['order'] as $key => $aOrderItem): ?>
 
                                 <?php $iSubtotalPrice = 0.00; ?>
 
-                                <div class="order_summary_section">
+                                <div class="order_summary_section js-order_summary_section" id="order_summary_section-<?= $iCounter; ?>">
 
                                     <div class="order_summary">
 
@@ -229,13 +231,9 @@
 
                                             <div class="order_summary__item_quantity_and_price">
 
-                                                <span class="order_summary__item_quantity"><?= $aOrderItem['quantity']; ?>x</span>
-
-                                                <span class="js-order_item__quantity js-order_item__quantity_<?= $iCount; ?> hidden"><?= $aOrderItem['quantity']; ?></span>
+                                                <span class="order_summary__item_quantity" id="order_summary__item_quantity-<?= $iCounter; ?>"><?= $aOrderItem['quantity']; ?>x</span>
                                                             
-                                                <span class="order_summary__item_price">€<?= number_format((float)$iSubtotalPrice / $aOrderItem['quantity'], 2, '.', ''); ?> EUR</span>
-
-                                                <span class="js-order_item__price hidden"><?= number_format((float)$iSubtotalPrice / $aOrderItem['quantity'], 2, '.', ''); ?></span>
+                                                <span class="order_summary__item_price" id="order_summary__item_price-<?= $iCounter; ?>">€<?= number_format((float)$iSubtotalPrice / $aOrderItem['quantity'], 2, '.', ''); ?> EUR</span>
 
                                             </div>
                                         
@@ -253,11 +251,11 @@
 
                                                 <span class="order_summary__discount_label">Discount</span>
 
-                                                <span class="order_summary__discount_tax js-discount_tax_label">(0%)</span>
+                                                <span class="order_summary__discount_tax js-discount_tax_label" id="order_summary__discount_tax-<?= $iCounter; ?>">(0%)</span>
 
                                             </div>
                         
-                                            <span class="order_summary__discount_money text-right js-order_summary__discount_money js-order_summary__discount_money_<?= $iCount; ?>">-€<?= $iDiscountPrice; ?> EUR</span>
+                                            <span class="order_summary__discount_money text-right" id="order_summary__discount_money-<?= $iCounter; ?>">-€<?= $iDiscountPrice; ?> EUR</span>
                                                                                     
                                             <?php $iTotalPrice -= $iDiscountPrice; ?>
 
@@ -269,7 +267,7 @@
 
                                             <span class="order_summary__delivery_label">Delivery</span>
 
-                                            <span class="order_summary__delivery_value text-right">€<?= number_format((float)$iDeliveryPrice, 2, '.', ''); ?> EUR</span>
+                                            <span class="order_summary__delivery_value text-right" id="order_summary__delivery_value-<?= $iCounter; ?>">€<?= number_format((float)$iDeliveryPrice, 2, '.', ''); ?> EUR</span>
 
                                             <?php $iTotalPrice += $iDeliveryPrice; ?>
 
@@ -281,9 +279,9 @@
 
                                             <div>
 
-                                                <span class="order_summary__subtotal_price_without_discount text-right js-order_summary_no__discount hidden">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?></span>
+                                                <span class="order_summary__subtotal_price_without_discount text-right js-order_summary__subtotal_price_without_discount hidden" id="order_summary__subtotal_price_without_discount-<?= $iCounter; ?>">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?></span>
 
-                                                <span class="order_summary__subtotal_price text-right js-order_summary__subtotal_price js-order_summary__subtotal_price_<?= $iCount; ?>">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
+                                                <span class="order_summary__subtotal_price text-right" id="order_summary__subtotal_price-<?= $iCounter; ?>">€<?= number_format((float)$iSubtotalPrice, 2, '.', ''); ?> EUR</span>
 
                                             </div>
 
@@ -295,7 +293,7 @@
 
                                 </div>
                                                 
-                                <?php $iTotalPrice += $iSubtotalPrice; $iCount++; ?>
+                                <?php $iTotalPrice += $iSubtotalPrice; $iCounter++; ?>
 
                                 <?php endforeach; ?>
         
@@ -308,10 +306,8 @@
                                     </div>
 
                                     <div class="order_summary__total">
-                                                        
+                                                                                                
                                         <span class="order_summary__total_price js-order_summary_total">€<?= number_format((float)$iTotalPrice, 2, '.', ''); ?> EUR</span>
-
-                                        <script> var order_total_price = <?php echo number_format((float)$iTotalPrice, 2, '.', ''); ?>; </script>
                                     
                                     </div>
 
