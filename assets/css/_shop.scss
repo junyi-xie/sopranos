@@ -1,30 +1,3 @@
-    .shopping_cart__container {
-        margin-top: 60px;
-        padding: 0px 15px;
-
-        .shopping_cart--empty {
-            display: block;
-
-            .empty_shopping_cart_container {
-                padding: 60px;
-
-                .empty_shopping_cart--center {
-                    text-align: center;
-                } 
-
-                h1 {
-                    font-size: 40px;
-                }
-                
-                .empty_shopping_cart--image {
-                    background: url("../images/layout/empty_cart.svg") no-repeat center center;
-                    height: 180px;
-                }
-            }
-        }
-    }
-
-
     .checkout__wrapper {
         margin-top: 2rem;
 

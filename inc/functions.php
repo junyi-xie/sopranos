@@ -666,6 +666,7 @@
     // function remove item from cart
     function s() {
 
+        unsetVariable();
 
     }
 

@@ -1,0 +1,127 @@
+    .shopping_cart__container {
+        margin-top: 60px;
+
+        .shopping_cart--empty {
+            display: block;
+            padding: 0px 10px;
+
+            .empty_shopping_cart_container {
+                padding: 60px;
+
+                .empty_shopping_cart--center {
+                    text-align: center;
+                } 
+
+                h1 {
+                    font-size: 40px;
+                }
+                
+                .empty_shopping_cart--image {
+                    background: url("../images/layout/empty_cart.svg") no-repeat center center;
+                    height: 180px;
+                }
+            }
+        }
+    }
+
+    .shopping_cart__wrapper {
+        display: flex;
+    }
+
+    .shopping_cart_items__container {
+        flex: 0 0 60%;
+        max-width: 60%;
+        width: 100%;
+        position: relative;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .shopping_cart__title {
+        font-size: 28px;
+        font-family: $font-tertiary;
+    }
+
+    .shopping_cart_order__wrapper {
+
+    }
+
+    .shopping_cart_summary__container {
+        flex: 0 0 40%;
+        max-width: 40%;
+        width: 100%;
+        position: relative;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .shopping_cart_summary {
+        float: right;
+        border-radius: 2px;
+        width: 400px;
+        max-width: 400px;
+        padding: 1.25rem;
+        background-color: $white-alt;
+    }
+
+    .shopping_cart_summary__detail {
+        color: $line-alt;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .shopping_cart_summary__detail--subtotal {
+        color: $black-alt;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .detail__label,
+    .detail__value {
+        margin: 0;
+        padding: 0;
+        font-family: $font-secondary;
+    }
+
+    .checkout_item_label {
+        font-weight: bold;
+    }
+
+    .checkout_item_count {
+        font-weight: normal;
+    }
+
+    .checkout_item_price {
+        font-weight: bold;
+        color: $green-alt;
+    }
+
+    .shopping_cart_summary__message {
+        color: $grey;
+        font-size: 14px;
+    }
+
+    .shopping_cart_summary__button {
+        margin-top: 20px;
+    
+        .button--transaction {
+            width: 100%;
+            text-align: center;
+            background: $green-alt;
+            border: 1px solid $green-alt;
+            padding: 0.75rem 1.25rem;
+            display: block;
+            font-weight: bold;
+            color: $white;
+            font-size: 18px;
+            font-family: $font-secondary;
+
+            &:hover {
+                cursor: pointer;
+                background: $green;
+                border: 1px solid $green;
+            }
+        }
+    }

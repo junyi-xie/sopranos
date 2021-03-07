@@ -211,7 +211,7 @@ header {
 }
 
 .site__menu {
-  font-family: "Poppins", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   z-index: 2000;
   height: auto;
   display: -webkit-inline-box;
@@ -486,11 +486,11 @@ footer {
 
 .shopping_cart__container {
   margin-top: 60px;
-  padding: 0px 15px;
 }
 
 .shopping_cart__container .shopping_cart--empty {
   display: block;
+  padding: 0px 10px;
 }
 
 .shopping_cart__container .shopping_cart--empty .empty_shopping_cart_container {
@@ -508,6 +508,114 @@ footer {
 .shopping_cart__container .shopping_cart--empty .empty_shopping_cart_container .empty_shopping_cart--image {
   background: url("../images/layout/empty_cart.svg") no-repeat center center;
   height: 180px;
+}
+
+.shopping_cart__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.shopping_cart_items__container {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 60%;
+          flex: 0 0 60%;
+  max-width: 60%;
+  width: 100%;
+  position: relative;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.shopping_cart__title {
+  font-size: 28px;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.shopping_cart_summary__container {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 40%;
+          flex: 0 0 40%;
+  max-width: 40%;
+  width: 100%;
+  position: relative;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.shopping_cart_summary {
+  float: right;
+  border-radius: 2px;
+  width: 400px;
+  max-width: 400px;
+  padding: 1.25rem;
+  background-color: #f6f6f9;
+}
+
+.shopping_cart_summary__detail {
+  color: #d8dae0;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.shopping_cart_summary__detail--subtotal {
+  color: #0a0918;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.detail__label,
+.detail__value {
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
+}
+
+.checkout_item_label {
+  font-weight: bold;
+}
+
+.checkout_item_count {
+  font-weight: normal;
+}
+
+.checkout_item_price {
+  font-weight: bold;
+  color: #32b259;
+}
+
+.shopping_cart_summary__message {
+  color: #6a6f72;
+  font-size: 14px;
+}
+
+.shopping_cart_summary__button {
+  margin-top: 20px;
+}
+
+.shopping_cart_summary__button .button--transaction {
+  width: 100%;
+  text-align: center;
+  background: #32b259;
+  border: 1px solid #32b259;
+  padding: 0.75rem 1.25rem;
+  display: block;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+  font-family: "Rubik", sans-serif;
+}
+
+.shopping_cart_summary__button .button--transaction:hover {
+  cursor: pointer;
+  background: #12652c;
+  border: 1px solid #12652c;
 }
 
 .checkout__wrapper {
