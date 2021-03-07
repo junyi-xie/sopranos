@@ -38,14 +38,94 @@
         margin-right: 10px;
     }
 
-    .shopping_cart__title {
-        font-size: 28px;
-        font-family: $font-tertiary;
+    .shopping_cart__header {
+        margin: 0;
+        padding: 0;
+        
+        .shopping_cart__title {
+            font-size: 28px;
+            font-family: $font-tertiary;
+        }
     }
 
     .shopping_cart_order__wrapper {
 
     }
+
+    .shopping_cart_item {
+        border-top: 1px solid $line;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    .shopping_cart_item__view_container {
+        padding: 20px 0px;
+        margin: 0;
+    }
+
+    .shopping_cart_item__view {
+
+    }
+
+    .shopping_cart_item__thumbnail {
+
+    }
+
+    .shopping_cart_item__detail {
+
+    }
+
+    .shopping_cart_item__product_title {
+
+    }
+
+    .shopping_cart_item__product_detail {
+
+    }
+
+    .shopping_cart_item__quantity {
+
+    }
+
+    .shopping_cart_item__quantity_label {
+
+    }
+
+    .shopping_cart_item__price {
+
+    }
+
+    .shopping_cart_item__price_label {
+
+    }
+
+    .shopping_cart_item__actions {
+
+    }
+
+    .shopping_cart_item__edit {
+
+    }
+
+    .shopping_cart_item__remove {
+
+    }
+
+    .shopping_cart_item__edit--right {
+
+    }
+
+    .shopping_cart_item__size {
+
+    }
+
+    .shopping_cart_item__quantity {
+
+    }
+
+
 
     .shopping_cart_summary__container {
         flex: 0 0 40%;

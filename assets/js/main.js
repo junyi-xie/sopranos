@@ -52,6 +52,8 @@
  
                                                 $('.js-order_summary_section').each(function(index) {
 
+                                                    if (!$('#order_summary_section-'+index).length) { index++; } 
+
                                                     var item_quantity = parseInt($('#order_summary__item_quantity-'+index).text().replace(/[^0-9\.]/g, ''));
                                                     var item_price = parseFloat($('#order_summary__item_price-'+index).text().replace(/[^0-9\.]/g, ''));
                                                     

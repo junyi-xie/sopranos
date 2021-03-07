@@ -187,7 +187,7 @@
 
             <br/><br/>
             <!-- <input type="text" name="coupon_code" placeholder="coupon code?"><br/> -->
-            <input type="number" name="quantity" placeholder="how many?" min="1" value="1"><br/><br/>
+            <input type="number" name="quantity" placeholder="how many?" min="0" max="999" value="1"><br/><br/>
             <input type="submit" name="btnSubmit" value="more">
             <input type="submit" name="btnDelete" value="Add to cart">
 

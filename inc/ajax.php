@@ -24,12 +24,12 @@
                 echo json_encode($aCouponData);
             break;
             case 'update_order_item':
-
-                // echo json_encode();
+                $bItemUpdated = cartUpdateItem();
+                echo json_encode($bItemUpdated);
             break;
             case 'remove_order_item':
-
-                // echo json_encode();
+                $bItemRemoved = cartRemoveItem();
+                echo json_encode($bItemRemoved);
             break;
         }
     }    

@@ -657,17 +657,35 @@
     }
 
 
-    // function update item from cart
-    function t() {
+    /**
+     * Update the items in size and quantity of a product in the shopping cart. Pass through the new updated id, else will not work.
+     *
+     * @param int $quantity
+     * @param int $size
+     * @param int $key
+     * 
+     * @return boolean
+     */
+    function cartUpdateItem($quantity = 0, $size = 0, $key = 0) {
 
+        // blah blah blah
+
+        return false;
     }
 
 
-    // function remove item from cart
-    function s() {
+    /**
+     * Pass in the sopranos order key to remove the item from cart. If successful then return true, else false.
+     *
+     * @param int $key
+     * 
+     * @return boolean
+     */
+    function cartRemoveItem($key = 0) {
 
-        unsetVariable();
+        // blah blah blah
 
+        return false;
     }
 
 
