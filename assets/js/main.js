@@ -42,7 +42,7 @@
                                     success: function (data) {
 
                                         var coupon_data = JSON.parse(data);
-                                        var new_total_price = 0;
+                                        var new_total_price = 0.00;
 
                                         switch (coupon_data.type) {
                                             case 1:           
