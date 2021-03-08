@@ -55,7 +55,6 @@
 
                 <div class="shopping_cart__wrapper">
 
-                    <!-- left -->
                     <div class="shopping_cart_items__container">
                     
                         <div class="shopping_cart__header">
@@ -66,7 +65,11 @@
                     
                         <div class="shopping_cart_order__wrapper">
                         
-                        <?php foreach($_SESSION['sopranos']['order'] as $iKey => $aOrderItem):?>
+                            <?php $iTotalPrice = 0.00; ?>
+
+                            <?php foreach($_SESSION['sopranos']['order'] as $iKey => $aOrderItem):?>
+
+                            <?php $iSubtotalPrice = 0.00; ?>
 
                             <div class="shopping_cart_item js-shopping_cart_item" id="shopping_cart_item-<?= $iKey; ?>">
 
@@ -78,7 +81,9 @@
 
                                             <?php $aSqlType = $pdo->query("SELECT pt.*, i.* FROM pizzas_type AS pt LEFT JOIN images AS i ON i.id = pt.image_id WHERE 1 AND pt.quantity > 0 AND pt.id = ".$aOrderItem['type_id']." LIMIT 1")->fetch(PDO::FETCH_ASSOC); ?>
 
-                                            <!-- <img src="assets/images/layout/<?= $aSqlType['link']; ?>"> -->
+                                            <img src="assets/images/layout/<?= $aSqlType['link']; ?>">
+
+                                            <?php $iSubtotalPrice += $aSqlType['price'] * $aOrderItem['quantity']; ?>
 
                                         </div>
 
@@ -86,45 +91,45 @@
 
                                             <div class="shopping_cart_item__product_title">
 
-                                                <?php $aSqlSize = selectAllById('pizzas_size', $aOrderItem['size_id']); ?>
-
-                                                <!-- title here blah -->
+                                                <h2 class="shopping_cart_item__product_title--heading"><?= $aSqlType['name']; ?></h2>
 
                                             </div>
                                             
                                             <div class="shopping_cart_item__product_detail">
-                                            
-                                                <?php if(!empty($aOrderItem['topping_id'])): foreach ($aOrderItem['topping_id'] as $iToppingId => $sToppingName): ?>
 
-                                                <?php $iToppingPrice = selectAllById('pizzas_topping', $iToppingId); ?>
+                                                <ul class="shopping_cart_item__product_detail--list">
+                                                
+                                                    <?php $aSqlSize = selectAllById('pizzas_size', $aOrderItem['size_id']); ?>
+                                                    
+                                                    <li class="shopping_cart_item__product_detail--label"><?= $aSqlSize['size']; ?></li>
 
-                                                <!-- put item detail tag here blah -->
+                                                    <?php $iSubtotalPrice += $aSqlSize['price'] * $aOrderItem['quantity']; ?>
 
-                                                <li class="order_summary__item_label hidden"><?= $sToppingName; ?></li>
+                                                    <?php if(!empty($aOrderItem['topping_id'])): foreach ($aOrderItem['topping_id'] as $iToppingId => $sToppingName): ?>
 
-                                                <?php endforeach; endif; ?>
+                                                        <?php $iToppingPrice = selectAllById('pizzas_topping', $iToppingId); ?>
 
+                                                        <li class="shopping_cart_item__product_detail--label"><?= $sToppingName; ?></li>
+
+                                                        <?php $iSubtotalPrice += $iToppingPrice['price'] * $aOrderItem['quantity']; ?>
+
+                                                    <?php endforeach; endif; ?>
+
+                                                </ul>
+                                                
                                             </div>
                                         
                                         </div>
 
                                         <div class="shopping_cart_item__quantity">
                                         
-                                            <span class="shopping_cart_item__quantity_label">
-                                            
-                                                <!-- put qty tag here blah -->
-
-                                            </span>
+                                            <span class="shopping_cart_item__quantity_label"><?= $aOrderItem['quantity']; ?>x</span>
 
                                         </div>
 
                                         <div class="shopping_cart_item__price">
 
-                                            <span class="shopping_cart_item__price_label">
-                                            
-                                                <!-- put price tag here blah -->
-
-                                            </span>
+                                            <span class="shopping_cart_item__price_label">€<?= number_format((float)$iSubtotalPrice / $aOrderItem['quantity'], 2, '.', ''); ?></span>
                                         
                                         </div>
 
@@ -132,35 +137,57 @@
                                         
                                             <!-- edit button later  -->
 
-                                            <button type="button" class="button hidden">Edit</button>
+                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--edit js-edit_cart_item">Edit</button>
 
-                                            <button type="button" class="button hidden">Cancel</button>
+                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--cancel js-cancel_cart_item hidden">Cancel</button>
 
-                                            <button type="button" class="button hidden">Save</button>
+                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--update js-update_cart_item hidden">Save</button>
 
                                         </div>
 
                                     </div>
 
                                     <div class="shopping_cart_item__edit">
-                                    
-                                        <div class="shopping_cart_item__remove">
-                                        
-                                            <!-- put remove tag here blah AND AJAX REQUEST -->
-                                                    
-                                        </div>
-                                        
-                                        <div class="shopping_cart_item__edit--right">
-                                        
-                                            <div class="shopping_cart_item__size">
-                                            
-                                                <!-- put item size tag here blah AND AJAX REQUEST -->
 
+                                        <div class="shopping_cart_item__triangle"></div>
+
+                                        <div class="shopping_cart_item__remove_container">
+                                    
+                                            <div class="shopping_cart_item__remove">
+                                            
+                                                <!-- ADD KEY THAT NEEDS TO BE REMOVED FROM ARRAY -->
+
+                                                <button type="button" class="shopping_cart_item__remove-button--remove js-remove_cart_item">Remove</button>
+                                                            
                                             </div>
                                             
-                                            <div class="shopping_cart_item__quantity">
+                                            <div class="shopping_cart_item__edit--right">
                                             
-                                                <!-- put qty tag here blah AND AJAX REQUEST -->
+                                                <div class="shopping_cart_item__size">
+                                                
+                                                    <div class="shopping_cart_item__size--label">Size:</div>
+
+                                                    <select class="shopping_cart_item__size--select js-shopping_cart_item__size--select">
+
+                                                        <!-- FIX, GET THE SELECTED -->
+
+                                                        <?php foreach($aSizePizzas as $key => $aSize):?>
+                                                            
+                                                        <option value="<?= $aSize['id']; ?>"><?= $aSize['size']; ?></option>
+
+                                                        <?php endforeach; ?>
+
+                                                    </select>
+
+                                                </div>
+                                                
+                                                <div class="shopping_cart_item__quantity">
+                                                        
+                                                    <div class="shopping_cart_item__quantity--label">Quantity:</div>
+
+                                                    <input class="shopping_cart_item__quantity--input js-shopping_cart_item__quantity--input" type="number" min="0" max="999" value="<?= $aOrderItem['quantity']; ?>">
+
+                                                </div>
 
                                             </div>
 
@@ -171,8 +198,10 @@
                                 </div>
                             
                             </div>
+                            
+                            <?php $iTotalPrice += $iSubtotalPrice; ?>
 
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         
                         </div>
 
@@ -194,7 +223,7 @@
 
                                 <div class="detail__value">
 
-                                    <span class="checkout_item_price">€20.00</span>
+                                    <span class="checkout_item_price">€<?= number_format((float)$iTotalPrice, 2, '.', ''); ?></span>
 
                                 </div>
 

@@ -2,6 +2,69 @@
 
     $(document).ready(function(){
 
+        $(".js-edit_cart_item").click(function() {
+
+            // AJAX
+
+        });
+
+
+        $(".js-cancel_cart_item").click(function() {
+
+            // AJAX
+
+        });
+
+
+        $(".js-update_cart_item").click(function() {
+
+            // AJAX
+
+        });
+
+
+        $(".js-remove_cart_item").click(function() {
+
+            $('.js-shopping_cart_item__size--select');
+            $('.js-shopping_cart_item__quantity--input');
+
+
+            // AJAX
+            $.ajax({
+                url:"inc/ajax.php",
+                type: "post",
+                data: {
+                    action: 'remove_order_item',
+                    key: '',
+                },
+                success: function(result){
+                    console.log(result);
+                    // IF SUCCESS RELOAD PAGE
+                },
+            });
+        });
+
+
+        $(".js-update_cart_item").click(function() {
+
+            // AJAX
+            $.ajax({
+                url:"inc/ajax.php",
+                type: "post",
+                data: {
+                    action: 'update_order_item',
+                    quantity: '',
+                    size: '',
+                    key: '',
+                },
+                success: function(result){
+                    console.log(result);
+                    // IF SUCCESS RELOAD PAGE
+                },
+            });
+        });
+
+
         $("#coupon_code_link").click(function() {
             $(this).addClass("hidden");
             $('.js-coupon-code-wrapper').removeClass("hidden");

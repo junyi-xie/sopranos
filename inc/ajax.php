@@ -24,11 +24,11 @@
                 echo json_encode($aCouponData);
             break;
             case 'update_order_item':
-                $bItemUpdated = cartUpdateItem();
+                $bItemUpdated = cartUpdateItem($_POST['quantity'], $_POST['size'], $_POST['key']);
                 echo json_encode($bItemUpdated);
             break;
             case 'remove_order_item':
-                $bItemRemoved = cartRemoveItem();
+                $bItemRemoved = cartRemoveItem($_POST['key']);
                 echo json_encode($bItemRemoved);
             break;
         }

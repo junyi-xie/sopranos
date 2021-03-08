@@ -34,12 +34,12 @@
         width: 100%;
         position: relative;
         float: left;
-        margin-left: 10px;
-        margin-right: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .shopping_cart__header {
-        margin: 0;
+        margin-bottom: 1.25rem;
         padding: 0;
         
         .shopping_cart__title {
@@ -49,7 +49,8 @@
     }
 
     .shopping_cart_order__wrapper {
-
+        position: relative;
+        margin: 0;
     }
 
     .shopping_cart_item {
@@ -66,66 +67,207 @@
     }
 
     .shopping_cart_item__view {
-
+        display: flex;
     }
 
     .shopping_cart_item__thumbnail {
-
+        display: inline-block;
+        width: 75px;
+        height: 75px;
+        overflow: hidden;
+        border-radius: 4px;
+        border: 1px solid $line;
+        margin-right: 16px;
     }
 
     .shopping_cart_item__detail {
-
+        flex: 1;
+        font-size: 14px;
+        font-weight: 600;
+        overflow: hidden;
     }
 
     .shopping_cart_item__product_title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
+    .shopping_cart_item__product_title--heading {
+        color: $black-alt;
+        font-size: 16px;
+        font-weight: 900;
+        font-family: $font-quaternary;
+        padding-bottom: 4px;
     }
 
     .shopping_cart_item__product_detail {
+        overflow: hidden;
+        text-overflow: ellipsis;
 
+        .shopping_cart_item__product_detail--list {
+            margin-right: 5px;
+            padding: 0;
+        }
+    
+        .shopping_cart_item__product_detail--label {
+            display: inline-block;
+            color: $grey;
+            font-size: 14px;
+
+            &:not(:last-of-type):after {
+                content: '•';
+                padding: 0 0.25rem;
+            }
+        }
     }
 
-    .shopping_cart_item__quantity {
-
+    .shopping_cart_item__quantity,
+    .shopping_cart_item__price {
+        position: relative;
+        margin: auto 0;
+        font-size: 18px;
+        padding: 0.25rem;
+        
     }
 
     .shopping_cart_item__quantity_label {
-
-    }
-
-    .shopping_cart_item__price {
-
+        color: $grey-alt;
+        font-size: 16px;
     }
 
     .shopping_cart_item__price_label {
-
+        font-size: 16px;
+        font-weight: 600;
     }
 
     .shopping_cart_item__actions {
+        margin: auto 0;
+        display: inline;
+        width: 70px;
+        text-align: right;
+        position: relative;
+    }
 
+    .shopping_cart_item__actions_button {
+        border-radius: 2px;
+        cursor: pointer;
+        width: 60px;
+        text-align: center;
+        padding: 0.2rem 0;    
+        background-color: $white;
+        border: 1px solid $grey;
+        outline: none;
+        color: $blue;
+        font-weight: 600;
+        font-family: $font-secondary;
+        
+        &:hover {
+            color: $blue;
+            border-color: $line-alt;
+        }
+
+        &.button--small {
+            font-size: 14px;
+        }
+
+        &.button_cart--edit {
+            display: inline-block;
+        }
+
+        &.button_cart--cancel {
+            display: inline-block;
+        }
+
+        &.button_cart--update {
+            display: inline-block;
+            color: $white;
+        }
     }
 
     .shopping_cart_item__edit {
+        width: 100%;
+        margin: 10px 0 0;
+        border-radius: 4px;
+        padding: 6px 0 6px 10px;
+        background-color: $white-alt;
+    }
 
+    .shopping_cart_item__triangle {
+        position: relative;
+
+        &:after {
+            content: "";
+            transform: scale(2.5, 2.5);
+            position: absolute;
+            border-bottom-color: $white-alt;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid $white-alt;
+            top: -12px;
+            right: 22px;
+        }
     }
 
     .shopping_cart_item__remove {
-
+        display: inline-block;
+        margin: 15px 9px;
+    
+        .shopping_cart_item__remove-button--remove {
+            color: $grey;
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            font-family: $font-tertiary;
+        }
     }
+    
+    .shopping_cart_item__remove_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    .shopping_cart_item__edit--right {
+        .shopping_cart_item__edit--right {
+            float: right;
+            margin: 0.1875rem 0.3125rem;
+        
+            .shopping_cart_item__size {
+                margin: 0 10px;
+                display: inline-block;
 
+                .shopping_cart_item__size--label {
+                    display: inline-block;
+                    margin-right: 0.25rem;
+                    font-size: 14px;
+                }
+
+                .shopping_cart_item__size--select {
+                    outline: 0;
+                    // NEED TO BE CHANGED
+                }
+            }
+            
+            .shopping_cart_item__quantity {
+                display: inline-block;
+                margin: 0 10px;
+
+                .shopping_cart_item__quantity--label {
+                    display: inline-block;
+                    margin-right: 0.25rem;
+                    font-size: 14px;
+                }
+
+                .shopping_cart_item__quantity--input {
+                    outline: 0;
+                    // NEED TO BE CHANGED
+                }
+            }
+        }
     }
-
-    .shopping_cart_item__size {
-
-    }
-
-    .shopping_cart_item__quantity {
-
-    }
-
-
+    
 
     .shopping_cart_summary__container {
         flex: 0 0 40%;
@@ -133,8 +275,8 @@
         width: 100%;
         position: relative;
         float: left;
-        margin-left: 10px;
-        margin-right: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .shopping_cart_summary {
@@ -187,6 +329,7 @@
         margin-top: 20px;
     
         .button--transaction {
+            outline: none;
             width: 100%;
             text-align: center;
             background: $green-alt;

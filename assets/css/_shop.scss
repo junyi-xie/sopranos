@@ -10,8 +10,8 @@
                 width: 100%;
                 position: relative;
                 float: left;
-                margin-left: 10px;
-                margin-right: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
 
                 .checkout_form {
                     margin-bottom: 3rem;
@@ -28,9 +28,9 @@
                 width: 100%;
                 position: relative;
                 float: left;
-                margin-left: 10px;
-                margin-right: 10px;
-                padding: 0.5rem 0 0.5rem 5rem;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding: 0.5rem 10px 0.5rem 5rem;
             }
         }
     }
@@ -125,11 +125,12 @@
             font-size: 1.5rem;
             padding: 1rem;
             width: 100%;
-            dusplay: block;
+            display: block;
             color: $white;
         }
 
         .button--transaction {
+            outline: none;
             background:  $green-alt;
             border: 1px solid  $green-alt;
             
@@ -163,8 +164,9 @@
 
     .checkout__summary__title {
         text-align: left;
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 20px;
+        font-weight: 900;
+        font-family: $font-tertiary;
     }
 
     .order_summary__modify_order {

@@ -1,3 +1,5 @@
+<?php
+/*
 <footer class="site__footer">
         
     <div class="site__footer_wrapper">
@@ -93,3 +95,5 @@
     </div>
 
 </footer>
+*/
+?>
