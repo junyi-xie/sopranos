@@ -727,6 +727,10 @@ footer {
   font-family: "Noto Sans", sans-serif;
 }
 
+.shopping_cart_item__remove .shopping_cart_item__remove-button--remove:hover {
+  color: #b8bdc5;
+}
+
 .shopping_cart_item__remove_container {
   display: -webkit-box;
   display: -ms-flexbox;
