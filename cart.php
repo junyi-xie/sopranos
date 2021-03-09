@@ -139,8 +139,6 @@
 
                                         <div class="shopping_cart_item__actions">
                                         
-                                            <!-- edit button later  -->
-
                                             <button type="button" class="shopping_cart_item__actions_button button--small button_cart--edit js-edit_cart_item">Edit</button>
 
                                             <button type="button" class="shopping_cart_item__actions_button button--small button_cart--cancel js-cancel_cart_item hidden">Cancel</button>

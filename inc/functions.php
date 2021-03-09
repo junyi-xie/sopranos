@@ -288,15 +288,26 @@
 
 
     /**
-     * Unset variable with given name.
+     * Unset session with given name.
      * 
-     * @param mixed $name
+     * @param mixed $key
+     * @param string $type
      *
      * @return boolean
      */
-    function unsetVariable($variable, $name) {
+    function unsetSession($key, $type = '') {
 
-        unset($variable[$name]);
+        if(empty($key)) return false;
+
+        switch ($type) {
+            case 'order':
+                printr($type);
+                unset($_SESSION['sopranos']['order'][$key]);
+            break;
+            default:
+                unset($_SESSION[$key]);
+            break;
+        }
 
         return true;
     }
@@ -683,11 +694,10 @@
      */
     function cartRemoveItem($key = 0) {
 
-        // blah blah blah
+        if(!is_int($key)) return false;
 
-        return false;
+        return unsetSession($key, 'order');
     }
-
 
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
