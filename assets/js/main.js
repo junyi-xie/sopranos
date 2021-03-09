@@ -2,32 +2,27 @@
 
     $(document).ready(function(){
 
-        $(".js-edit_cart_item").click(function() {
+        $(".js-edit_cart_item").click(function(event) {
+            event.preventDefault();
 
-            // AJAX
-
+            $(this).removeClass('hidden').addClass('hidden');
+            $(this).next().addClass('hidden').removeClass('hidden');
+            $(this).parent().parent().next().addClass('hidden').removeClass('hidden');
         });
 
 
-        $(".js-cancel_cart_item").click(function() {
+        $(".js-cancel_cart_item").click(function(event) {
+            event.preventDefault();
 
-            // AJAX
-
+            $(this).removeClass('hidden').addClass('hidden');
+            $(this).prev().addClass('hidden').removeClass('hidden');
+            $(this).parent().parent().next().removeClass('hidden').addClass('hidden');
         });
 
 
-        $(".js-update_cart_item").click(function() {
-
-            // AJAX
-
-        });
-
-
-        $(".js-remove_cart_item").click(function() {
-
-            $('.js-shopping_cart_item__size--select');
-            $('.js-shopping_cart_item__quantity--input');
-
+        $(".js-remove_cart_item").click(function(event) {
+            event.preventDefault();
+    
 
             // AJAX
             $.ajax({
@@ -45,7 +40,11 @@
         });
 
 
-        $(".js-update_cart_item").click(function() {
+        $(".js-update_cart_item").click(function(event) {
+            event.preventDefault();
+
+            $('.js-shopping_cart_item__size--select');
+            $('.js-shopping_cart_item__quantity--input');
 
             // AJAX
             $.ajax({
@@ -65,13 +64,16 @@
         });
 
 
-        $("#coupon_code_link").click(function() {
+        $("#coupon_code_link").click(function(event) {
+            event.preventDefault();
+
             $(this).addClass("hidden");
             $('.js-coupon-code-wrapper').removeClass("hidden");
         });
 
 
-        $("#coupon_code_apply").click(function() {
+        $("#coupon_code_apply").click(function(event) {
+            event.preventDefault();
 
             var coupon_value = $('.js-coupon-code');
             var coupon_apply = $('.js-coupon-apply');
@@ -150,7 +152,8 @@
         });
         
         
-        $(".form__textfield").blur(function() {
+        $(".form__textfield").blur(function(event) {
+            event.preventDefault();
 
             var input = $(this);
             var email = $('.js-checkout-email');

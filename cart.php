@@ -147,7 +147,7 @@
 
                                     </div>
 
-                                    <div class="shopping_cart_item__edit">
+                                    <div class="shopping_cart_item__edit js-shopping_cart_item__edit hidden">
 
                                         <div class="shopping_cart_item__triangle"></div>
 
@@ -217,7 +217,7 @@
 
                                     <span class="checkout_item_label">Cart Subtotal</span>
 
-                                    <span class="checkout_item_count">(1 item)</span>
+                                    <span class="checkout_item_count">- <?php echo $iShoppingCartCount; ?> item(s)</span>
 
                                 </div>
 

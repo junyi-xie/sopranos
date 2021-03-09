@@ -684,6 +684,13 @@ footer {
 .shopping_cart_item__actions_button.button_cart--update {
   display: inline-block;
   color: white;
+  background-color: #5ec8d5;
+  border: 1px solid #5ec8d5;
+}
+
+.shopping_cart_item__actions_button.button_cart--update:hover {
+  background-color: #428c95;
+  border-color: #428c95;
 }
 
 .shopping_cart_item__edit {

@@ -182,6 +182,13 @@
         &.button_cart--update {
             display: inline-block;
             color: $white;
+            background-color: $blue-alt;
+            border: 1px solid $blue-alt;
+            
+            &:hover {
+                background-color: $cyan;
+                border-color: $cyan;
+            }
         }
     }
 
