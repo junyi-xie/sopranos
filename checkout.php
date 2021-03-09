@@ -195,11 +195,15 @@
 
                                             <div class="order_summary__item_image_container">
 
-                                                <?php $aSqlType = $pdo->query("SELECT pt.*, i.* FROM pizzas_type AS pt LEFT JOIN images AS i ON i.id = pt.image_id WHERE 1 AND pt.quantity > 0 AND pt.id = ".$aOrderItem['type_id']." LIMIT 1")->fetch(PDO::FETCH_ASSOC); ?>
+                                                <div class="order_summary__item_image_thumbnail">
 
-                                                <img src="assets/images/layout/<?= $aSqlType['link']; ?>">  
+                                                    <?php $aSqlType = $pdo->query("SELECT pt.*, i.* FROM pizzas_type AS pt LEFT JOIN images AS i ON i.id = pt.image_id WHERE 1 AND pt.quantity > 0 AND pt.id = ".$aOrderItem['type_id']." LIMIT 1")->fetch(PDO::FETCH_ASSOC); ?>
 
-                                                <?php $iSubtotalPrice += $aSqlType['price'] * $aOrderItem['quantity']; ?>
+                                                    <img src="assets/images/layout/<?= $aSqlType['link']; ?>">  
+
+                                                    <?php $iSubtotalPrice += $aSqlType['price'] * $aOrderItem['quantity']; ?>
+
+                                                </div>
 
                                             </div>
 

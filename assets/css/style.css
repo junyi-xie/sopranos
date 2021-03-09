@@ -570,14 +570,20 @@ footer {
   display: flex;
 }
 
-.shopping_cart_item__thumbnail {
+.shopping_cart_item__image {
+  white-space: nowrap;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+}
+
+.shopping_cart_item__image .shopping_cart_item__image--thumbnail {
   display: inline-block;
-  width: 75px;
-  height: 75px;
+  width: 66px;
+  height: 66px;
   overflow: hidden;
   border-radius: 4px;
   border: 1px solid #edeff3;
-  margin-right: 16px;
 }
 
 .shopping_cart_item__detail {
@@ -587,6 +593,7 @@ footer {
   font-size: 14px;
   font-weight: 600;
   overflow: hidden;
+  margin-left: 10px;
 }
 
 .shopping_cart_item__product_title {
@@ -600,7 +607,6 @@ footer {
   font-size: 16px;
   font-weight: 900;
   font-family: "Raleway", sans-serif;
-  padding-bottom: 4px;
 }
 
 .shopping_cart_item__product_detail {
@@ -1190,6 +1196,13 @@ footer {
 }
 
 .order_summary__item_image_container {
+  white-space: nowrap;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+}
+
+.order_summary__item_image_container .order_summary__item_image_thumbnail {
   background: white;
   border-radius: 4px;
   height: auto;

@@ -288,12 +288,17 @@
     }
 
     .order_summary__item_image_container {
-        background: $white;
-        border-radius: 4px;
-        height: auto;
-        overflow: hidden;
-        width: 50px;
-        border: 1px solid $line-alt;
+        white-space: nowrap;
+        flex-grow: 0;
+
+        .order_summary__item_image_thumbnail {
+            background: $white;
+            border-radius: 4px;
+            height: auto;
+            overflow: hidden;
+            width: 50px;
+            border: 1px solid $line-alt;
+        }
     }
 
     .order_summary__item_name {
