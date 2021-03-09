@@ -21,6 +21,8 @@
 
 <?php include_once("inc/header.php") ?>
 
+<?php if (!empty($_SESSION['sopranos']['order']) && count($_SESSION['sopranos']['order']) > 0): ?>
+
 <div class="site__content_container">
 
     <div class="site__main">
@@ -350,6 +352,12 @@
     </div>
 
 </div>
+
+<?php else: ?>
+
+    <?php exit('get outta here!!!!'); ?>
+
+<?php endif; ?>
 
 <?php include_once("inc/footer.php") ?>
 
