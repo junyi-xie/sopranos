@@ -4,6 +4,8 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");   
+
+
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +73,7 @@
 
                             <?php $iSubtotalPrice = 0.00; ?>
 
-                            <div class="shopping_cart_item js-shopping_cart_item" shopping-cart-item-id="<?php echo $iKey; ?>" id="shopping_cart_item-<?= $iKey; ?>">
+                            <div class="shopping_cart_item js-shopping_cart_item" shopping-cart-item-id="<?= $iKey; ?>" id="shopping_cart_item-<?= $iKey; ?>">
 
                                 <div class="shopping_cart_item__view_container">
 
@@ -157,7 +159,7 @@
                                     
                                             <div class="shopping_cart_item__remove">
                                             
-                                                <button type="button" class="shopping_cart_item__remove-button--remove js-remove_cart_item" shopping-cart-item-id="<?php echo $iKey; ?>">Remove</button>
+                                                <button type="button" class="shopping_cart_item__remove-button--remove js-remove_cart_item" shopping-cart-item-id="<?= $iKey; ?>">Remove</button>
                                                             
                                             </div>
                                             
@@ -167,12 +169,16 @@
                                                 
                                                     <div class="shopping_cart_item__size--label">Size:</div>
 
-                                                    <select class="shopping_cart_item__size--select js-shopping_cart_item__size--select">
+                                                    <select class="shopping_cart_item__size--select js-shopping_cart_item__size--select" id="shopping_cart_item--select-<?= $iKey; ?>">
 
-                                                        <!-- FIX, GET THE SELECTED -->
+                                                        <?php foreach($aSizePizzas as $key => $aSize): ?>
 
-                                                        <?php foreach($aSizePizzas as $key => $aSize):?>
-                                                            
+                                                        <?php if($aSize['size'] == $aSqlSize['size']): ?>
+
+                                                            <option value="<?= $aSize['id']; ?>" selected><?= $aSize['size']; ?></option>
+
+                                                        <?php continue; endif; ?>
+                                                                                                                    
                                                         <option value="<?= $aSize['id']; ?>"><?= $aSize['size']; ?></option>
 
                                                         <?php endforeach; ?>
@@ -217,7 +223,7 @@
 
                                     <span class="checkout_item_label">Cart Subtotal</span>
 
-                                    <span class="checkout_item_count">- <?php echo $iShoppingCartCount; ?> item(s)</span>
+                                    <span class="checkout_item_count">- <?= $iShoppingCartCount; ?> item(s)</span>
 
                                 </div>
 

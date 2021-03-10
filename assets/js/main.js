@@ -64,6 +64,24 @@
         });
 
 
+        $('.js-shopping_cart_item__size--select').change(function(event){
+            event.preventDefault();
+
+            test = $(this).find("option:selected").attr('value');
+            original_value = $(this).prop('defaultSelected');
+            
+            console.log(original_value);
+        });
+
+
+        $('.js-shopping_cart_item__quantity--input').change(function(event){
+            event.preventDefault();
+
+            original_value = $(this).prop('defaultValue');
+            console.log(test);
+        });
+
+
         $("#coupon_code_link").click(function(event) {
             event.preventDefault();
 
