@@ -44,21 +44,25 @@
         $(".js-update_cart_item").click(function(event) {
             event.preventDefault();
 
-            $('.js-shopping_cart_item__size--select');
-            $('.js-shopping_cart_item__quantity--input');
+            var edit = $(this).parent().parent().next().children().last().children().last().children();
+            var select = edit.first().children().last();
+            var input = edit.last().children().last();
 
             $.ajax({
                 url:"inc/ajax.php",
                 type: "post",
                 data: {
                     action: 'update_order_item',
-                    quantity: '',
-                    size: '',
-                    key: '',
+                    quantity: input.val(),
+                    size: select.val(),
+                    key: $(this).attr('shopping-cart-item-id'),
                 },
                 success: function(result){
-                    console.log(result);
-                    // IF SUCCESS RELOAD PAGE
+                    switch (result) {
+                        case 'true':
+                            location.reload(); 
+                        break;
+                    }
                 },
             });
         });
@@ -67,18 +71,39 @@
         $('.js-shopping_cart_item__size--select').change(function(event){
             event.preventDefault();
 
-            test = $(this).find("option:selected").attr('value');
-            original_value = $(this).prop('defaultSelected');
-            
-            console.log(original_value);
+            var button = $(this).parent().parent().parent().parent().parent().children().first().children().last();
+            var option = $(this).find("option:selected").prop('defaultSelected');
+
+            switch (option) {
+                case true:
+                    button.find('.js-cancel_cart_item').addClass('hidden').removeClass('hidden');
+                    button.find('.js-update_cart_item').removeClass('hidden').addClass('hidden');
+                break;
+                case false:
+                    button.find('.js-cancel_cart_item').removeClass('hidden').addClass('hidden');
+                    button.find('.js-update_cart_item').addClass('hidden').removeClass('hidden');
+                break;
+            }
         });
 
 
         $('.js-shopping_cart_item__quantity--input').change(function(event){
             event.preventDefault();
 
-            original_value = $(this).prop('defaultValue');
-            console.log(test);
+            var button = $(this).parent().parent().parent().parent().parent().children().first().children().last();
+            var value = $(this).prop('defaultValue');
+            var input = $(this).val();
+
+            switch (input) {
+                case value:
+                    button.find('.js-cancel_cart_item').addClass('hidden').removeClass('hidden');
+                    button.find('.js-update_cart_item').removeClass('hidden').addClass('hidden');
+                break;
+                default:
+                    button.find('.js-cancel_cart_item').removeClass('hidden').addClass('hidden');
+                    button.find('.js-update_cart_item').addClass('hidden').removeClass('hidden');
+                break;
+            }
         });
 
 

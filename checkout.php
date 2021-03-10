@@ -366,5 +366,6 @@
 <?php include_once("inc/footer.php") ?>
 
 <?php print('<!--'.date("YmdHis").'-->'); $jsFiles = getFiles(); echo loadFiles($jsFiles); ?>
+
 </body>
 </html>

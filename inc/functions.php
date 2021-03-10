@@ -676,11 +676,14 @@
      * 
      * @return boolean
      */
-    function cartUpdateItem($quantity = 0, $size = 0, $key = 0) {
+    function cartUpdateItem($quantity, $size, $key) {
 
-        // blah blah blah
+        if(!isset($quantity) && !isset($size) && !isset($key)) return false;
 
-        return false;
+            $_SESSION['sopranos']['order'][$key]['quantity'] = $quantity;
+            $_SESSION['sopranos']['order'][$key]['size_id'] = $size;
+
+        return true;
     }
 
 
