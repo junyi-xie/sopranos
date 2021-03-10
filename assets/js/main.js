@@ -87,7 +87,7 @@
         });
 
 
-        $('.js-shopping_cart_item__quantity--input').change(function(event){
+        $('.js-shopping_cart_item__quantity--input').on('input', function(event){
             event.preventDefault();
 
             var button = $(this).parent().parent().parent().parent().parent().children().first().children().last();

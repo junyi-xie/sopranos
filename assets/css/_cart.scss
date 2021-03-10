@@ -260,8 +260,22 @@
                 }
 
                 .shopping_cart_item__size--select {
+                    width: 70px;
+                    background: $white url("../images/layout/double_caret.png") no-repeat right 5px top 50%;
+                    background-size: 14px 16px;
+                    border: 1px solid $line-alt;
+                    border-radius: 2px;
+                    color: $black-alt;
+                    font-size: 14px;
                     outline: 0;
-                    // NEED TO BE CHANGED
+                    padding: 11px 14px;
+                    padding-right: 1.5em;
+                    appearance: none;
+
+                    &:focus {
+                        border-color: $blue-alt;
+                        box-shadow: 0 0 1px $blue-alt;
+                    }
                 }
             }
             
@@ -276,8 +290,19 @@
                 }
 
                 .shopping_cart_item__quantity--input {
+                    width: 60px;
+                    border: 1px solid $line-alt;
+                    padding: 11px 14px;
+                    padding-right: 8px;
+                    color: $black-alt;
+                    font-size: 14px;
                     outline: 0;
-                    // NEED TO BE CHANGED
+                    border-radius: 2px;
+
+                    &:focus {
+                        border-color: $blue-alt;
+                        box-shadow: 0 0 1px $blue-alt;
+                    }
                 }
             }
         }
