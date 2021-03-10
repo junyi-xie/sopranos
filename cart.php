@@ -71,7 +71,7 @@
 
                             <?php $iSubtotalPrice = 0.00; ?>
 
-                            <div class="shopping_cart_item js-shopping_cart_item" id="shopping_cart_item-<?= $iKey; ?>">
+                            <div class="shopping_cart_item js-shopping_cart_item" shopping-cart-item-id="<?php echo $iKey; ?>" id="shopping_cart_item-<?= $iKey; ?>">
 
                                 <div class="shopping_cart_item__view_container">
 
@@ -157,9 +157,7 @@
                                     
                                             <div class="shopping_cart_item__remove">
                                             
-                                                <!-- ADD KEY THAT NEEDS TO BE REMOVED FROM ARRAY -->
-
-                                                <button type="button" class="shopping_cart_item__remove-button--remove js-remove_cart_item">Remove</button>
+                                                <button type="button" class="shopping_cart_item__remove-button--remove js-remove_cart_item" shopping-cart-item-id="<?php echo $iKey; ?>">Remove</button>
                                                             
                                             </div>
                                             

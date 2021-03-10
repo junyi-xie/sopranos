@@ -359,7 +359,7 @@
 
 <?php else: ?>
 
-    <?php exit('get outta here!!!!'); ?>
+    <?php header('Location: shop.php'); exit; ?>
 
 <?php endif; ?>
 

@@ -22,19 +22,20 @@
 
         $(".js-remove_cart_item").click(function(event) {
             event.preventDefault();
-    
 
-            // AJAX
             $.ajax({
                 url:"inc/ajax.php",
                 type: "post",
                 data: {
                     action: 'remove_order_item',
-                    key: '',
+                    key: $(this).attr('shopping-cart-item-id'),
                 },
                 success: function(result){
-                    console.log(result);
-                    // IF SUCCESS RELOAD PAGE
+                    switch (result) {
+                        case 'true':
+                            location.reload(); 
+                        break;
+                    }
                 },
             });
         });
@@ -46,7 +47,6 @@
             $('.js-shopping_cart_item__size--select');
             $('.js-shopping_cart_item__quantity--input');
 
-            // AJAX
             $.ajax({
                 url:"inc/ajax.php",
                 type: "post",

@@ -297,11 +297,10 @@
      */
     function unsetSession($key, $type = '') {
 
-        if(empty($key)) return false;
+        if(!is_int($key) && !is_array($key)) return false;
 
         switch ($type) {
-            case 'order':
-                printr($type);
+            case 'sopranos_order':
                 unset($_SESSION['sopranos']['order'][$key]);
             break;
             default:
@@ -694,10 +693,13 @@
      */
     function cartRemoveItem($key = 0) {
 
-        if(!is_int($key)) return false;
+        $iKey = json_decode($key);
 
-        return unsetSession($key, 'order');
+            if(!is_int($iKey)) return false;
+
+        return unsetSession($iKey, 'sopranos_order');
     }
+
 
     if(!isset($_SESSION['sopranos']['number'])) { saveInSession('number', generateUniqueId()); }
 
