@@ -24,30 +24,29 @@
         if(isset($_POST) && !empty($_POST)) {
 
 
-            $date = date('Y-m-d H:i:s');
-            $valid = selectValidCoupons($date);
-            $coupon_id = validateCouponCode($valid, $_POST['coupon_code']);
+            // $date = date('Y-m-d H:i:s');
+            // $valid = selectValidCoupons($date);
+            // $coupon_id = validateCouponCode($valid, $_POST['coupon_code']);
 
             $data = array();
             $data = $_POST;
 
+            // printr($data);
             // $coupon = $coupon_id;
 
             // saveInSession('coupon', $coupon);
 
-            unset($data['coupon_code']);
-            unset($data['btnSubmit']);
-            unset($data['btnDelete']);
+            // unset($data['coupon_code']);
+            // unset($data['btnSubmit']);
+            // unset($data['btnDelete']);
 
-            saveCustomerOrder($data);
+            saveCustomerOrder($_POST);
 
-            if (isset($_POST['btnDelete'])) {
-                header("location: http://localhost:8080/sopranos/checkout.php");
-                
-            } else {
-                header("location: http://localhost:8080/sopranos/shop.php");
-                exit();
-            }
+            // printr($_SESSION);
+
+            // exit();
+            header("location: http://localhost:8080/sopranos/checkout.php");                
+            exit();
             
         }
 
@@ -144,57 +143,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css?<?php echo date("YmdHis") ?>" media="screen">
-    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" media="screen">
 </head>
 <body>
 
-<!-- <?php echo $html ?> -->
-
 <?php include_once("inc/header.php") ?>
 
-<div class="main">
+<div class="site__content_container">
 
-    <h2>Shopping Cart</h2>
+    <div class="site__main">
 
-    <form action="shop.php" method="post">
+        <div class="site__wrapper">
 
+            <div class="site__shop_product_container">
 
-            <br/><br/><h2>CHOOSE TYPE</h2><br/>
+                <div class="image_stack__container___wrapper">
+                
+                    <div class="image_stack__container">
+                    
+                        <div class="image_stack__inner">
 
-            <select name="type_id" id="type">
-            <?php foreach($aTypePizzas as $key=> $type): ?>
-                <option id="size-<?=$type['id'];?>" value="<?=$type['id'];?>"><?=$type['name'];?></option>
-                <span>&euro;<?= number_format($type['price'], 2)?></span><br/>
-            <?php endforeach; ?>
-            </select>
+                            <div class="image_stack__images">
+                            
+                                <div class="image_stack__image_wrap image_stack__image_wrap--active">
+                                
+                                    <img class="image_stack__image" src="">
 
-            <br/><br/><h2>CHOOSE SIZE</h2><br/>
+                                </div>
 
-            <select name="size_id" id="size">
-            <?php foreach($aSizePizzas as $key=> $size): ?>
-                <option id="size-<?=$size['id'];?>" value="<?=$size['id'];?>"><?=$size['name'];?></option>
-                <span>+ &euro;<?=number_format($size['price'], 2);?></span><br/>
-            <?php endforeach; ?>
-            
-            </select></br></br>
+                            </div>
+                        
+                            <nav class="image_stack__nav">
+                            
+                                <ul class="image_stack__nav_list">
+                                
+                                    <li class="image_stack__nav_item image_stack__nav_item--active">
+                                    
+                                        <img class="image_stack__nav_item_thumb" src="">
 
-            <br/><br/><h2>CHOOSE TOPPINGS</h2><br/>
-            <?php foreach($aToppingPizzas as $key=>$topping): ?>
-                <label for="type-<?= $topping['id']; ?>"><?= $topping['name']; ?></label>
-                <input type="checkbox" name="topping_id[<?= $topping['id']; ?>]" id="topping-<?=$topping['id'];?>" value="<?=$topping['name'];?>">
-                <span>+ &euro;<?= number_format($topping['price'], 2) ?> </span><br/>
-            <?php endforeach; ?>
+                                    </li>
 
-            <br/><br/>
-            <!-- <input type="text" name="coupon_code" placeholder="coupon code?"><br/> -->
-            <input type="number" name="quantity" placeholder="how many?" min="0" max="999" value="1"><br/><br/>
-            <input type="submit" name="btnSubmit" value="more">
-            <input type="submit" name="btnDelete" value="Add to cart">
+                                </ul>
 
-            
-    </form>
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="shop__column--product">
+
+                    <div class="shop__purchase_container">
+
+                        <form class="shop_form_container" id="shop_form" action="shop.php" accept-charset="UTF-8" method="post">
+                        
+                            <div class="product_dropdown__container">
+
+                                <div class="product__type_label">
+
+                                    <h2 class="product_dropdown__label">Available Products:</h2>
+
+                                </div>
+
+                                <div class="product__type_dropdown_container">
+
+                                    <select class="product__type_dropdown" name="type_id" id="shop_type_dropdown">
+
+                                        <?php foreach($aTypePizzas as $key => $aType): ?>
+
+                                            <option class="js-product_option" value="<?= $aType['id']; ?>"><?= $aType['name']; ?> - <?= number_format((float)$aType['price'], 2, '.', ''); ?> EUR</option>
+
+                                        <?php endforeach; ?>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="product__container">
+
+                                <nav class="product__nav">
+
+                                    <ul class="product__list">
+
+                                        <?php $aSqlTypeImages = $pdo->query("SELECT pt.*, i.* FROM pizzas_type AS pt LEFT JOIN images AS i ON i.id = pt.image_id WHERE 1 AND pt.quantity > 0")->fetchAll(PDO::FETCH_ASSOC);?>
+
+                                        <?php foreach($aSqlTypeImages as $key => $aTypeImages): ?>
+                                        
+                                            <!-- product__single--active -->
+                                        <li class="product__single js-product-thumbnails">
+
+                                            <div class="product__img-wrap">
+
+                                                <img class="product__thumb" src="assets/images/layout/<?= $aTypeImages['link']; ?>">
+
+                                            </div>
+
+                                        </li>
+
+                                        <?php endforeach; ?>
+
+                                    </ul>
+
+                                </nav>
+
+                            </div>
+
+                            <div class="product_description__container">
+
+                                <!-- blah blah blah -->
+
+                            </div>
+
+                            <div class="shop_page__size_quantity_container">
+
+                                <div class="product__size_container">
+
+                                    <div class="product__size_label">
+
+                                        <h2 class="product_dropdown__label">Select Size:</h2>
+
+                                    </div>
+
+                                    <div class="product__size_selector_menu_container">
+
+                                        <select class="product__size_selector_menu" name="size_id" id="shop_size_selector">
+
+                                            <?php foreach($aSizePizzas as $key => $aSize): ?>
+
+                                            <option value="<?= $aSize['id']; ?>"> <?= $aSize['size']; ?> </option>
+
+                                            <?php endforeach; ?>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="product__quantity_container">
+
+                                    <div class="product__quantity_label">
+
+                                        <h2 class="product_dropdown__label">Quantity:</h2>
+
+                                    </div>
+
+                                    <div class="product__quantity_input_field_container">
+                                
+                                        <input class="product__quantity_input_field" type="number" name="quantity" min="1" max="999" value="1" id="shop_quantity_input">
+                                    
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="product__toppings_container">
+
+                                <div class="product__toppings_label">
+
+                                    <h2 class="product_dropdown__label">Toppings:</h2>
+
+                                </div>
+                                
+                                <div class="product__topping_list_container">
+
+                                    <ul class="product__topping_list">
+
+                                        <?php foreach($aToppingPizzas as $key => $aTopping): ?>
+
+                                            <li class="product__topping_list_item product__topping_list_item--active">
+
+                                                <input class="product__topping_checkbox--type" type="checkbox" name="topping_id[<?= $aTopping['id']; ?>]" value="<?= $aTopping['name']; ?>">
+
+                                            </li>
+
+                                        <?php endforeach; ?>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                            <div class="shop_transaction">
+
+                                <button class="shop_button--transaction shop_form__submit" type="submit" value="Add to Cart">Add to Cart</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+
+<!-- TO DO, CREATE MODAL     -->
 
 <?php include_once("inc/footer.php") ?>
 

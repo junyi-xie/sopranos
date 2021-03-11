@@ -2,6 +2,15 @@
 
     $(document).ready(function(){
 
+
+        // image changed
+        $("#thumbnails a").on('click', function(event) {
+            event.preventDefault();
+        
+            $('#big').attr('src', $(this).attr('href'));
+        });
+
+
         $(".js-edit_cart_item").click(function(event) {
             event.preventDefault();
 

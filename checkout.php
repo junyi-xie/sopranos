@@ -15,7 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css?<?php echo date("YmdHis") ?>" media="screen">
-    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" media="screen">
 </head>
 <body>
 
@@ -29,13 +28,9 @@
 
         <div class="site__wrapper">
 
-            <div class="form__message form__message--error">
-                <!-- error message -->
-            </div>
-
             <div class="checkout__wrapper">
             
-                <form class="order_form" id="order_form" action="checkout.php" accept-charset="UTF-8" method="post">
+                <form class="order_form" action="checkout.php" accept-charset="UTF-8" method="post" id="order_form">
 
                     <div class="checkout__container">
                     
@@ -53,11 +48,11 @@
                                     
                                     <legend class="checkout__legend">Contact info</legend>
 
-                                    <input class="form__textfield form__textfield--full js-checkout-email" type="email" name="customer[email]" placeholder="Email address" id="order_form_email">
+                                    <input class="form__textfield form__textfield--full js-checkout-email" type="email" name="customer[email]" placeholder="Email address" id="order_form_email" required>
 
                                     <div class="form__error js-form-error--checkout-email hidden">* Enter a valid email address</div>
 
-                                    <input class="form__textfield form__textfield--full js-checkout-phone" type="tel" name="customer[phone]" placeholder="Phone number" id="order_form_phone">
+                                    <input class="form__textfield form__textfield--full js-checkout-phone" type="tel" name="customer[phone]" placeholder="Phone number" id="order_form_phone" required>
 
                                     <div class="form__error js-form-error--checkout-phone hidden">* Enter a valid phone number</div>
 
@@ -75,7 +70,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full js-shipping-first-name" type="text" name="customer[first_name]" placeholder="First name" id="order_form_first_name">
+                                            <input class="form__textfield form__textfield--full js-shipping-first-name" type="text" name="customer[first_name]" placeholder="First name" id="order_form_first_name" required>
 
                                             <div class="form__error js-form-error--first-name hidden">* Enter your first name</div>
 
@@ -83,7 +78,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full js-shipping-last-name" type="text" name="customer[last_name]" placeholder="Last name" id="order_form_last_name">
+                                            <input class="form__textfield form__textfield--full js-shipping-last-name" type="text" name="customer[last_name]" placeholder="Last name" id="order_form_last_name" required>
 
                                             <div class="form__error js-form-error--last-name hidden">* Enter your last name</div>
 
@@ -91,7 +86,7 @@
 
                                     </div>
                                         
-                                    <input class="form__textfield form__textfield--full js-shipping-address" type="text" name="customer[address]" placeholder="Street address" id="order_form_address">
+                                    <input class="form__textfield form__textfield--full js-shipping-address" type="text" name="customer[address]" placeholder="Street address" id="order_form_address" required>
 
                                     <div class="form__error js-form-error--shipping-address hidden">* Enter a valid address</div>
 
@@ -101,7 +96,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full js-shipping-city" type="text" name="customer[city]" placeholder="City" id="order_form_city">
+                                            <input class="form__textfield form__textfield--full js-shipping-city" type="text" name="customer[city]" placeholder="City" id="order_form_city" required>
 
                                             <div class="form__error js-form-error--shipping-city hidden">* Enter a valid city</div>
                                         
@@ -109,7 +104,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full js-shipping-province" type="text" name="customer[province]" placeholder="Province" id="order_form_province">
+                                            <input class="form__textfield form__textfield--full js-shipping-province" type="text" name="customer[province]" placeholder="Province" id="order_form_province" required>
 
                                             <div class="form__error js-form-error--shipping-province hidden">* Enter a valid province</div>
 
@@ -121,7 +116,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <input class="form__textfield form__textfield--full js-shipping-zipcode" type="text" name="customer[zipcode]" placeholder="Postal code" id="order_form_zip">
+                                            <input class="form__textfield form__textfield--full js-shipping-zipcode" type="text" name="customer[zipcode]" placeholder="Postal code" id="order_form_zip" required>
                                             
                                             <div class="form__error js-form-error--shipping-zip hidden">* Enter a valid zip code</div>
 
@@ -129,7 +124,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <select class="form__textfield form__textfield--full js-shipping-country" type="text" name="customer[country]" placeholder="Country" id="order_form_country">
+                                            <select class="form__textfield form__textfield--full js-shipping-country" type="text" name="customer[country]" placeholder="Country" id="order_form_country" required>
 
                                                 <?= getListCountry(); ?>
 

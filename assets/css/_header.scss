@@ -4,15 +4,12 @@
 
     .site__header {
         border-bottom: 1px solid $line;
-
-        & > div {
-            display: flex;
-        }
     }
 
     .site__header_content {
         padding-right: 2.75rem;
         padding-left: 3.75rem;
+        display: flex;
     }
 
     .site__notification {
@@ -80,16 +77,16 @@
                         color: $black-alt;
 
                         &:hover {
-                            color: lighten($orange, 10%);
+                            color: $red;
                         }
                     }
 
                     .menu__link--highlight {
-                        color: $orange;
+                        color: $red;
                         font-weight: bold;
 
                         &:hover {
-                            color: darken($orange, 10%)
+                            color: $red-alt;
                         }
                     }
 
@@ -112,7 +109,7 @@
                         .site__shopping-cart-count {
                             background-color: $yellow;
                             padding: 0px 4px;
-                            color: #0a0918;
+                            color: $black-alt;
                             font-size: 10px;
                             border-radius: 2px;
                             font-weight: 600;

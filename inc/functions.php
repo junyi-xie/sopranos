@@ -267,7 +267,7 @@
         $bEmail = isEmailValid($data['email']);
 
             if (!$bEmail) return false; 
-            if(!is_array($data)) return false;
+            if (!is_array($data)) return false;
 
         saveInSession('customer', $data);
 
@@ -297,7 +297,7 @@
      */
     function unsetSession($key, $type = '') {
 
-        if(!is_int($key) && !is_array($key)) return false;
+        if (!is_int($key) && !is_array($key)) return false;
 
         switch ($type) {
             case 'sopranos_order':
@@ -338,7 +338,7 @@
             global $pdo;
         }
 
-            if(!is_string($table)) return false;
+            if (!is_string($table)) return false;
 
         $sql = "SELECT * FROM $table";    
 
@@ -366,7 +366,7 @@
             global $pdo;
         }
 
-            if(!is_string($table)) return false;
+            if (!is_string($table)) return false;
 
         $sSql = 'TRUNCATE TABLE `'.$table.'`';
         $aSql = $pdo->query($sSql);
@@ -678,7 +678,7 @@
      */
     function cartUpdateItem($quantity, $size, $key) {
 
-        if(!isset($quantity) && !isset($size) && !isset($key)) return false;
+        if (!isset($quantity) && !isset($size) && !isset($key)) return false;
 
             $_SESSION['sopranos']['order'][$key]['quantity'] = $quantity;
             $_SESSION['sopranos']['order'][$key]['size_id'] = $size;
@@ -698,7 +698,7 @@
 
         $iKey = json_decode($key);
 
-            if(!is_int($iKey)) return false;
+            if (!is_int($iKey)) return false;
 
         return unsetSession($iKey, 'sopranos_order');
     }
