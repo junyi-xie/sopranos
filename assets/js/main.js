@@ -11,6 +11,28 @@
         });
 
 
+        $(".js-product__type_dropdown").change(function(event) {
+            event.preventDefault();
+
+            var shop_id = $(this).val();
+
+            $('.js-product-thumbnails').removeClass('product__single--active');
+            $('#product_thumbnail-' + shop_id).addClass('product__single--active');
+        });
+
+
+        $(".js-product-thumbnails").click(function(event) {
+            event.preventDefault();
+
+            var product_id = $(this).attr('data-shop-product-id');
+
+            $('.js-product-thumbnails').removeClass('product__single--active');
+            $(this).addClass('product__single--active');
+
+            $('.js-product__type_dropdown option[value="' + product_id + '"]').prop('selected', true);
+        });
+
+
         $(".js-edit_cart_item").click(function(event) {
             event.preventDefault();
 

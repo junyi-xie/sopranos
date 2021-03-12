@@ -138,11 +138,11 @@
 
                                         <div class="shopping_cart_item__actions">
                                         
-                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--edit js-edit_cart_item" shopping-cart-item-id="<?= $iKey; ?>">Edit</button>
+                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--edit js-edit_cart_item" shopping-cart-item-id="<?= $iKey; ?>" id="shopping_action_edit-<?= $iKey; ?>">Edit</button>
 
-                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--cancel js-cancel_cart_item hidden" shopping-cart-item-id="<?= $iKey; ?>">Cancel</button>
+                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--cancel js-cancel_cart_item hidden" shopping-cart-item-id="<?= $iKey; ?>" id="shopping_action_cancel-<?= $iKey; ?>">Cancel</button>
 
-                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--update js-update_cart_item hidden" shopping-cart-item-id="<?= $iKey; ?>">Save</button>
+                                            <button type="button" class="shopping_cart_item__actions_button button--small button_cart--update js-update_cart_item hidden" shopping-cart-item-id="<?= $iKey; ?>" id="shopping_action_update-<?= $iKey; ?>">Save</button>
 
                                         </div>
 
@@ -188,7 +188,7 @@
                                                         
                                                     <div class="shopping_cart_item__quantity--label">Quantity:</div>
 
-                                                    <input class="shopping_cart_item__quantity--input js-shopping_cart_item__quantity--input" type="number" min="1" max="999" value="<?= $aOrderItem['quantity']; ?>">
+                                                    <input class="shopping_cart_item__quantity--input js-shopping_cart_item__quantity--input" type="number" min="1" max="999" value="<?= $aOrderItem['quantity']; ?>" id="shopping_cart_item__quantity-<?= $iKey; ?>">
 
                                                 </div>
 

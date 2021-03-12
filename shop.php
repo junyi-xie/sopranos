@@ -194,6 +194,22 @@
 
                 <div class="shop__column--product">
 
+                    <div class="shop__heading-product">
+
+                        <h2 class="shop__title"><?= $aSopranosBranches['name']; ?> - Shop</h2>
+
+                    </div>
+
+                    <div class="shop__description_container">
+
+                        <p class="shop__description--text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sapiente possimus sint amet ducimus repellat veniam natus. Eum pariatur non eius perspiciatis obcaecati distinctio consequatur modi voluptatum, deserunt vel praesentium!</p>
+
+                        <p class="shop__description--text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sapiente possimus sint amet ducimus repellat veniam natus. Eum pariatur non eius perspiciatis obcaecati distinctio consequatur modi voluptatum, deserunt vel praesentium!</p>
+
+                        <p class="shop__description--text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sapiente possimus sint amet ducimus repellat veniam natus. Eum pariatur non eius perspiciatis obcaecati distinctio consequatur modi voluptatum, deserunt vel praesentium!</p>
+
+                    </div>
+
                     <div class="shop__purchase_container">
 
                         <form class="shop_form_container" id="shop_form" action="shop.php" accept-charset="UTF-8" method="post">
@@ -208,11 +224,13 @@
 
                                 <div class="product__type_dropdown_container">
 
-                                    <select class="product__type_dropdown" name="type_id" id="shop_type_dropdown">
+                                    <select class="product__type_dropdown js-product__type_dropdown" name="type_id" id="shop_type_dropdown" required>
 
+                                        <option value selected disabled>Select a Product...</option>
+ 
                                         <?php foreach($aTypePizzas as $key => $aType): ?>
 
-                                            <option class="js-product_option" value="<?= $aType['id']; ?>"><?= $aType['name']; ?> - <?= number_format((float)$aType['price'], 2, '.', ''); ?> EUR</option>
+                                            <option class="js-product_option" value="<?= $aType['id']; ?>"><?= $aType['name']; ?> - €<?= number_format((float)$aType['price'], 2, '.', ''); ?> EUR</option>
 
                                         <?php endforeach; ?>
 
@@ -228,12 +246,11 @@
 
                                     <ul class="product__list">
 
-                                        <?php $aSqlTypeImages = $pdo->query("SELECT pt.*, i.* FROM pizzas_type AS pt LEFT JOIN images AS i ON i.id = pt.image_id WHERE 1 AND pt.quantity > 0")->fetchAll(PDO::FETCH_ASSOC);?>
+                                        <?php $aSqlTypeImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_type AS pt ON pt.image_id = i.id WHERE 1 AND pt.quantity > 0")->fetchAll(PDO::FETCH_ASSOC);?> 
 
                                         <?php foreach($aSqlTypeImages as $key => $aTypeImages): ?>
                                         
-                                            <!-- product__single--active -->
-                                        <li class="product__single js-product-thumbnails">
+                                        <li class="product__single js-product-thumbnails" data-shop-product-id="<?= $aTypeImages['id']; ?>" id="product_thumbnail-<?= $aTypeImages['id']; ?>">
 
                                             <div class="product__img-wrap">
 
@@ -251,20 +268,14 @@
 
                             </div>
 
-                            <div class="product_description__container">
-
-                                <!-- blah blah blah -->
-
-                            </div>
-
                             <div class="shop_page__size_quantity_container">
 
                                 <div class="product__size_container">
 
                                     <div class="product__size_label">
 
-                                        <h2 class="product_dropdown__label">Select Size:</h2>
-
+                                        <h2 class="product_dropdown__label">Select Size: </h2>
+    
                                     </div>
 
                                     <div class="product__size_selector_menu_container">
@@ -273,7 +284,7 @@
 
                                             <?php foreach($aSizePizzas as $key => $aSize): ?>
 
-                                            <option value="<?= $aSize['id']; ?>"> <?= $aSize['size']; ?> </option>
+                                            <option value="<?= $aSize['id']; ?>"><?= $aSize['size']; ?></option>
 
                                             <?php endforeach; ?>
 
@@ -305,7 +316,7 @@
 
                                 <div class="product__toppings_label">
 
-                                    <h2 class="product_dropdown__label">Toppings:</h2>
+                                    <h2 class="product_dropdown__label">Toppings (optional): </h2>
 
                                 </div>
                                 
