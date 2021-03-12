@@ -3,7 +3,7 @@
     $(document).ready(function(){
 
 
-        // image changed
+        // image changed, WIP
         $("#thumbnails a").on('click', function(event) {
             event.preventDefault();
         
@@ -14,10 +14,10 @@
         $(".js-product__type_dropdown").change(function(event) {
             event.preventDefault();
 
-            var shop_id = $(this).val();
+            var select_id = $(this).val();
 
             $('.js-product-thumbnails').removeClass('product__single--active');
-            $('#product_thumbnail-' + shop_id).addClass('product__single--active');
+            $('#product_thumbnail-' + select_id).addClass('product__single--active');
         });
 
 
@@ -28,8 +28,7 @@
 
             $('.js-product-thumbnails').removeClass('product__single--active');
             $(this).addClass('product__single--active');
-
-            $('.js-product__type_dropdown option[value="' + product_id + '"]').prop('selected', true);
+            $('.js-product__type_dropdown .js-product_option[value="' + product_id + '"]').prop('selected', true);
         });
 
 
@@ -105,15 +104,21 @@
             var button = $(this).parent().parent().parent().parent().parent().children().first().children().last();
             var option = $(this).find("option:selected").prop('defaultSelected');
 
-            switch (option) {
-                case true:
-                    button.find('.js-cancel_cart_item').addClass('hidden').removeClass('hidden');
-                    button.find('.js-update_cart_item').removeClass('hidden').addClass('hidden');
-                break;
-                case false:
-                    button.find('.js-cancel_cart_item').removeClass('hidden').addClass('hidden');
-                    button.find('.js-update_cart_item').addClass('hidden').removeClass('hidden');
-                break;
+            var field = $(this).parent().next().children().last();
+            var input = field.prop('defaultValue');
+            var value = field.val();
+
+            if(input === value) {
+                switch (option) {
+                    case true:
+                        button.find('.js-cancel_cart_item').addClass('hidden').removeClass('hidden');
+                        button.find('.js-update_cart_item').removeClass('hidden').addClass('hidden');
+                    break;
+                    case false:
+                        button.find('.js-cancel_cart_item').removeClass('hidden').addClass('hidden');
+                        button.find('.js-update_cart_item').addClass('hidden').removeClass('hidden');
+                    break;
+                }
             }
         });
 
@@ -125,15 +130,20 @@
             var value = $(this).prop('defaultValue');
             var input = $(this).val();
 
-            switch (input) {
-                case value:
-                    button.find('.js-cancel_cart_item').addClass('hidden').removeClass('hidden');
-                    button.find('.js-update_cart_item').removeClass('hidden').addClass('hidden');
-                break;
-                default:
-                    button.find('.js-cancel_cart_item').removeClass('hidden').addClass('hidden');
-                    button.find('.js-update_cart_item').addClass('hidden').removeClass('hidden');
-                break;
+            var select = $(this).parent().prev().children().last();
+            var option = select.find("option:selected").prop('defaultSelected');
+
+            if(option) {
+                switch (input) {
+                    case value:
+                        button.find('.js-cancel_cart_item').addClass('hidden').removeClass('hidden');
+                        button.find('.js-update_cart_item').removeClass('hidden').addClass('hidden');
+                    break;
+                    default:
+                        button.find('.js-cancel_cart_item').removeClass('hidden').addClass('hidden');
+                        button.find('.js-update_cart_item').addClass('hidden').removeClass('hidden');
+                    break;
+                }
             }
         });
 
