@@ -1,437 +1,6 @@
-    .checkout__wrapper {
-        margin-top: 2rem;
-
-        .order_form {
-            display: flex;
-
-            .checkout__container {
-                flex: 0 0 50%;
-                max-width: 50%;
-                width: 100%;
-                position: relative;
-                float: left;
-                padding-left: 10px;
-                padding-right: 10px;
-
-                .checkout_form {
-                    margin-bottom: 3rem;
-
-                    fieldset + fieldset {
-                        margin-top: -1.5rem;
-                    }
-                }
-            }
-
-            .order_summary__container {
-                flex: 0 0 50%;
-                max-width: 50%;
-                width: 100%;
-                position: relative;
-                float: left;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding: 0.5rem 10px 0.5rem 5rem;
-            }
-        }
-    }
-
-
-    .checkout_form__header {
-        margin-bottom: 20px;
-        
-        .checkout_form__title {
-            font-size: 28px;
-            font-family: $font-tertiary;
-        }
-    }
-
-
-    .checkout__legend {
-        text-align: left;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0;
-        font-family: $font-tertiary;
-        margin-bottom: 8px;
-    }
-
-
-    .form__textfield {
-        font-size: 14px;
-        width: 100%;
-        border: 1px solid $line-alt;
-        margin-bottom: 1.25em;
-        padding: 0.625rem 0.875rem;
-        color: $black-alt;
-        border-radius: 2px;
-        background-color: $white;
-        background-clip: padding-box;
-        transition: border-color .15s, background-color .15s;
-
-        &.error--inline {
-            color: $red!important;
-            border-color: $red!important;
-        }
-
-        &:focus {
-            border-color: $orange;
-            outline: none;
-            box-shadow: none;
-        }
-    }
-    
-    .form__group {
-        margin-bottom: 1.8rem;
-
-        .form__textfield--full {
-            width: 100%;
-        }    
-    
-        .checkout__input--half {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-    }
-
-    .checkout_form__row {
+    .site__shop_product_container {
         display: flex;
-        flex-direction: row;
-
-        .checkout__input--half {
-            flex: 0 0 50%;
-            width: 50%;
-            clear: both;
-            float: left;
-        }
-
-        .checkout__input--half + .checkout__input--half {
-            padding-left: 15px;
-        }
-    }
-
-    .form__error {
-        color: $red;
-        font-size: 12px;
-        margin: -0.75rem 0 0.875rem;
-        width: 100%;
-    }
-   
-
-    .checkout_form__footer {
-        margin-bottom: 1.8rem;
-
-        .checkout_form_footer__submit {
-            font-weight: bold;
-            font-size: 1.5rem;
-            padding: 1rem;
-            width: 100%;
-            display: block;
-            color: $white;
-        }
-
-        .button--transaction {
-            outline: none;
-            background:  $green-alt;
-            border: 1px solid  $green-alt;
-            
-            &:hover {
-                cursor: pointer;
-                background: $green;
-                border: 1px solid $green;
-            }
-        }
-    }
-
-
-    .order_summary__info {
-        padding: 0;
-        background-color: $white;
-        margin-bottom: 2.6rem;
-    }
-
-    .order_summary__help {
-        background-color: transparent;
-        margin-bottom: 2.5rem;
-    }
-
-    .checkout__summary_heading {
-        padding: 0;
-    }
-
-    .checkout__summary_title {
-        margin-bottom: 12px;
-    }
-
-    .checkout__summary__title {
-        text-align: left;
-        font-size: 20px;
-        font-weight: 900;
-        font-family: $font-tertiary;
-    }
-
-    .order_summary__modify_order {
-        margin-top: 0.3rem;
-        float: right;
-        font-size: 12px;
-        color: $red;
-        font-weight: 600;
-
-        &:hover {
-            color: $red-alt;
-        }
-    }
-
-
-    .coupon_code__container {
-        margin-bottom: 0.25rem;
-    }
-
-    .coupon_code_link {
-        background: none;
-        border: none;
-        padding: 0;
-        outline: none;
-        cursor: pointer;
-        color: $blue;
-
-        &:hover {
-            color: $red-alt;
-        }
-    }
-
-    .coupon_code__wrapper {
-        padding: 0;
-        margin: 0;
-    }
-
-    .coupon_code__container {
-        display: flex;
-        align-items: flex-start;
-        flex-direction: row;
-    }
-
-    .coupon_code_message {
-        text-align: left;
-        font-size: 14px;
-        font-family: $font-tertiary;
-        font-weight: 900;
-
-        &.success {
-            color: $green-alt;
-        }
-
-        &.failure {
-            color: $red;
-        }
-    }
-
-    .button--apply {
-        margin-left: 1rem;
-        background-color: $indigo;
-        border: 1px solid $indigo;
-        font-size: 1rem;
-        line-height: 1.5;
-        padding: 0.4375rem 1.75rem;
-        border: 0;
-        border-radius: 2px;
-        color: $white;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 150ms;
-        user-select: none;
-        display: inline-block;
-
-        &:hover {
-            background-color: $indigo-alt;
-            border-color: $indigo-alt;
-        }
-
-        &.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            text-decoration: none;
-        }
-    }
-
-    .orders_summary__wrapper {
-        border-radius: 4px;
-        font-size: 14px;
-    }
-
-    .order_summary_section {
-        padding: 0;
-    }
-
-    .order_summary {
-        margin: 0;
-        height: auto;
-    }
-
-    .order_summary_brand {    
-        margin-bottom: 0;
-        margin-top: 1rem;
-        
-        .order_summary_title {
-            letter-spacing: normal;
-            text-transform: none;
-            font-weight: 600;
-            font-size: 16px;
-            font-family: $font-tertiary;
-        }
-    }
-
-    .order_summary_items {
-        padding: 1rem 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .order_summary__item_image_container {
-        white-space: nowrap;
-        flex-grow: 0;
-
-        .order_summary__item_image_thumbnail {
-            background: $white;
-            border-radius: 4px;
-            height: auto;
-            overflow: hidden;
-            width: 50px;
-            border: 1px solid $line-alt;
-        }
-    }
-
-    .order_summary__item_name {
-        padding-left: 16px;
-        flex-grow: 1;
-        overflow: hidden;        
-    }
-
-    .order_summary__item_title {
-        font-weight: bold;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-size: 16px;
-        font-family: $font-secondary;
-    }
-
-    .order_summary__item_options {
-        margin: 0;
-        padding: 0;
-
-        .order_summary__item_label {
-            color: $grey-alt;
-            display: inline-block;
-            font-size: 14px;
-
-            &:not(:last-of-type):after {
-                content: '•';
-                padding: 0 0.25rem;
-            }
-        }
-    }
-
-    .order_summary__item_quantity_and_price {
-        white-space: nowrap;
-        flex-grow: 0;
-        text-align: right;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .order_summary__item_quantity {
-        text-align: right;
-        color: $grey-alt;
-        margin-right: 0.25rem;
-    }
-
-    .order_summary__item_price {
-        font-size: 14px;
-    }
-
-
-    .order_summary__breakdown {
-        color: $black-alt;
-        margin: 10px 0;
-        display: flex;
-        flex-direction: column;
-    }
-
-
-    .order_summary__discount,
-    .order_summary__delivery,
-    .order_summary__subtotal {
-        padding-bottom: 10px;
-        margin: 0;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .order_summary__delivery_label,
-    .order_summary__delivery_value,
-    .order_summary__subtotal_label,
-    .order_summary__subtotal_price,
-    .order_summary__discount_label,
-    .order_summary__discount_tax, 
-    .order_summary__discount_money {
-        width: 50%;
-    }
-
-
-    .order_summary__subtotal_label,
-    .order_summary__subtotal_price {
-        font-weight: bold;
-    }
-
-    .order_summary__subtotal_price_without_discount {
-        text-decoration: line-through;
-        margin-right: 0.25rem;
-    }
-
-    .order_summary__discount_tax {
-        color: $line-alt;
-        position: relative;
-        margin-left: 0.25rem;
-    }
-
-    .order_summary__discount_money {
-        color: $green-alt;
-    }
-
-
-    .checkout__separator--page {
-        opacity: 0.15;
-        border-bottom: 1px solid $space-grey;   
-    }
-
-    .order_summary__total_container {
-        margin: 15px 0;
-        display: flex;
-        justify-content: space-between;
-        padding: 0;
-    }
-
-    .order_summary__total_label,
-    .order_summary__total {
-        padding-bottom: 10px;
-        margin: 0;
-        width: 50%;
-    }
-
-    .order_summary__total_label--text,
-    .order_summary__total_price {
-        font-weight: bold;
-        color: $black-alt;
-        font-size: 18px;
-        font-family: $font-secondary;
-    }
-
-    .order_summary__total {
-        text-align: right;
-    }
-
-    .order_summary__total_price {
-        color: $green-alt;
+        padding-top: 20px;
     }
 
     .shop__heading-product {
@@ -459,11 +28,6 @@
         }
     }
 
-    .site__shop_product_container {
-        display: flex;
-        padding-top: 20px;
-    }
-
     .image_stack__container___wrapper {
         flex: 0 0 55%;
         max-width: 55%;
@@ -474,7 +38,6 @@
         padding-right: 10px;
     }
 
-    // right
     .image_stack__container {
 
     }
@@ -519,7 +82,6 @@
 
     }
 
-    // left
     .shop__column--product {
         flex: 0 0 45%;
         max-width: 45%;
@@ -585,8 +147,8 @@
         position: relative;
 
         &:focus {
-            border-color: $blue-alt;
-            box-shadow: 0 0 1px $blue-alt;
+            border-color: $orange;
+            box-shadow: 0 0 1px $orange;
         }
     }
 
@@ -703,8 +265,8 @@
         appearance: none;
 
         &:focus {
-            border-color: $blue-alt;
-            box-shadow: 0 0 1px $blue-alt;
+            border-color: $orange;
+            box-shadow: 0 0 1px $orange;
         }
     }
 
@@ -719,8 +281,8 @@
         border-radius: 2px;
 
         &:focus {
-            border-color: $blue-alt;
-            box-shadow: 0 0 1px $blue-alt;
+            border-color: $orange;
+            box-shadow: 0 0 1px $orange;
         }
     }
 

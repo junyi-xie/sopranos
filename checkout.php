@@ -124,7 +124,7 @@
 
                                         <div class="checkout__input--half">
 
-                                            <select class="form__textfield form__textfield--full js-shipping-country" type="text" name="customer[country]" placeholder="Country" id="order_form_country" required>
+                                            <select class="form__textfield form__textfield--full form__select_menu js-shipping-country" type="text" name="customer[country]" placeholder="Country" id="order_form_country" required>
 
                                                 <?= getListCountry(); ?>
 

@@ -273,8 +273,8 @@
                     appearance: none;
 
                     &:focus {
-                        border-color: $blue-alt;
-                        box-shadow: 0 0 1px $blue-alt;
+                        border-color: $orange;
+                        box-shadow: 0 0 1px $orange;
                     }
                 }
             }
@@ -300,8 +300,8 @@
                     border-radius: 2px;
 
                     &:focus {
-                        border-color: $blue-alt;
-                        box-shadow: 0 0 1px $blue-alt;
+                        border-color: $orange;
+                        box-shadow: 0 0 1px $orange;
                     }
                 }
             }

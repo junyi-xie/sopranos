@@ -226,7 +226,7 @@
 
                                     <select class="product__type_dropdown js-product__type_dropdown" name="type_id" id="shop_type_dropdown" required>
 
-                                        <option value selected disabled>Select a Product...</option>
+                                        <option value selected disabled>Select Pizza...</option>
  
                                         <?php foreach($aTypePizzas as $key => $aType): ?>
 
