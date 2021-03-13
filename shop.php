@@ -228,11 +228,11 @@
 
                                     <select class="product__type_dropdown js-product__type_dropdown" name="type_id" id="shop_type_dropdown" required>
 
-                                        <option value selected disabled>Select Pizza...</option>
+                                        <option value selected disabled hidden>Select Pizza...</option>
  
                                         <?php foreach($aTypePizzas as $key => $aType): ?>
 
-                                            <option class="js-product_option" value="<?= $aType['id']; ?>"><?= $aType['name']; ?> - €<?= number_format((float)$aType['price'], 2, '.', ''); ?> EUR</option>
+                                            <option class="js-product_option" value="<?= $aType['id']; ?>" <?php if($aType['quantity'] == 0): ?> disabled <?php endif; ?>><?= $aType['name']; ?> - €<?= number_format((float)$aType['price'], 2, '.', ''); ?> EUR <?php if($aType['quantity'] == 0): ?>| OUT OF STOCK<?php endif; ?></option>
 
                                         <?php endforeach; ?>
 
@@ -248,12 +248,12 @@
 
                                     <ul class="product__list">
 
-                                        <?php $aSqlTypeImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_type AS pt ON pt.image_id = i.id WHERE 1 AND pt.quantity > 0")->fetchAll(PDO::FETCH_ASSOC);?> 
+                                        <?php $aSqlTypeImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_type AS pt ON pt.image_id = i.id WHERE 1 ORDER BY pt.id LIMIT 0, 100")->fetchAll(PDO::FETCH_ASSOC); ?> 
 
                                         <?php foreach($aSqlTypeImages as $key => $aTypeImages): ?>
-                                        
-                                        <li class="product__single js-product-thumbnails" data-shop-product-id="<?= $aTypeImages['id']; ?>" id="product_thumbnail-<?= $aTypeImages['id']; ?>">
-
+                                     
+                                        <li class="product__single js-product-thumbnails <?php if($aTypeImages['quantity'] == 0 ): ?> disabled <?php endif; ?>" data-shop-product-id="<?= $aTypeImages['id']; ?>" id="product_thumbnail-<?= $aTypeImages['id']; ?>">
+                                            
                                             <div class="product__img-wrap">
 
                                                 <img class="product__thumb" src="assets/images/layout/<?= $aTypeImages['link']; ?>">
@@ -325,6 +325,8 @@
                                 <div class="product__topping_list_container">
 
                                     <ul class="product__topping_list">
+
+                                        <?php $aSqlToppingImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_topping AS pt ON pt.image_id = i.id WHERE 1 AND pt.quantity > 0 LIMIT 0, 100")->fetchAll(PDO::FETCH_ASSOC); ?> 
 
                                         <?php foreach($aToppingPizzas as $key => $aTopping): ?>
 

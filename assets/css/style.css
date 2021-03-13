@@ -1070,6 +1070,10 @@ footer {
   transition: all 400ms ease-out;
 }
 
+.product__single.disabled {
+  pointer-events: none !important;
+}
+
 .product__single:hover {
   opacity: 1;
 }
