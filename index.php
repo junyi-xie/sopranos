@@ -20,6 +20,8 @@
 
 <?php include_once("inc/header.php") ?>
 
+<?php printr($_SESSION); ?>
+
 <img id="big" src="assets/images/layout/pizza-vegetariano.png" style="height: 200px; width: 200px;">
 
 <div id="thumbnails">

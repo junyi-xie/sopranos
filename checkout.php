@@ -4,6 +4,17 @@
     include_once("inc/connect.php");
     include_once("inc/functions.php");
     include_once("inc/class.php");
+
+
+    if(isset($_POST) && !empty($_POST)) {
+        // FIX THIS WITH AJAX
+        $bBoolean = saveCustomerData($_POST);
+
+        if($bBoolean) {
+            $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
+            exit($SopranosOrders->getPrice() .'order complete');
+        }
+    }    
 ?>
 
 <!DOCTYPE html>
@@ -326,7 +337,7 @@
                                 
                                 <div class="coupon_code__container">
                                     
-                                    <input class="form__textfield form__textfield--full js-coupon-code" placeholder="Enter your code here" type="text" name="coupon_code" id="order_form_coupon_code">
+                                    <input class="form__textfield form__textfield--full js-coupon-code" placeholder="Enter your code here" type="text" name="coupon" id="order_form_coupon_code">
                                     
                                     <button type="button" class="button--apply js-coupon-apply" id="coupon_code_apply">Apply</button>
 

@@ -258,18 +258,19 @@
     /**
      * Save the customer information like name, adres, email, etc in a $_SESSION for later use.
      *
-     * @param array $information
+     * @param array $data
      *
      * @return boolean
      */
     function saveCustomerData($data = array()) {
 
-        $bEmail = isEmailValid($data['email']);
+        $bEmail = isEmailValid($data['customer']['email']);
 
             if (!$bEmail) return false; 
             if (!is_array($data)) return false;
 
-        saveInSession('customer', $data);
+        saveInSession('coupon', $data['coupon']);            
+        saveInSession('customer', $data['customer']);            
 
         return true;
     }

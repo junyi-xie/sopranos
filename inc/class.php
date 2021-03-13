@@ -141,7 +141,7 @@
 
             if(is_array($config) && array_key_exists('number', $config) && array_key_exists('coupon', $config) && array_key_exists('order', $config) && array_key_exists('customer', $config)) {
                 $this->setNumber($config['number']);
-                $this->setCoupon($config['coupon']);
+                $this->setCouponCode($config['coupon']);
                 $this->setOrder($config['order']);
                 $this->setCustomer($config['customer']);
 
@@ -149,11 +149,49 @@
                 $this->insertCustomerData();
                 $this->insertOrderData();
                 $this->setPizzaData();
-                $this->applyCoupon(); 
+
+                if(!empty($this->getCoupon())) { 
+                    $this->applyCoupon(); 
+                }
             } else {
                 throw new \Exception('Error: __construct() - Configuration data is missing...');
             }
         }
+
+
+        /**
+         * Get the id for the coupon code if it matches the code used by the customer, else do nothing.
+         * 
+         * @return boolean
+         * 
+         * @throws \Exception Coupon code cannot be empty.
+         */
+        private function setCouponCode($coupon_code = '') {
+
+            if(is_string($coupon_code)) {
+                $sSql = "
+                    SELECT id FROM coupons
+                        WHERE 1
+                        AND quantity > 0 
+                        AND code = '". $coupon_code ."'
+                        LIMIT 1
+                ";
+
+                $aCouponSql = $this->pdo->query($sSql);
+                $aCouponId = $aCouponSql->fetch(\PDO::FETCH_ASSOC);
+
+                if($aCouponSql->rowCount() > 0) {
+
+                    $this->setCoupon($aCouponId['id']);
+
+                    return true;
+                }     
+
+                return false;
+            }
+
+            throw new \Exception('Error: setCouponCode() - Empty coupon code...');
+        } 
 
 
         /**
@@ -205,10 +243,12 @@
                     last_name = :last_name, 
                     email = :email, 
                     phone = :phone, 
-                    adres = :adres, 
+                    address = :address, 
+                    address_2 = :address_2, 
                     zipcode = :zipcode, 
                     country = :country, 
-                    city = :city
+                    city = :city,
+                    province = :province
             ";
 
             $aInsertSql = $this->pdo->prepare($sSql);
@@ -264,7 +304,7 @@
                 if(!is_null($this->getCoupon()) && $this->getCoupon() > 0) {
                     $this->updateCoupon($this->getCoupon());
                 }
-
+                
             $aInsertSql->execute();
 
                 if(!$aInsertSql) {
@@ -341,15 +381,17 @@
                     $this->insertPizzaOrder();
                 }
 
-                foreach($val['topping_id'] as $iToppingId => $sToppingName) {
-                    $this->setToppingId($iToppingId);
+                if(!empty($val['topping_id'])) {
+                    foreach($val['topping_id'] as $iToppingId => $sToppingName) {
+                        $this->setToppingId($iToppingId);
 
-                        if($this->checkTableExists('pizzas_topping')) {
-                            $this->setPrice($this->selectPrice('pizzas_topping', $this->getToppingId()), $this->getPizzaQuantity());
+                            if($this->checkTableExists('pizzas_topping')) {
+                                $this->setPrice($this->selectPrice('pizzas_topping', $this->getToppingId()), $this->getPizzaQuantity());
+                            }
+
+                        if(!empty($this->getPizzaId()) && !empty($this->getToppingId())) {
+                            $this->insertToppingCombination();
                         }
-
-                    if(!empty($this->getPizzaId()) && !empty($this->getToppingId())) {
-                        $this->insertToppingCombination();
                     }
                 }
 
