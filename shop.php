@@ -196,7 +196,9 @@
 
                     <div class="shop__heading-product">
 
-                        <h2 class="shop__title"><?= $aSopranosBranches['name']; ?> - Shop</h2>
+                        <h2 class="shop__title">Sopranos Shop</h2>
+
+                        <span class="shop__location"><i class="fas fa-map-marker-alt"></i><?= $aSopranosBranches['city']; ?>, <?= $aSopranosBranches['country']; ?></span>
 
                     </div>
 

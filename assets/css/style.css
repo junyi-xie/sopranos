@@ -920,10 +920,24 @@ footer {
 }
 
 .shop__heading-product .shop__title {
-  font-weight: bold;
+  font-weight: 900;
   font-size: 28px;
   text-align: left;
+  color: #282562;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.shop__heading-product .shop__location {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Raleway", sans-serif;
   color: #0a0918;
+}
+
+.shop__heading-product .shop__location i {
+  font-size: 16px;
+  margin-right: 5px;
+  padding: 0;
 }
 
 .shop__description_container {

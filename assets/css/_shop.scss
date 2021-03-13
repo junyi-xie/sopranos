@@ -9,10 +9,24 @@
         padding-bottom: 10px;
 
         .shop__title {
-            font-weight: bold;
+            font-weight: 900;
             font-size: 28px;
             text-align: left;
+            color: $indigo;
+            font-family: $font-tertiary;
+        }
+
+        .shop__location {
+            font-size: 18px;
+            font-weight: 600;
+            font-family: $font-quaternary;
             color: $black-alt;
+
+            i {
+                font-size: 16px;
+                margin-right: 5px;
+                padding: 0;
+            }
         }
     }
 

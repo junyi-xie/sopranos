@@ -710,7 +710,7 @@
     $aSizePizzas = selectAllById('pizzas_size');
     $aToppingPizzas = selectAllById('pizzas_topping');
 
-    $aSopranosBranches = selectAllById('branches', 1);
+    $aSopranosBranches = selectAllById('branches', 5);
 
     $iShoppingCartCount = isset($_SESSION['sopranos']['order']) ? cartItemCount($_SESSION['sopranos']['order']) : 0;
 ?>
