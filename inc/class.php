@@ -125,6 +125,7 @@
         /**
          * Default constructor.
          * 
+         * @param array $config
          * @param object $pdo
          *
          * @return void
@@ -162,31 +163,45 @@
         /**
          * Get the id for the coupon code if it matches the code used by the customer, else do nothing.
          * 
+         * @param string $coupon_code
+         * 
          * @return boolean
          * 
-         * @throws \Exception Coupon code cannot be empty.
+         * @throws \Exception Coupon code is not a string.
          */
-        private function setCouponCode($coupon_code = '') {
+        private function setCouponCode($coupon_code = '') 
+        {
 
             if(is_string($coupon_code)) {
                 $sSql = "
                     SELECT id FROM coupons
                         WHERE 1
                         AND quantity > 0 
-                        AND code = '". $coupon_code ."'
+                        AND code = :coupon_code
                         LIMIT 1
                 ";
 
-                $aCouponSql = $this->pdo->query($sSql);
-                $aCouponId = $aCouponSql->fetch(\PDO::FETCH_ASSOC);
+                $aCouponSql = $this->pdo->prepare($sSql);
 
-                if($aCouponSql->rowCount() > 0) {
+                if(!empty($coupon_code)) {
 
-                    $this->setCoupon($aCouponId['id']);
+                    $coupon_code = preg_replace('/[^\da-z_]/i', '', $coupon_code);
 
-                    return true;
-                }     
+                    $aCouponSql->bindParam(':coupon_code', $coupon_code);
+                    $aCouponSql->execute();
 
+                    $aCouponId = $aCouponSql->fetch(\PDO::FETCH_ASSOC);
+
+                    if($aCouponSql->rowCount() > 0) {
+
+                        $this->setCoupon($aCouponId['id']);
+
+                        return true;
+                    }   
+
+                    return false;
+                }
+                
                 return false;
             }
 
