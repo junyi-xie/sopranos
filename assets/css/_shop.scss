@@ -53,15 +53,19 @@
     }
 
     .image_stack__container {
-
+        width: 100%;
+        display: inline;
+        position: relative;
     }
 
     .image_stack__inner {
-
+        position: relative;
+        padding-bottom: 36px;
+        min-height: 300px;
     }
 
     .image_stack__images {
-
+        padding-left: 60px;
     }
 
     .image_stack__image_wrap {
@@ -136,10 +140,10 @@
 
     .product_dropdown__label {
         margin-bottom: 0;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
         display: inline-block;
-        font-family: $font-secondary;
+        font-family: $font-quaternary;
     }
 
     .product__type_dropdown_container {
@@ -209,7 +213,7 @@
             .product__img-wrap {
                 box-shadow: 0 0 0.5px 1px $blue-alt;
                 background-color: $white-alt;
-                border-color: $red;
+                border-color: $orange;
                 opacity: 1;
                 transition: all 100ms;
                 border-width: 2px;
@@ -229,7 +233,7 @@
             &:hover {
                 box-shadow: 0 0 0.5px 1px $blue-alt;
                 background-color: $white-alt;
-                border-color: $red;
+                border-color: $orange;
                 opacity: 1;
                 transition: all 100ms;
                 border-width: 2px;
@@ -269,7 +273,7 @@
         height: 40px;
     }
 
-    .product__size_selector_menu{
+    .product__size_selector_menu {
         width: 100%;
         background: $white url("../images/layout/double_caret.png") no-repeat right 5px top 50%;
         background-size: 14px 16px;
@@ -310,23 +314,67 @@
     }
 
     .product__topping_list_container {
-
+        position: relative;
+        width: 100%;
+        padding-bottom: 25px;
     }
 
     .product__topping_list {
-
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .product__topping_list_item {
+        flex: 0 0 47%;
+        max-width: 47%;
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        position: relative;
+        float: left;
+        border-top: 1px solid $line;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        &.product__topping_list_item--active {
+        .product__topping--label {
+            font-size: 14px;
+            text-align: left;
+            color: $black-alt;
+            font-family: $font-tertiary;
+        }
 
+        .product__topping_checkbox--type {
+            appearance: none;
+            background-color: $white;
+            border: 1px solid $line-alt;
+            outline: none;
+            color: $black-alt;
+            font-size: 14px;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            margin: 0;
+            display: inline-block;
+            position: relative;
+
+            &:checked {
+                background-color: $lime;
+                background-image: url("../images/layout/check.svg");
+                background-repeat: no-repeat;
+                background-size: 26px 26px;
+                background-position: -4px -3px;
+            }
+        }
+
+        &:nth-child(1),
+        &:nth-child(2) {
+            border-top: none;
         }
     }
 
-    .product__topping_checkbox--type {
-
-    }
 
     .shop_transaction {
         position: relative;

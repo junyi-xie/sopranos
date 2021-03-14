@@ -964,6 +964,22 @@ footer {
   padding-right: 10px;
 }
 
+.image_stack__container {
+  width: 100%;
+  display: inline;
+  position: relative;
+}
+
+.image_stack__inner {
+  position: relative;
+  padding-bottom: 36px;
+  min-height: 300px;
+}
+
+.image_stack__images {
+  padding-left: 60px;
+}
+
 .shop__column--product {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 45%;
@@ -1006,10 +1022,10 @@ footer {
 
 .product_dropdown__label {
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   display: inline-block;
-  font-family: "Rubik", sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .product__type_dropdown_container {
@@ -1086,7 +1102,7 @@ footer {
   -webkit-box-shadow: 0 0 0.5px 1px #5ec8d5;
           box-shadow: 0 0 0.5px 1px #5ec8d5;
   background-color: #f6f6f9;
-  border-color: #ee2761;
+  border-color: #f58220;
   opacity: 1;
   -webkit-transition: all 100ms;
   transition: all 100ms;
@@ -1108,7 +1124,7 @@ footer {
   -webkit-box-shadow: 0 0 0.5px 1px #5ec8d5;
           box-shadow: 0 0 0.5px 1px #5ec8d5;
   background-color: #f6f6f9;
-  border-color: #ee2761;
+  border-color: #f58220;
   opacity: 1;
   -webkit-transition: all 100ms;
   transition: all 100ms;
@@ -1189,6 +1205,85 @@ footer {
 
 .product__toppings_container {
   padding: 0 16px;
+}
+
+.product__topping_list_container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 25px;
+}
+
+.product__topping_list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.product__topping_list_item {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 47%;
+          flex: 0 0 47%;
+  max-width: 47%;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+  float: left;
+  border-top: 1px solid #edeff3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.product__topping_list_item .product__topping--label {
+  font-size: 14px;
+  text-align: left;
+  color: #0a0918;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.product__topping_list_item .product__topping_checkbox--type {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: white;
+  border: 1px solid #d8dae0;
+  outline: none;
+  color: #0a0918;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  margin: 0;
+  display: inline-block;
+  position: relative;
+}
+
+.product__topping_list_item .product__topping_checkbox--type:checked {
+  background-color: #009a44;
+  background-image: url("../images/layout/check.svg");
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-position: -4px -3px;
+}
+
+.product__topping_list_item:nth-child(1), .product__topping_list_item:nth-child(2) {
+  border-top: none;
 }
 
 .shop_transaction {

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <filter id="_selectie" x="0" y="0" width="26" height="26" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="0.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Check" transform="translate(7.25 7.094)">
+    <g transform="matrix(1, 0, 0, 1, -7.25, -7.09)" filter="url(#_selectie)">
+      <g id="_selectie-2" data-name=" selectie" transform="translate(1.5 0.5)" fill="#009a44" stroke="#009a44" stroke-width="1">
+        <circle cx="11.5" cy="11.5" r="11.5" stroke="none"/>
+        <circle cx="11.5" cy="11.5" r="11" fill="none"/>
+      </g>
+    </g>
+    <path id="Path_1" data-name="Path 1" d="M4.691,9.735a.625.625,0,0,1-.884,0L.275,6.2a.938.938,0,0,1,0-1.327l.442-.442a.938.938,0,0,1,1.327,0l2.2,2.2L10.206.681a.938.938,0,0,1,1.327,0l.442.442a.938.938,0,0,1,0,1.327Zm0,0" fill="#fff"/>
+  </g>
+</svg>

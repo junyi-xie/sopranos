@@ -18,7 +18,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>  
     <title>Shop · Sopranos Pizzabar</title>
     <meta charset="UTF-8">
     <meta name="author" content="Junyi Xie">
@@ -48,7 +48,7 @@
                             
                                 <div class="image_stack__image_wrap image_stack__image_wrap--active">
                                 
-                                    <img class="image_stack__image" src="">
+                                    <img class="image_stack__image" src="assets/images/layout/pizza-tonno.png">
 
                                 </div>
 
@@ -60,7 +60,9 @@
                                 
                                     <li class="image_stack__nav_item image_stack__nav_item--active">
                                     
-                                        <img class="image_stack__nav_item_thumb" src="">
+                                        <img class="image_stack__nav_item_thumb" src="assets/images/layout/pizza-tonno.png">
+
+                                        <!-- DO SOMETHING HERE -->
 
                                     </li>
 
@@ -208,11 +210,11 @@
 
                                     <ul class="product__topping_list">
 
-                                        <?php $aSqlToppingImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_topping AS pt ON pt.image_id = i.id WHERE 1 AND pt.quantity > 0 LIMIT 0, 100")->fetchAll(PDO::FETCH_ASSOC); ?> 
-
                                         <?php foreach($aToppingPizzas as $key => $aTopping): ?>
 
-                                            <li class="product__topping_list_item product__topping_list_item--active">
+                                            <li class="product__topping_list_item">
+
+                                                <span class="product__topping--label"><?= $aTopping['name']; ?> (+ €<?= number_format((float)$aTopping['price'], 2, '.', ''); ?>)</span>
 
                                                 <input class="product__topping_checkbox--type" type="checkbox" name="topping_id[<?= $aTopping['id']; ?>]" value="<?= $aTopping['name']; ?>">
 
