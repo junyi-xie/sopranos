@@ -130,6 +130,30 @@ body {
   float: right;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.display-mobile {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .display-mobile {
+    display: none !important;
+  }
+}
+
+.display-desktop {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .display-desktop {
+    display: block !important;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -153,10 +177,6 @@ img {
   display: block;
   height: auto;
   max-width: 100%;
-}
-
-.hidden {
-  display: none !important;
 }
 
 header {
@@ -972,12 +992,78 @@ footer {
 
 .image_stack__inner {
   position: relative;
-  padding-bottom: 36px;
-  min-height: 300px;
+  height: auto;
 }
 
 .image_stack__images {
-  padding-left: 60px;
+  padding-left: 50px;
+}
+
+.image_stack__image_wrap {
+  max-width: 95%;
+  display: block;
+  margin: 0 auto;
+  height: 0;
+  z-index: 1;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+}
+
+.image_stack__image_wrap.image_stack__image_wrap--active {
+  opacity: 1;
+  position: relative;
+  z-index: 2;
+  height: auto;
+}
+
+.image_stack__image {
+  position: relative;
+  height: auto;
+  width: 100%;
+}
+
+.image_stack__nav {
+  line-height: 1;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+
+.image_stack__nav_list {
+  padding: 0;
+}
+
+.image_stack__nav_item {
+  border-radius: 2px;
+  border: 1px solid #edeff3;
+  cursor: pointer;
+  background-color: white;
+  display: block;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  margin-bottom: 15px;
+  opacity: 0.65;
+  overflow: hidden;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+}
+
+.image_stack__nav_item:hover, .image_stack__nav_item.image_stack__nav_item--active {
+  background-color: #f6f6f9;
+  border-color: #f58220;
+  opacity: 1;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+}
+
+.image_stack__nav_item_thumb {
+  position: relative;
+  padding: 0;
+  max-height: 50px;
 }
 
 .shop__column--product {
@@ -1255,6 +1341,10 @@ footer {
   text-align: left;
   color: #0a0918;
   font-family: "Noto Sans", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .product__topping_list_item .product__topping_checkbox--type {
@@ -1279,7 +1369,7 @@ footer {
   background-image: url("../images/layout/check.svg");
   background-repeat: no-repeat;
   background-size: 26px 26px;
-  background-position: -4px -3px;
+  background-position: -5px -3px;
 }
 
 .product__topping_list_item:nth-child(1), .product__topping_list_item:nth-child(2) {

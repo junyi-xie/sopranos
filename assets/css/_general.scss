@@ -66,6 +66,26 @@
         float: right;
     }
 
+    .hidden {
+        display: none!important;
+    }
+
+    .display-mobile {
+        display: block;
+
+        @include lg {
+            display: none!important;
+        }
+    }
+
+    .display-desktop {
+        display: none;
+
+        @include lg {
+            display: block!important;
+        }
+    }
+
     h1,
     h2,
     h3,
@@ -89,8 +109,4 @@
         display: block;
         height: auto;
         max-width: 100%;
-    }
-
-    .hidden {
-        display: none!important;
     }

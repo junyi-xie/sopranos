@@ -6,7 +6,7 @@
     include_once("inc/class.php");
 
     if(isset($_POST) && !empty($_POST)) {
-        // FIX THIS WITH AJAX
+        // FIX THIS WITH AJAX and show MODAL
         $bBoolean = saveCustomerOrder($_POST);
 
         if($bBoolean) {
@@ -44,11 +44,13 @@
                     
                         <div class="image_stack__inner">
 
+                            <?php $aSqlTypeImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_type AS pt ON pt.image_id = i.id WHERE 1 ORDER BY pt.id LIMIT 0, 100")->fetchAll(PDO::FETCH_ASSOC); ?> 
+
                             <div class="image_stack__images">
                             
                                 <div class="image_stack__image_wrap image_stack__image_wrap--active">
-                                
-                                    <img class="image_stack__image" src="assets/images/layout/pizza-tonno.png">
+
+                                    <img class="image_stack__image js-image_stack__image" src="assets/images/layout/<?= $aSqlTypeImages[0]['link']; ?>" id="image_stack__image_preview">
 
                                 </div>
 
@@ -57,14 +59,16 @@
                             <nav class="image_stack__nav">
                             
                                 <ul class="image_stack__nav_list">
-                                
-                                    <li class="image_stack__nav_item image_stack__nav_item--active">
-                                    
-                                        <img class="image_stack__nav_item_thumb" src="assets/images/layout/pizza-tonno.png">
 
-                                        <!-- DO SOMETHING HERE -->
+                                    <?php foreach($aSqlTypeImages as $key => $aImageTypes): ?>
+                                    
+                                    <li class="image_stack__nav_item js-stack__nav_item">                                    
+                                    
+                                        <img class="image_stack__nav_item_thumb js-stack__nav_thumbnail" data-shop-product-id="<?= $aImageTypes['id']; ?>" src="assets/images/layout/<?= $aImageTypes['link']; ?>" id="product_nav_thumbnail-<?= $aImageTypes['id']; ?>">
 
                                     </li>
+
+                                    <?php endforeach; ?>
 
                                 </ul>
 
@@ -132,11 +136,9 @@
 
                                     <ul class="product__list">
 
-                                        <?php $aSqlTypeImages = $pdo->query("SELECT * FROM images AS i LEFT JOIN pizzas_type AS pt ON pt.image_id = i.id WHERE 1 ORDER BY pt.id LIMIT 0, 100")->fetchAll(PDO::FETCH_ASSOC); ?> 
-
                                         <?php foreach($aSqlTypeImages as $key => $aTypeImages): ?>
                                      
-                                        <li class="product__single js-product-thumbnails <?php if($aTypeImages['quantity'] == 0 ): ?> disabled <?php endif; ?>" data-shop-product-id="<?= $aTypeImages['id']; ?>" id="product_thumbnail-<?= $aTypeImages['id']; ?>">
+                                        <li class="product__single js-product-thumbnails<?php if($aTypeImages['quantity'] == 0 ): ?> disabled<?php endif; ?>" data-shop-product-id="<?= $aTypeImages['id']; ?>" id="product_thumbnail-<?= $aTypeImages['id']; ?>">
                                             
                                             <div class="product__img-wrap">
 
