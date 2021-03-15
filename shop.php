@@ -250,7 +250,39 @@
 
 </div>
 
-<!-- TO DO, CREATE MODAL     -->
+
+<div class="modal-container">
+
+    <div class="modal-dialog">
+    
+        <div class="modal-content">
+                                            
+            <div class="modal-header">
+                                                        
+                <!-- close button etc -->
+
+            </div>
+
+            <div class="modal-body">
+            
+                <!-- item that just got added display, foreach and stuff -->
+                
+            </div>
+
+            <div class="modal-footer">
+            
+                <!-- options to continue shopping or go to cart -->
+
+            </div>
+        
+        </div>                                
+
+    </div>
+
+</div>
+
+<div class="modal_overlay"></div>
+
 
 <?php include_once("inc/footer.php") ?>
 

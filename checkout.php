@@ -9,9 +9,9 @@
     if(isset($_POST) && !empty($_POST)) {
         // FIX THIS WITH AJAX
         
-        /*
         $bBoolean = saveCustomerData($_POST);
 
+        /*
         if($bBoolean) {
             $SopranosOrders = new Sopranos\Orders($_SESSION['sopranos'], $pdo);
             exit($SopranosOrders->getPrice() .'order complete');
