@@ -12,13 +12,15 @@ I will be creating an online webshop where you can buy multiple/different types 
  ┃ ┃ ┣ 📜style.css
  ┃ ┃ ┣ 📜style.css.map
  ┃ ┃ ┣ 📜style.scss
+ ┃ ┃ ┣ 📜_cart.scss
+ ┃ ┃ ┣ 📜_checkout.scss
  ┃ ┃ ┣ 📜_footer.scss
  ┃ ┃ ┣ 📜_general.scss
  ┃ ┃ ┣ 📜_header.scss
  ┃ ┃ ┣ 📜_index.scss
+ ┃ ┃ ┣ 📜_modal.scss
  ┃ ┃ ┣ 📜_reset.scss
  ┃ ┃ ┣ 📜_shop.scss
- ┃ ┃ ┣ 📜_cart.scss
  ┃ ┃ ┗ 📜_variable.scss
  ┃ ┣ 📂fonts
  ┃ ┃ ┣ 📜fa-brands-400.eot
@@ -45,7 +47,10 @@ I will be creating an online webshop where you can buy multiple/different types 
  ┃ ┃ ┃ ┣ 📜favicon-32x32.png
  ┃ ┃ ┃ ┗ 📜favicon.ico
  ┃ ┃ ┗ 📂layout
+ ┃ ┃ ┃ ┣ 📜check.svg
+ ┃ ┃ ┃ ┣ 📜double_caret.png
  ┃ ┃ ┃ ┣ 📜empty_cart.svg
+ ┃ ┃ ┃ ┣ 📜pizza-pepperoni.png
  ┃ ┃ ┃ ┣ 📜pizza-quattro-formaggio.png
  ┃ ┃ ┃ ┣ 📜pizza-sopranos-deluxe.png
  ┃ ┃ ┃ ┣ 📜pizza-tonno.png
